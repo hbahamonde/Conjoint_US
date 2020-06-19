@@ -1,6 +1,8 @@
 ############################## 
 # Cleaning
 ##############################
+
+## ---- constructing:data
 cat("\014")
 rm(list=ls())
 
@@ -115,220 +117,20 @@ dat$idnum = NULL
 # Saving Data
 save(dat, file = "/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # in paper's folder
 
-
-
-###########################################################
-# Multivariate Analysis of List Experiment: Covariates
-###########################################################
-
-cat("\014")
-rm(list=ls())
-
-# Load Data 
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
-
-
-## ---- list:analysis:covariates ----
-# customization of ictreg
-# options(scipen=999)
-# method = as.character("lm")
-# maxIter = as.numeric(200000)
-
-##############
-# List Low Condition
-##############
-if (!require("pacman")) install.packages("pacman"); library(pacman) 
-p_load(list)
-
-list.low <- ictreg(ycount ~ 
-                           #age.n + 
-                           #woman + 
-                           socideo +
-                           partyid +
-                           #reg +
-                           #trustfed +
-                           income.n +
-                           educ.n,# +
-                   #polknow, 
-                   data = dat.low, 
-                   treat = "treatment", 
-                   J=3, 
-                   method = method)
-
-# summary(list.low, n.draws = 200000) # quasi-Bayesian approximation based predictions
-
-## this is to construct a table later
-n.draws = 200000
-coeffs.treat.list.low = as.data.frame(summary(list.low, n.draws = n.draws)["par.treat"])[1:10,]
-se.treat.list.low = as.data.frame(summary(list.low, n.draws = n.draws)["se.treat"])[1:10,]
-coeffs.cont.list.low = as.data.frame(summary(list.low, n.draws = n.draws)["par.control"])[1:10,]
-se.cont.list.low = as.data.frame(summary(list.low, n.draws = n.draws)["se.control"])[1:10,]
-
-
-
-##############
-# List High Condition
-##############
-
-if (!require("pacman")) install.packages("pacman"); library(pacman) 
-p_load(list)
-
-list.high <- ictreg(ycount ~ 
-                            #age.n + 
-                            #woman + 
-                            socideo +
-                            partyid +
-                            #reg +
-                            #trustfed +
-                            income.n +
-                            educ.n,# +
-                    #polknow, 
-                    data = dat.high, 
-                    treat = "treatment", 
-                    J=3, 
-                    method = method)
-
-# summary(list.high, n.draws = 200000) # quasi-Bayesian approximation based predictions
-
-## this is to construct a table later
-coeffs.treat.list.high = as.data.frame(summary(list.high, n.draws = n.draws)["par.treat"])[1:10,]
-se.treat.list.high = as.data.frame(summary(list.high, n.draws = n.draws)["se.treat"])[1:10,]
-coeffs.cont.list.high = as.data.frame(summary(list.high, n.draws = n.draws)["par.control"])[1:10,]
-se.cont.list.high = as.data.frame(summary(list.high, n.draws = n.draws)["se.control"])[1:10,]
-## ----
-
-##############
-# Direct: High Condition
-##############
-
-## ---- list:analysis:social:desirability:data
-direct.q.high <- glm(directquestion ~ 
-                             #age.n + 
-                             #woman + 
-                             socideo +
-                             partyid +
-                             #reg +
-                             #trustfed +
-                             income.n +
-                             educ.n,# +
-                     #polknow, 
-                     data = dat.high, 
-                     family = binomial("logit"))
-
-
-##############
-# Direct: Low Condition
-##############
-
-
-direct.q.low <- glm(directquestion ~ 
-                            #age.n + 
-                            #woman + 
-                            socideo +
-                            partyid +
-                            #reg +
-                            #trustfed +
-                            income.n +
-                            educ.n,# +
-                    #polknow, 
-                    data = dat.low, 
-                    family = binomial("logit"))
-
-avg.pred.social.desirability.high <- predict.ictreg(list.high, direct.glm = direct.q.high, se.fit = TRUE, interval = "confidence", level = ci.level)
-avg.pred.social.desirability.low <- predict.ictreg(list.low, direct.glm = direct.q.low, se.fit = TRUE, interval = "confidence", level = ci.level)
-
-
-### DF for individual prediction: High Condition
-socdes.p.high = data.frame(avg.pred.social.desirability.high$fit, 
-                           avg.pred.social.desirability.high$se.fit,
-                           c(1:3),
-                           #Significance = c(ifelse(sign(min(seq(avg.pred.social.desirability.high$fit$lwr[1], avg.pred.social.desirability.high$fit$upr[1], 0.01))) == sign(max(seq(avg.pred.social.desirability.high$fit$lwr[1], avg.pred.social.desirability.high$fit$upr[1], 0.01))), 1,0), ifelse(sign(min(seq(avg.pred.social.desirability.high$fit$lwr[2], avg.pred.social.desirability.high$fit$upr[2], 0.01))) == sign(max(seq(avg.pred.social.desirability.high$fit$lwr[2], avg.pred.social.desirability.high$fit$upr[2], 0.01))), 1,0), ifelse(sign(min(seq(avg.pred.social.desirability.high$fit$lwr[3], avg.pred.social.desirability.high$fit$upr[3], 0.01))) == sign(max(seq(avg.pred.social.desirability.high$fit$lwr[3], avg.pred.social.desirability.high$fit$upr[3], 0.01))), 1,0)),
-                           Condition = rep("High ($500)"), 3)
-
-
-socdes.p.high$c.1.3 = as.factor(socdes.p.high$c.1.3)
-socdes.p.high$c.1.3 <- factor(socdes.p.high$c.1.3, labels = c("List\nExperiment\n(with covariates)", "Direct\nQuestion\n(with covariates)", "Social\nDesirability\n(with covariates)"))
-socdes.p.high <- socdes.p.high[c("fit", "lwr", "upr", "Condition", "c.1.3")]
-
-### DF for individual prediction: Low Condition
-socdes.p.low = data.frame(
-        avg.pred.social.desirability.low$fit, 
-        avg.pred.social.desirability.low$se.fit,
-        c(1:3),
-        #Significance = c(ifelse(sign(min(seq(avg.pred.social.desirability.low$fit$lwr[1], avg.pred.social.desirability.low$fit$upr[1], 0.01))) == sign(max(seq(avg.pred.social.desirability.low$fit$lwr[1], avg.pred.social.desirability.low$fit$upr[1], 0.01))), 1,0), ifelse(sign(min(seq(avg.pred.social.desirability.low$fit$lwr[2], avg.pred.social.desirability.low$fit$upr[2], 0.01))) == sign(max(seq(avg.pred.social.desirability.low$fit$lwr[2], avg.pred.social.desirability.low$fit$upr[2], 0.01))), 1,0), ifelse(sign(min(seq(avg.pred.social.desirability.low$fit$lwr[3], avg.pred.social.desirability.low$fit$upr[3], 0.01))) == sign(max(seq(avg.pred.social.desirability.low$fit$lwr[3], avg.pred.social.desirability.low$fit$upr[3], 0.01))), 1,0)),
-        Condition = rep("Low ($100)"), 3
-)
-
-socdes.p.low$c.1.3 = as.factor(socdes.p.low$c.1.3)
-socdes.p.low$c.1.3 <- factor(socdes.p.low$c.1.3, labels = c("List\nExperiment\n(with covariates)", "Direct\nQuestion\n(with covariates)", "Social\nDesirability\n(with covariates)"))
-socdes.p.low <- socdes.p.low[c("fit", "lwr", "upr", "Condition", "c.1.3")]
-
-### Rbinding both DF's
-socdes.p.high.low = rbind(socdes.p.high, socdes.p.low)
-rownames(socdes.p.high.low) <- NULL
-#socdes.p.high.low$Significance <- factor(socdes.p.high.low$Significance, levels = c(0,1), labels = c("Non-Significant", "Significant"))
-
-
-## Appending with diff in means dataframe
-socdes.p.high.low.diff.in.means = rbind(diff.means.plot.d,socdes.p.high.low)
-
-
-### Plot
-if (!require("pacman")) install.packages("pacman"); library(pacman) 
-p_load(ggplot2)
-
-soc.des.plot = ggplot(socdes.p.high.low.diff.in.means, 
-                      aes(c.1.3, fit, colour = Condition)) + 
-        theme_bw() +
-        scale_colour_grey() +
-        xlab("") + 
-        ylab("Estimated Proportion") +
-        geom_hline(yintercept=0, colour = "red", linetype = "dashed", size = 0.2) +
-        geom_pointrange(aes(
-                x = c.1.3,
-                ymin = lwr, 
-                ymax = upr), position = position_dodge(width = 0.25)) +
-        theme(axis.text.y = element_text(size=7), 
-              axis.text.x = element_text(size=7), 
-              axis.title.y = element_text(size=7), 
-              axis.title.x = element_text(size=7), 
-              legend.text=element_text(size=7), 
-              legend.title=element_text(size=7),
-              plot.title = element_text(size=7),
-              legend.position="bottom")
-
-## ----
-
-
-## ---- list:analysis:social:desirability:plot
-### Plot
-soc.des.plot
-soc.des.plot.note <- paste(
-        "{\\bf List Experiment Data: Declared and Predicted Vote-Sellers}.",
-        "\\\\\\hspace{\\textwidth}", paste("{\\bf Note}: The figure summarizes \\autoref{tab:t:test} by showing the simple difference in means (without covariates). It also shows the proportion of declared (``Direct Question'') and predicted (``List Experiment'') hypothetical vote sellers, and the difference (``Social Desirability''). The three sets of main estimates were obtained via a multivariate procedure (including covariates). Combining both ``high'' and ``low'' treatments," , paste(round(mean(c(round(socdes.p.high.low.diff.in.means$fit[socdes.p.high.low.diff.in.means$c.1.3=="List\nExperiment\n(with covariates)" & socdes.p.high.low.diff.in.means$Condition=="High ($500)"]*100,0), round(socdes.p.high.low.diff.in.means$fit[socdes.p.high.low.diff.in.means$c.1.3=="List\nExperiment\n(with covariates)" & socdes.p.high.low.diff.in.means$Condition=="Low ($100)"]*100,0))),0), "\\%", sep=""), "would be willing to sell their votes. And of those who answered affirmatively when asked directly", paste("(", round(mean(c(socdes.p.high.low.diff.in.means$fit[socdes.p.high.low.diff.in.means$c.1.3=="Direct\nQuestion\n(with covariates)" & socdes.p.high.low.diff.in.means$Condition=="High ($500)"]*100, socdes.p.high.low.diff.in.means$fit[socdes.p.high.low.diff.in.means$c.1.3=="Direct\nQuestion\n(with covariates)" & socdes.p.high.low.diff.in.means$Condition=="Low ($100)"]*100)),0), "\\%)", sep = ""), " an estimated additional ", paste(round(mean(c(socdes.p.high.low.diff.in.means$fit[socdes.p.high.low.diff.in.means$c.1.3=="Social\nDesirability\n(with covariates)" & socdes.p.high.low.diff.in.means$Condition=="High ($500)"]*100, socdes.p.high.low.diff.in.means$fit[socdes.p.high.low.diff.in.means$c.1.3=="Social\nDesirability\n(with covariates)" & socdes.p.high.low.diff.in.means$Condition=="Low ($100)"]*100)),0), "\\%", sep = ""), "lied about it. ``Liars'' answer the direct question negatively, but they are likely sellers. The figure shows 95\\% confidence intervals. There are two arbitrarily ``high'' and ``low'' vote-selling prices. The reason for having both was to control for possible price elasticities. The figure suggests some small differences that are not statistically significant. Consequently, these arbitrary pricing decisions do not threaten the experimental design."
-        )
-)
-## ----
-
-
 ###########################################################################
 # Predicting Which Of These Dimensions Predict Likely Vote-Sellers
 ###########################################################################
 
 
-# cat("\014")
-# rm(list=ls())
-
-
 ############################## 
 # CONJOINT Experiment DATA CLEANING
 ##############################
-cat("\014")
-rm(list=ls())
+# cat("\014")
+# rm(list=ls())
 
 # C
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint_with_predicted_voteselling.RData")
-c = dat.with.predict
+# load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData")
+c = dat
 
 
 # check for complete cases in CONJOINT and LIST treatments
@@ -432,7 +234,7 @@ for (i in code) { # RightToVote
 # E
 # load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData")
 
-e = dat.with.predict
+e = dat
 
 idnum.e = rep(1:nrow(e), times = 10)
 pair.e = rep(c(1,1,2,2,3,3,4,4,5,5), each = nrow(e)) # this is the number of TASKS
@@ -450,10 +252,8 @@ polknow.e = c(e$polknow,e$polknow,e$polknow,e$polknow,e$polknow,e$polknow,e$polk
 zipinequality.e = c(e$zipinequality,e$zipinequality,e$zipinequality,e$zipinequality,e$zipinequality,e$zipinequality,e$zipinequality,e$zipinequality,e$zipinequality,e$zipinequality)
 sizeofthepoor.e = c(e$sizeofthepoor,e$sizeofthepoor,e$sizeofthepoor,e$sizeofthepoor,e$sizeofthepoor,e$sizeofthepoor,e$sizeofthepoor,e$sizeofthepoor,e$sizeofthepoor,e$sizeofthepoor)
 proplabforgovtwork.e = c(e$proplabforgovtwork,e$proplabforgovtwork,e$proplabforgovtwork,e$proplabforgovtwork,e$proplabforgovtwork,e$proplabforgovtwork,e$proplabforgovtwork,e$proplabforgovtwork,e$proplabforgovtwork,e$proplabforgovtwork)
-fit.e = c(e$fit,e$fit,e$fit,e$fit,e$fit,e$fit,e$fit,e$fit,e$fit,e$fit)
-lwr.e = c(e$lwr,e$lwr,e$lwr,e$lwr,e$lwr,e$lwr,e$lwr,e$lwr,e$lwr,e$lwr)
-upr.e = c(e$upr,e$upr,e$upr,e$upr,e$upr,e$upr,e$upr,e$upr,e$upr,e$upr)
-sign.e = c(e$sign,e$sign,e$sign,e$sign,e$sign,e$sign,e$sign,e$sign,e$sign,e$sign)
+vote.selling.e = c(e$directquestion,e$directquestion,e$directquestion,e$directquestion,e$directquestion,e$directquestion,e$directquestion,e$directquestion,e$directquestion,e$directquestion)
+
 
 # match with D
 d$woman = rep(NA, nrowc*10)
@@ -465,10 +265,7 @@ d$income.n = rep(NA, nrowc*10)
 d$educ.n = rep(NA, nrowc*10)
 d$polknow = rep(NA, nrowc*10)
 d$selected = rep(NA, nrowc*10)
-d$fit = rep(NA, nrowc*10)
-d$lwr = rep(NA, nrowc*10)
-d$upr = rep(NA, nrowc*10)
-d$sign = rep(NA, nrowc*10)
+d$vote.selling = rep(NA, nrowc*10)
 
 d1.0 = c(e$cj_1)
 d1 = c(d1.0,d1.0)
@@ -485,7 +282,7 @@ all_d = c(d1,d2,d3,d4,d5)
 
 ###
 
-outcome = data.frame(code.e,idnum.e, pair.e, candidate.e,all_d, woman.e, socideo.e, partyid.e, reg.e, trustfed.e, income.n.e, educ.n.e, polknow.e, fit.e, lwr.e, upr.e, sign.e)
+outcome = data.frame(code.e,idnum.e, pair.e, candidate.e,all_d, woman.e, socideo.e, partyid.e, reg.e, trustfed.e, income.n.e, educ.n.e, polknow.e,vote.selling.e)
 
 
 # LOOPS: populating D dataset
@@ -525,20 +322,8 @@ for (i in code) {# polknow
         d$polknow[d$code==i] = outcome$polknow[outcome$code==i]
 }
 
-for (i in code) {# fit
-        d$fit[d$code==i] = outcome$fit[outcome$code==i]
-}
-
-for (i in code) {# lwr
-        d$lwr[d$code==i] = outcome$lwr[outcome$code==i]
-}
-
-for (i in code) {# upr
-        d$upr[d$code==i] = outcome$upr[outcome$code==i]
-}
-
-for (i in code) {# sign
-        d$sign[d$code==i] = outcome$sign[outcome$code==i]
+for (i in code) {# vote.selling
+        d$vote.selling[d$code==i] = outcome$vote.selling[outcome$code==i]
 }
 
 # selected
@@ -550,6 +335,11 @@ d$vote = NULL
 
 # Saving Data
 save(d, file = "/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint.RData")
+## ----
+
+
+
+
 
 
 ######################################################################################
@@ -562,8 +352,6 @@ rm(list=ls())
 # load conjoint data
 load("/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint.RData") # d
 
-## excluding non-significative values
-# d <- d[ which(d$sign==1), ] # optional
 
 # function that does clustered SEs
 vcovCluster <- function(
@@ -591,10 +379,6 @@ vcovCluster <- function(
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
 p_load(lmtest,sandwich,msm)
 
-
-# make outcome numeric
-d$voteselling <- as.numeric(d$fit)
-
 # make treatments factors
 d$at.run = as.factor(d$at.run)
 d$at.asso = as.factor(d$at.asso)
@@ -603,7 +387,7 @@ d$at.presaut = as.factor(d$at.presaut)
 d$at.vote = as.factor(d$at.vote)
 
 
-# change reference ctegories // Reference are //democratic//
+# change reference categories // Reference are democratic//
 d <- within(d, at.run <- relevel(at.run, "Citizens CAN run for office for the next two elections"))
 d <- within(d, at.asso <- relevel(at.asso, "Citizens CAN associate with others and form groups"))
 d <- within(d, at.press <- relevel(at.press, "Media CAN confront the Government"))
@@ -612,14 +396,21 @@ d <- within(d, at.vote <- relevel(at.vote, "Citizens CAN vote in the next two el
 
 d <- d[ which(d$selected==1), ] 
 
-model.vs.1 = lm(voteselling ~ at.run, data=d)
-model.vs.2 = lm(voteselling ~ at.asso, data=d)
-model.vs.3 = lm(voteselling ~ at.press, data=d)
-model.vs.4 = lm(voteselling ~ at.presaut, data=d)
-model.vs.5 = lm(voteselling ~ at.vote, data=d)
 
+# Models: Rare Event Logistic Regression
+### https://blog.methodsconsultants.com/posts/bias-adjustment-for-rare-events-logistic-regression-in-r/
+
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+p_load(relogit)
+
+model.vs.1 <- relogit(vote.selling ~ at.run, data = d)
+model.vs.2 <- relogit(vote.selling ~ at.asso, data = d)
+model.vs.3 <- relogit(vote.selling ~ at.press, data = d)
+model.vs.4 <- relogit(vote.selling ~ at.presaut, data = d)
+model.vs.5 <- relogit(vote.selling ~ at.vote, data = d)
 
 d <- na.omit(d)
+
 acme.vs.1 = coeftest(model.vs.1, vcov = vcovCluster(model.vs.1, cluster = d$idnum)) # run
 acme.vs.2 = coeftest(model.vs.2, vcov = vcovCluster(model.vs.2, cluster = d$idnum)) # asso
 acme.vs.3 = coeftest(model.vs.3, vcov = vcovCluster(model.vs.3, cluster = d$idnum)) # press
@@ -647,24 +438,23 @@ acme.vs.d <- data.frame(
         ),
         coefficients = as.numeric(c(
                 # sellers
-                acme.vs.1[2], 0, # run
-                acme.vs.5[2], 0, # vote
-                acme.vs.2[2], 0, # assoc
-                acme.vs.3[2], 0, # media
-                acme.vs.4[2], 0
+                mean(predict(model.vs.1, type="response")), 
+                mean(predict(model.vs.5, type="response")),
+                mean(predict(model.vs.2, type="response")), 
+                mean(predict(model.vs.3, type="response")), 
+                mean(predict(model.vs.4, type="response"))
         )
         ),
         se = as.numeric(c(
                 # sellers
-                acme.vs.1[4], 0, # run
-                acme.vs.5[4], 0, # vote
-                acme.vs.2[4], 0, # assoc
-                acme.vs.3[4], 0, # media
+                acme.vs.1[4], 0,
+                acme.vs.5[4], 0,
+                acme.vs.2[4], 0,
+                acme.vs.3[4], 0,
                 acme.vs.4[4], 0
         )
         )
 )
-
 
 
 ZScore <- 1.96
