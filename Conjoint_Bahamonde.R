@@ -333,6 +333,35 @@ d$selected2 = NULL
 d$vote = NULL
 
 
+# Codebook
+attr(d,"codebook") <- as.list(as.character(
+        c("code: (a) first number denotes participant id., (b) second number denotes attribute pair, (c) third number denotes hypothetical candidate number/name.", 
+        "idnum: subject id.",
+        "pair: choice id---the pair attributes presented to the survey participant.",
+        "candidate: hypothetical candidate id.",
+        "at.run: hypothetical candidate attribute regarding the right to run as a candidate.",
+        "at.asso: hypothetical candidate attribute regarding the right to associate and form civil society groups like parties.",
+        "at.press: hypothetical candidate attribute regarding the right freedom of the press.",
+        "at.presaut: hypothetical candidate attribute regarding presidential autonomy---weather the president can rule without a congress.",
+        "at.vote: hypothetical candidate attribute regarding the right of the citizens to vote.",
+        "selected: which of the two candidates is selected---the pair is denotes by variable pair.",
+        "woman: whether the subject participant, the respondent, is woman or not. 0 otherwise.",
+        "socideo: ideology type of the subject participant, the respondent--- 1 extremely lefty, 5 extremely right-wing.",
+        "partyid: party identification of the subject participant, the respondent---1: Democrat, 2: Republican, 3: Independent, 4: Others.",
+        "reg: weather the subject participant, the respondent, is registered to vote.", 
+        "trustfed: How much trust and confidence do you have in the [FEDERAL GOBERNMENT]---1 no trust, 4 fair amount.",
+        "income.n: income levels.",
+        "educ.n = education levels.",
+        "polknow = political knowledge index.",
+        "vote.selling = observed but not necesarily unbiased answer to the question of weather survey respondents would be willing to sell their vote."
+        )
+))
+
+# call codebook
+attr(d, "codebook")
+
+        
+
 # Saving Data
 save(d, file = "/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint.RData")
 ## ----
