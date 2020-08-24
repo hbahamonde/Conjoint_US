@@ -1,4 +1,54 @@
-\documentclass[onesided]{article}
+\documentclass[onesided]{article}\usepackage[]{graphicx}\usepackage[]{color}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \usepackage[T1]{fontenc}
 \linespread{1.5} % Line spacing - Palatino needs more space between lines
 \usepackage{microtype} % Slightly tweak font spacing for aesthetics
@@ -178,7 +228,7 @@ We both thank Robert Kaufman, Hillel Soifer, Victor Menaldo, and participants of
 \date{\today}
 
 %----------------------------------------------------------------------------------------
-
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 %\SweaveOpts{concordance=TRUE}
 % Sweave2knitr("Bahamonde_Trasberg.rnw")
@@ -197,26 +247,15 @@ We both thank Robert Kaufman, Hillel Soifer, Victor Menaldo, and participants of
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % loading knitr package
 
-<<echo=FALSE, cache= F, warning = FALSE, message = F>>=
-read_chunk('/Users/hectorbahamonde/research/Conjoint_US/Bahamonde_Quininao_Conjoint.R') # Hector path // MAC
-# read_chunk('Bahamonde_Quininao_Conjoint.R') % Cristobal path
-
-@
-
-
-<<rsetup, include=FALSE>>=
-chooseCRANmirror(graphics=FALSE, ind=1)
-if (!require("pacman")) install.packages("pacman"); library(pacman)
-p_load(knitr)
-options(scipen = 99999999999)
-@
 
 
 
 
-<<abstract, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
 
-@
+
+
+
+
 
 
 
@@ -243,9 +282,7 @@ options(scipen = 99999999999)
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-
-
-\section{Classical Conjoint Analyses}
+\section{INTRODUCTION}
 
 TEST
 
@@ -276,34 +313,30 @@ TEST
 \clearpage
 \newpage
 \pagenumbering{gobble}
-<<wordcount, echo=FALSE, cache=FALSE>>=
-library(knitr)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
-comma <- function (x, ...) {
-  format(x, ..., big.mark = ",", scientific = FALSE, trim = TRUE)
-}
 
-# To dynamically extract name of the current file, use code below
-nameoffile <- current_input() # get name of file
-nof2 <-  strsplit(nameoffile,"\\.")[[1]][1] # extract name, drop extension
-noftex <- paste(nof2, ".tex", sep="") # add .tex extension
-systemcall <- paste("system('texcount -inc -incbib -total -sum ", noftex, "', intern=TRUE)", sep="") # paste together texcount system command
-texcount.out <- eval(parse(text=systemcall)) # run texcount on current last compiled .tex file
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in paste0("{}package:"{}, package): NAs introduced by coercion to integer range}}
 
-sum.row <- grep("Sum count", texcount.out, value=TRUE) # extract row
-pattern <- "(\\d)+" # regex pattern for digits
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in paste(nof2, "{}.tex"{}, sep = "{}"{}): NAs introduced by coercion to integer range}}
 
-count <- regmatches(sum.row, regexpr(pattern, sum.row) )
-# extract digits
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in paste("{}system('texcount -inc -incbib -total -sum "{}, noftex, "{}', intern=TRUE)"{}, : NAs introduced by coercion to integer range}}
 
-count <- comma(as.numeric(count)) # add comma
-@
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in prettyNum(.Internal(format(x, trim, digits, nsmall, width, 3L, : NAs introduced by coercion to integer range}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in paste0("{}[0-9]\{"{}, big.interval + 1L, "{},\}"{}): NAs introduced by coercion to integer range}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in paste0("{}[0-9]\{"{}, big.interval + 1L, "{},\}"{}): NAs introduced by coercion to integer range}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in paste0(B., c(decimal.mark, "{}"{})[iN + 1L], A.): NAs introduced by coercion to integer range}}\end{kframe}
+\end{knitrout}
 
 
 \begin{center}
 \vspace*{\stretch{1}}
 \dotfill
-\dotfill {\huge {\bf Word count}: \Sexpr{count}} \dotfill
+\dotfill {\huge {\bf Word count}: 209} \dotfill
 \dotfill
 \vspace*{\stretch{1}}
 \end{center}
