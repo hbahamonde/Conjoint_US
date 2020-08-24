@@ -9,7 +9,7 @@ rm(list=ls())
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
 p_load(foreign)
 
-dat <- read.dta("/Users/hectorbahamonde/RU/research/Conjoint_US/data_list.dta")
+dat = read.dta("https://github.com/hbahamonde/Conjoint_US/raw/master/data_list.dta")
 
 # Data Cleaning
 ## Drop if Treatments are Missing
@@ -113,21 +113,11 @@ dat$idnum = NULL
 
 
 # Saving Data
-save(dat, file = "/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # in paper's folder
-
-###########################################################################
-# Predicting Which Of These Dimensions Predict Likely Vote-Sellers
-###########################################################################
-
+# save(dat, file = "/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # in paper's folder
 
 ############################## 
 # CONJOINT Experiment DATA CLEANING
 ##############################
-# cat("\014")
-# rm(list=ls())
-
-# C
-# load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData")
 c = dat
 
 
@@ -228,9 +218,6 @@ for (i in code) { # RightToVote
 }
 
 # Generate "outcome" dataset
-
-# E
-# load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData")
 
 e = dat
 
@@ -361,7 +348,9 @@ attr(d, "codebook")
         
 
 # Saving Data
-save(d, file = "/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint.RData")
+save(d, file = "mergedconjoint.RData")
+
+
 
 ######################################################################################
 # Conjoint Analysis: Conjoint and List Data
