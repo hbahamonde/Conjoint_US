@@ -17,9 +17,10 @@ dat = read.dta("https://github.com/hbahamonde/Conjoint_US/raw/master/data_list.d
 f = c("f_1_1_1",  "f_1_1_2", "f_1_1_3", "f_1_1_4", "f_1_1_5", "f_1_2_1", "f_1_2_2", "f_1_2_3", "f_1_2_4", "f_1_2_5", "f_2_1_1",  "f_2_1_2", "f_2_1_3", "f_2_1_4", "f_2_1_5", "f_2_2_1", "f_2_2_2", "f_2_2_3", "f_2_2_4", "f_2_2_5", "f_3_1_1", "f_3_1_2", "f_3_1_3", "f_3_1_4", "f_3_1_5", "f_3_2_1", "f_3_2_2", "f_3_2_3", "f_3_2_4", "f_3_2_5", "f_4_1_1", "f_4_1_2", "f_4_1_3", "f_4_1_4", "f_4_1_5", "f_4_2_1", "f_4_2_2", "f_4_2_3", "f_4_2_4", "f_4_2_5", "f_5_1_1", "f_5_1_2", "f_5_1_3", "f_5_1_4", "f_5_1_5", "f_5_2_1", "f_5_2_2", "f_5_2_3", "f_5_2_4", "f_5_2_5")
 
 dat = dat[!with(dat,is.na(treatment100) & is.na(treatment500) & is.na(control) |
-                        is.na(cj_1) | is.na(cj_2) | is.na(cj_3) | is.na(cj_4) | is.na(cj_5) ),]
+                        is.na(cj_1) | is.na(cj_2) | is.na(cj_3) | is.na(cj_4) | is.na(cj_5)   & is.na(f_1_1_1) & is.na(f_1_1_2) & is.na(f_1_1_3) & is.na(f_1_1_4) & is.na(f_1_1_5) & is.na(f_1_2_1) & is.na(f_1_2_2) & is.na(f_1_2_3) & is.na(f_1_2_4) & is.na(f_1_2_5) & is.na(f_2_1_1) & is.na(f_2_1_2) & is.na(f_2_1_3) & is.na(f_2_1_4) & is.na(f_2_1_5) & is.na(f_2_2_1) & is.na(f_2_2_2) & is.na(f_2_2_3) & is.na(f_2_2_4) & is.na(f_2_2_5) & is.na(f_3_1_1) & is.na(f_3_1_2) & is.na(f_3_1_3) & is.na(f_3_1_4) & is.na(f_3_1_5) & is.na(f_3_2_1) & is.na(f_3_2_2) & is.na(f_3_2_3) & is.na(f_3_2_4) & is.na(f_3_2_5) & is.na(f_4_1_1) & is.na(f_4_1_2) & is.na(f_4_1_3) & is.na(f_4_1_4) & is.na(f_4_1_5) & is.na(f_4_2_1) & is.na(f_4_2_2) & is.na(f_4_2_3) & is.na(f_4_2_4) & is.na(f_4_2_5) & is.na(f_5_1_1) & is.na(f_5_1_2) & is.na(f_5_1_3) & is.na(f_5_1_4) & is.na(f_5_1_5) & is.na(f_5_2_1) & is.na(f_5_2_2) & is.na(f_5_2_3) & is.na(f_5_2_4) & is.na(f_5_2_5)
+),]
 
-
+# HERE
 
 ## Combine treatment100 & treatment500 & control
 dat$ycount = rowSums(data.frame(cbind(dat$control, dat$treatment100, dat$treatment500)), na.rm = T)
@@ -95,7 +96,9 @@ completeFun <- function(data, desiredCols) {
         completeVec <- complete.cases(data[, desiredCols])
         return(data[completeVec, ])
 }
-dat = completeFun(dat, c("woman", "socideo", "partyid", "reg", "trustfed", "income.n", "educ.n", "polknow")) # variables
+
+
+dat = completeFun(dat, c("woman", "socideo", "partyid", "reg", "trustfed", "income.n", "educ.n", "polknow", f)) # variables
 
 
 
@@ -185,7 +188,7 @@ colnames(c)[2] <- "caracteristica"
 colnames(c)[5] <- "descripcion"
 c$descripcion = as.character(c$descripcion)
 c$caracteristica = as.character(c$caracteristica)
-
+c = na.omit(c)
 
 
 # D (empty dataset)
@@ -200,6 +203,7 @@ at.vote = rep(NA,nrowc*10)
 selected = as.character(rep(NA,nrowc*10))
 code = paste(idnum,pair,candidate,sep = "-")
 d = data.frame(code,idnum,pair,candidate,at.run, at.asso, at.press, at.presaut, at.vote,selected) # conjoint dataset
+d = na.omit(d)
 
 
 # Loops to populate d dataset
