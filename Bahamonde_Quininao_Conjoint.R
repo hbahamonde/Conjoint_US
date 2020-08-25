@@ -61,7 +61,7 @@ dat$polknow = rowSums(data.frame(cbind(
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
 p_load(foreign)
 
-zipdata <- read.dta("/Users/hectorbahamonde/RU/research/Conjoint_US/zipdata.dta") # import ZIP DTA DATA 
+zipdata <- read.dta("https://github.com/hbahamonde/Conjoint_US/raw/master/zipdata.dta") # import ZIP DTA DATA 
 zipdata[zipdata == -1] <- NA
 dat = merge(dat, zipdata, by=c("zip"), all.x =T)
 
@@ -112,9 +112,6 @@ dat = data.frame(c(idnum, dat));colnames(dat)[1] <- "idnum"
 dat$idnum = NULL
 
 
-# Saving Data
-# save(dat, file = "/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # in paper's folder
-
 ############################## 
 # CONJOINT Experiment DATA CLEANING
 ##############################
@@ -122,7 +119,19 @@ c = dat
 
 
 # check for complete cases in CONJOINT and LIST treatments
-c = subset(c, select = c("cj_1", "cj_2", "cj_3", "cj_4", "cj_5", "f_1_1_1",  "f_1_1_2", "f_1_1_3", "f_1_1_4", "f_1_1_5", "f_1_2_1", "f_1_2_2", "f_1_2_3", "f_1_2_4", "f_1_2_5", "f_2_1_1",  "f_2_1_2", "f_2_1_3", "f_2_1_4", "f_2_1_5", "f_2_2_1", "f_2_2_2", "f_2_2_3", "f_2_2_4", "f_2_2_5", "f_3_1_1", "f_3_1_2", "f_3_1_3", "f_3_1_4", "f_3_1_5", "f_3_2_1", "f_3_2_2", "f_3_2_3", "f_3_2_4", "f_3_2_5", "f_4_1_1", "f_4_1_2", "f_4_1_3", "f_4_1_4", "f_4_1_5", "f_4_2_1", "f_4_2_2", "f_4_2_3", "f_4_2_4", "f_4_2_5", "f_5_1_1", "f_5_1_2", "f_5_1_3", "f_5_1_4", "f_5_1_5", "f_5_2_1", "f_5_2_2", "f_5_2_3", "f_5_2_4", "f_5_2_5"))
+c = subset(c, select = c(
+        "cj_1", "cj_2", "cj_3", "cj_4", "cj_5", 
+        "f_1_1_1", "f_1_1_2", "f_1_1_3", "f_1_1_4", "f_1_1_5", 
+        "f_1_2_1", "f_1_2_2", "f_1_2_3", "f_1_2_4", "f_1_2_5", 
+        "f_2_1_1", "f_2_1_2", "f_2_1_3", "f_2_1_4", "f_2_1_5", 
+        "f_2_2_1", "f_2_2_2", "f_2_2_3", "f_2_2_4", "f_2_2_5", 
+        "f_3_1_1", "f_3_1_2", "f_3_1_3", "f_3_1_4", "f_3_1_5", 
+        "f_3_2_1", "f_3_2_2", "f_3_2_3", "f_3_2_4", "f_3_2_5", 
+        "f_4_1_1", "f_4_1_2", "f_4_1_3", "f_4_1_4", "f_4_1_5", 
+        "f_4_2_1", "f_4_2_2", "f_4_2_3", "f_4_2_4", "f_4_2_5", 
+        "f_5_1_1", "f_5_1_2", "f_5_1_3", "f_5_1_4", "f_5_1_5", 
+        "f_5_2_1", "f_5_2_2", "f_5_2_3", "f_5_2_4", "f_5_2_5")
+        )
 
 # change names again
 all_d = subset(c, select = c("cj_1", "cj_2", "cj_3", "cj_4", "cj_5"))
@@ -321,31 +330,31 @@ d$vote = NULL
 # Codebook
 attr(d,"codebook") <- as.list(as.character(
         c("code: (a) first number denotes participant id., (b) second number denotes attribute pair, (c) third number denotes hypothetical candidate number/name.", 
-        "idnum: subject id.",
-        "pair: choice id---the pair attributes presented to the survey participant.",
-        "candidate: hypothetical candidate id.",
-        "at.run: hypothetical candidate attribute regarding the right to run as a candidate.",
-        "at.asso: hypothetical candidate attribute regarding the right to associate and form civil society groups like parties.",
-        "at.press: hypothetical candidate attribute regarding the right freedom of the press.",
-        "at.presaut: hypothetical candidate attribute regarding presidential autonomy---weather the president can rule without a congress.",
-        "at.vote: hypothetical candidate attribute regarding the right of the citizens to vote.",
-        "selected: which of the two candidates is selected---the pair is denotes by variable pair.",
-        "woman: whether the subject participant, the respondent, is woman or not. 0 otherwise.",
-        "socideo: ideology type of the subject participant, the respondent--- 1 extremely lefty, 5 extremely right-wing.",
-        "partyid: party identification of the subject participant, the respondent---1: Democrat, 2: Republican, 3: Independent, 4: Others.",
-        "reg: weather the subject participant, the respondent, is registered to vote.", 
-        "trustfed: How much trust and confidence do you have in the [FEDERAL GOBERNMENT]---1 no trust, 4 fair amount.",
-        "income.n: income levels.",
-        "educ.n = education levels.",
-        "polknow = political knowledge index.",
-        "vote.selling = observed but not necesarily unbiased answer to the question of weather survey respondents would be willing to sell their vote."
+          "idnum: subject id.",
+          "pair: choice id---the pair attributes presented to the survey participant.",
+          "candidate: hypothetical candidate id.",
+          "at.run: hypothetical candidate attribute regarding the right to run as a candidate.",
+          "at.asso: hypothetical candidate attribute regarding the right to associate and form civil society groups like parties.",
+          "at.press: hypothetical candidate attribute regarding the right freedom of the press.",
+          "at.presaut: hypothetical candidate attribute regarding presidential autonomy---weather the president can rule without a congress.",
+          "at.vote: hypothetical candidate attribute regarding the right of the citizens to vote.",
+          "selected: which of the two candidates is selected---the pair is denotes by variable pair.",
+          "woman: whether the subject participant, the respondent, is woman or not. 0 otherwise.",
+          "socideo: ideology type of the subject participant, the respondent--- 1 extremely lefty, 5 extremely right-wing.",
+          "partyid: party identification of the subject participant, the respondent---1: Democrat, 2: Republican, 3: Independent, 4: Others.",
+          "reg: weather the subject participant, the respondent, is registered to vote.", 
+          "trustfed: How much trust and confidence do you have in the [FEDERAL GOBERNMENT]---1 no trust, 4 fair amount.",
+          "income.n: income levels.",
+          "educ.n = education levels.",
+          "polknow = political knowledge index.",
+          "vote.selling = observed but not necesarily unbiased answer to the question of weather survey respondents would be willing to sell their vote."
         )
 ))
 
 # call codebook
 attr(d, "codebook")
 
-        
+
 
 # Saving Data
 save(d, file = "mergedconjoint.RData")
@@ -360,7 +369,7 @@ rm(list=ls())
 
 ## ---- conjoint:analysis:predicting:vote:selling:data
 # load conjoint data
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint.RData") # d
+# load("mergedconjoint.RData") # d
 
 
 # function that does clustered SEs
@@ -524,7 +533,7 @@ rm(list=ls())
 ## ---- conjoint:democratic:values:american:public:data
 
 # Load Data
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint.RData") # d
+load("mergedconjoint.RData") # d
 
 
 ## excluding non-significative values
@@ -757,7 +766,7 @@ design.low <- ict.test(ycount.low, treatment.low, J=j, gms = TRUE, n.draws = n.d
 ## ---- predictions:independent:variables:data ----
 # 2 socideo (ok)
 
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+load("dat_list.RData") # Load data
 
 
 socideoVC <- socideoC <- socideoM <- socideoL <- socideoVL <- dat
@@ -858,7 +867,7 @@ socio.plot = ggplot(socideo.plot.d,
 
 ######################################################
 # 3 partyid (ok)
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+load("dat_list.RData") # Load data
 
 
 partyidD <- partyidR <- partyidI <- partyidSE <- dat
@@ -956,7 +965,7 @@ partyid.plot = ggplot(partyid.plot.d,
 
 ######################################################
 # 6 educ (ok)
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+load("dat_list.RData") # Load data
 
 
 educ.SHS <- educ.HS <- educ.T <- educ.SC <- educ.AD <- educ.BD <- educ.GS <- dat
@@ -1069,7 +1078,7 @@ educ.plot = ggplot(educ.plot.d,
 ######################################################
 # 6 income.n (ok)
 
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+load("dat_list.RData") # Load data
 
 income.1 <- income.2 <- income.3 <- income.4 <- income.5 <- income.6 <- income.7 <- income.8 <- income.9 <- income.10 <- income.11 <- income.12 <- income.13 <- income.14 <- dat
 
@@ -1302,7 +1311,7 @@ predictions.independent.variables.plot.note <- paste(
 
 
 ## ---- cov:balance:d ----
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+load("dat_list.RData") # Load data
 
 
 # Finding Regime Per Observation
@@ -1497,7 +1506,7 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
 # rm(list=ls())
 
 # data
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+load("dat_list.RData") # Load data
 dat.multinomial <- dat
 
 
@@ -1674,9 +1683,11 @@ ps.plot.note <-  paste(
 ###############################################
 
 ## ---- lapop:bar:chart:data ----
-# cat("\014")
-# rm(list=ls())
-load("/Users/hectorbahamonde/RU/Term5/Experiments_Redlawsk/Experiment/Data/LAPOP/datLAPOP.rdata")
+# Load the data
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+p_load(foreign)
+
+datLAPOP = read.dta("https://github.com/hbahamonde/Conjoint_US/raw/master/datLAPOP.rdata")
 clientelism = datLAPOP$clien1
 clientelism <- factor(clientelism, labels = c("Often", "Sometimes", "Never"))
 clientelism <- na.omit(clientelism)
@@ -1735,7 +1746,7 @@ lapop.bar.chart.p.note <- paste(
 ###############################################
 
 ## ---- pricing:experiment:data ----
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+load("dat_list.RData") # Load data
 
 # building auxiliary dataset
 pricing.d = na.omit(data.frame(dat$pricecheap,dat$priceexpensive))
@@ -1846,7 +1857,7 @@ cat("\014")
 rm(list=ls())
 
 # Load Data
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint.RData") # Load data
+load("mergedconjoint.RData") # Load data
 
 
 # example script to implement estimators of Average Marginal Component Effects (ACMEs) for Conjoint Data
@@ -1973,7 +1984,7 @@ ggplot() + geom_hline(yintercept = 0, colour = gray(1/2), lty = 2) +
 ## Predicting Predicted Probabiltities of Vote Selling
 ############
 
-load( "/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+load( "dat_list.RData") # Load data
 
 voteselling = data.frame(rep(indpred.p.fit, each = 10))
 dat.combined = data.frame(voteselling, dat); colnames(dat.combined)[1] <- "voteselling"
@@ -1989,7 +2000,7 @@ rm(list=ls())
 ## ---- us:map:plot ----
 
 # Load Data
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+load("dat_list.RData") # Load data
 
 
 ## Map of Observations
@@ -2054,7 +2065,7 @@ rm(list=ls())
 ## ---- us:map:vote:selling:data ----
 
 # Load Data
-load( "/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint_with_predicted_voteselling.RData") # Load data
+load("mergedconjoint_with_predicted_voteselling.RData") # Load data
 
 
 ## Map of Observations
@@ -2305,7 +2316,7 @@ dat.high.with.predict = data.frame(cbind(dat.high, ind.pred.social.desirability.
 dat.with.predict = data.frame(rbind(dat.low.with.predict, dat.high.with.predict))
 
 # Saving Data
-save(dat.with.predict, file = "/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint_with_predicted_voteselling.RData")
+save(dat.with.predict, file = "mergedconjoint_with_predicted_voteselling.RData")
 ## ---- 
 
 
