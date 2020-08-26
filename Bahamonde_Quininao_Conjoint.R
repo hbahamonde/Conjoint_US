@@ -19,7 +19,7 @@ f = c("f_1_1_1",  "f_1_1_2", "f_1_1_3", "f_1_1_4", "f_1_1_5", "f_1_2_1", "f_1_2_
 dat = dat[!with(dat,is.na(treatment100) & is.na(treatment500) & is.na(control) |
                         is.na(cj_1) | is.na(cj_2) | is.na(cj_3) | is.na(cj_4) | is.na(cj_5) ),]
 
-
+dat = dat %>% drop_na(f)
 
 ## Combine treatment100 & treatment500 & control
 dat$ycount = rowSums(data.frame(cbind(dat$control, dat$treatment100, dat$treatment500)), na.rm = T)
@@ -66,7 +66,6 @@ zipdata[zipdata == -1] <- NA
 dat = merge(dat, zipdata, by=c("zip"), all.x =T)
 
 ## Transforming Vars
-
 levels(dat$socideo)[levels(dat$socideo)=="Very liberal"] <- "VeryLiberal"
 levels(dat$socideo)[levels(dat$socideo)=="Very conservative"] <- "VeryConservative"
 levels(dat$partyid)[levels(dat$partyid)=="Something else"] <- "SomethingElse"
@@ -108,7 +107,7 @@ dat$zipinequality = as.numeric(dat$zipmeanincome - dat$zipmedianincome)
 # generate the same IDNUM
 idnum = data.frame(rep(1:nrow(dat)))
 dat = data.frame(c(idnum, dat));colnames(dat)[1] <- "idnum"
-#dat<-dat[!(dat$idnum=="245"),] # no se por qué chucha el 245 esta vacio por la reconchadesumadre 
+dat<-dat[!(dat$idnum=="245"),] # no se por qué chucha el 245 esta vacio por la reconchadesumadre 
 dat$idnum = NULL
 
 
@@ -165,6 +164,15 @@ colnames(c.string) = c("drop", "pair", "candidate", "attribute")
 # merge c.string and c dataframes
 c = data.frame(c, c.string)
 c = subset(c, select = -c(drop, variable, attribute))
+
+# I was having obs ID 245 (with old numeration) empty
+c[c == ""] = NA
+p_load(tidyr)
+c = c %>% drop_na()
+# Since obs were dropped, reset numeration
+c$idnum = rep(1:nrow(c))
+nrowc = nrow(c) # I will use this here to entry the number of VALID subjects I've got
+
 
 # generate a variable which writes the TYPE OF ATTRIBUTE
 c$type = ifelse(c$value == "Citizens CAN associate with others and form groups", "RightToAssociate", 
