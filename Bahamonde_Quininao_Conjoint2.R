@@ -348,6 +348,14 @@ save(d, file = "mergedconjoint.RData")
 
 
 
+
+
+
+
+
+
+
+
 ###############################################
 # Direct CLIENTELISM question plot from LAPOP
 ###############################################
@@ -409,30 +417,16 @@ lapop.bar.chart.p.note <- paste(
 ## ----
 
 
-################
-#### ABSTRACT
-################
-
-## ---- abstract ----
-fileConn <- file ("abstract.txt")
-writeLines(c("Hello","World"), fileConn)
-close(fileConn)
-## ----
-
-
-
-
-
 ######################################################
 # Descriptive Maps
 ######################################################
-cat("\014")
-rm(list=ls())
 
 ## ---- us:map:plot ----
 
 # Load Data
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/dat_list.RData") # Load data
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+p_load(RCurl)
+myfile <- getURL("https://github.com/hbahamonde/Conjoint_US/raw/master/dat_list.RData")
 
 
 ## Map of Observations
@@ -444,7 +438,8 @@ install.packages("https://cran.r-project.org/src/contrib/Archive/zipcode/zipcode
 
 # plyr is dicontinued/retired as it January 2020. Hence, I'll be installing from source
 # install.packages("https://cran.r-project.org/src/contrib/plyr_1.8.6.tar.gz", repos=NULL, type="source")
-library(plyr)
+# if (!require("pacman")) install.packages("pacman"); library(pacman) 
+# p_load(plyr)
 
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
 p_load(zipcode,ggplot2,ggmap)
@@ -488,285 +483,14 @@ ggmap(map) + geom_point(aes(
 ## ----
 
 
-######################################################
-# Descriptive Maps: Vote Sellers
-######################################################
-cat("\014")
-rm(list=ls())
+################
+#### ABSTRACT
+################
 
-## ---- us:map:vote:selling:data ----
-
-# Load Data
-load( "/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint_with_predicted_voteselling.RData") # Load data
-
-
-## Map of Observations
-### loading a package with ZIP codes and their respective Lat's and Long's.
-if (!require("pacman")) install.packages("pacman"); library(pacman) 
-p_load(zipcode,ggplot2,ggmap)
-
-
-
-
-data(zipcode)
-zipcode <- zipcode[c("zip", "latitude", "longitude")]
-dat.with.predict <- merge(dat.with.predict,zipcode,by=c("zip"))
-us <- c(left = -160, bottom = 15, right = -55, top = 50)
-map <- get_stamenmap(us, zoom = 4, maptype = "toner-lite", scale = 2, format = "png") # maptype = "toner-lite"
-
-
-colnames(dat.with.predict)[which(names(dat.with.predict) == "fit")] <- 'Probability of Vote Selling'
-
-
-us.map.vote.selling.plot <- ggmap(map) + geom_point(aes(
-        x = longitude,
-        #colour=fit,
-        y = latitude,
-        colour = `Probability of Vote Selling`), 
-        #colour = "red",
-        alpha = .4,
-        #size = 0.8,
-        #shape = 21,
-        data = dat.with.predict[dat.with.predict$sign==1,]) +
-        xlab("Longitude") + 
-        ylab("Latitude") +
-        theme_bw() +
-        #labs(color='') +
-        theme_bw() + 
-        theme(axis.text.y = element_text(size=7), 
-              axis.text.x = element_text(size=7), 
-              axis.title.y = element_text(size=7), 
-              axis.title.x = element_text(size=7), 
-              legend.text=element_text(size=7), 
-              legend.title=element_text(size=7),
-              plot.title = element_text(size=7),
-              legend.position="bottom") +
-        scale_colour_gradient(low = "green", high = "red")
+## ---- abstract ----
+fileConn <- file ("abstract.txt")
+writeLines(c("Hello","World"), fileConn)
+close(fileConn)
 ## ----
-
-## ---- us:map:vote:selling:plot ----
-us.map.vote.selling.plot
-us.map.vote.selling.note <- paste(
-        "{\\bf Mapping (Predicted) Vote-Sellers}.",
-        "\\\\\\hspace{\\textwidth}", 
-        paste("{\\bf Note}: Figure shows the geographical location (at the ZIP code level) of estimated vote-sellers. Using the estimations in \\autoref{tab:regression}, individual probabilities of vote-selling were obtained (see \\autoref{fig:list:analysis:individual:predictions:plot}). This map shows the geographical location of the estimations that are statistically significant only (N = ", paste(length(dat.with.predict$'Probability of Vote Selling'[dat.with.predict$sign==1])), ").", sep = ""),
-        "\n")
-## ----
-
-
-
-
-
-##############
-# Plot Individual predictions (both High and Low conditions)
-##############
-
-
-
-## ---- list:analysis:individual:predictions:data  ----
-### Individual posterior likelihoods of vote-selling (high)
-list.high.predicted.2B <- predict.ictreg(list.high, se.fit = TRUE, interval= "confidence", avg = F, return.draws = T, level = ci.level)
-list.high.predicted.2B$fit<-round(list.high.predicted.2B$fit, 2)
-list.high.predicted.2B$se.fit<-round(list.high.predicted.2B$se.fit, 2)
-indpred.p.high = data.frame(
-        list.high.predicted.2B$fit, 
-        list.high.predicted.2B$se.fit, 
-        Significance = as.numeric(ifelse(sign(list.high.predicted.2B$fit$lwr) == sign(list.high.predicted.2B$fit$up), 1,0)))
-indpred.p.high$Significance[indpred.p.high$Significance==1] <- "Yes"
-indpred.p.high$Significance[indpred.p.high$Significance==0] <- "No"
-names(indpred.p.high)[4] = "se.fit"
-rownames(indpred.p.high) <- NULL
-indpred.p.high.fit= indpred.p.high$fit
-
-### Individual posterior likelihoods of vote-selling (low)
-list.low.predicted.2B <- predict.ictreg(list.low, se.fit = TRUE, interval= "confidence", avg = F, return.draws = T, level = ci.level)
-list.low.predicted.2B$fit<-round(list.low.predicted.2B$fit, 2)
-list.low.predicted.2B$se.fit<-round(list.low.predicted.2B$se.fit, 2)
-indpred.p.low = data.frame(
-        list.low.predicted.2B$fit, 
-        list.low.predicted.2B$se.fit, 
-        Significance = as.numeric(ifelse(sign(list.low.predicted.2B$fit$lwr) == sign(list.low.predicted.2B$fit$upr), 1,0)))
-indpred.p.low$Significance[indpred.p.low$Significance==1] <- "Yes"
-indpred.p.low$Significance[indpred.p.low$Significance==0] <- "No"
-names(indpred.p.low)[4] = "se.fit"
-rownames(indpred.p.low) <- NULL
-indpred.p.low.fit= indpred.p.low$fit
-
-
-# load libraries
-if (!require("pacman")) install.packages("pacman"); library(pacman)
-p_load(ggplot2,grid,gridExtra)
-
-
-
-
-## Low
-ind.pred.low.cond.plot = ggplot() + geom_pointrange(data=indpred.p.low, 
-                                                    mapping =aes(
-                                                            x=1:nrow(indpred.p.low), 
-                                                            y=indpred.p.low$fit, 
-                                                            ymin=indpred.p.low$lwr, 
-                                                            ymax=indpred.p.low$upr, 
-                                                            colour = Significance), 
-                                                    size=0.25, 
-                                                    alpha=.5) + 
-        #theme(legend.position="none") + 
-        geom_hline(yintercept=0, colour = "red", linetype = "dashed", size = 0.9) +
-        xlab("Observations") + 
-        ylab("Probability of Vote-Selling\n(Low Condition)") +
-        #guides(colour=FALSE) + 
-        theme_bw() +
-        scale_colour_grey() +
-        theme(axis.text.y = element_text(size=7), 
-              axis.text.x = element_text(size=12), 
-              axis.title.y = element_text(size=18), 
-              axis.title.x = element_text(size=18), 
-              legend.text=element_text(size=18), 
-              legend.title=element_text(size=18),
-              plot.title = element_text(size=7),
-              legend.position="bottom")
-
-## High
-ind.pred.high.cond.plot = ggplot() + geom_pointrange(data=indpred.p.high, 
-                                                     mapping =aes(
-                                                             x=1:nrow(indpred.p.high), 
-                                                             y=indpred.p.high$fit, 
-                                                             ymin=indpred.p.high$lwr, 
-                                                             ymax=indpred.p.high$upr, 
-                                                             colour = indpred.p.high$Significance), 
-                                                     size=0.25, 
-                                                     alpha=.5) + 
-        #theme(legend.position="none") + 
-        geom_hline(yintercept=0, colour = "red", linetype = "dashed", size = 0.9) +
-        xlab("Observations") + 
-        ylab("Probability of Vote-Selling\n(High Condition)") +
-        #guides(colour=FALSE) + 
-        theme_bw() +
-        scale_colour_grey() +
-        theme(axis.text.y = element_text(size=7), 
-              axis.text.x = element_text(size=12), 
-              axis.title.y = element_text(size=18), 
-              axis.title.x = element_text(size=18), 
-              legend.text=element_text(size=18), 
-              legend.title=element_text(size=18),
-              plot.title = element_text(size=7),
-              legend.position="bottom")
-
-# computing the sample size of the list experiment (which also determines the sample size in the conjoint portion) for the paper
-total.sample.size = as.character(formatC(c(nrow(indpred.p.high) + nrow(indpred.p.low)), format="d", big.mark=","))
-# this here converts well into RNW if \Sexpr{} is not between $$ signs.
-
-## merging the two plots
-# load libraries
-if (!require("pacman")) install.packages("pacman"); library(pacman)
-p_load(ggplot2,gridExtra)
-
-
-
-# To force GGplots to share same legend.
-grid_arrange_shared_legend <- function(...) {
-        require(ggplot2)
-        require(gridExtra)
-        plots <- list(...)
-        g <- ggplotGrob(plots[[1]] + theme(legend.position="bottom"))$grobs
-        legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
-        lheight <- sum(legend$height)
-        grid.arrange(
-                do.call(arrangeGrob, lapply(plots, function(x)
-                        x + theme(legend.position="none"))),
-                legend,
-                ncol = 1,
-                heights = grid::unit.c(unit(1, "npc") - lheight, lheight))
-}
-
-#### multiplot
-multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
-        library(grid)
-        
-        # Make a list from the ... arguments and plotlist
-        plots <- c(list(...), plotlist)
-        
-        numPlots = length(plots)
-        
-        # If layout is NULL, then use 'cols' to determine layout
-        if (is.null(layout)) {
-                # Make the panel
-                # ncol: Number of columns of plots
-                # nrow: Number of rows needed, calculated from # of cols
-                layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
-                                 ncol = cols, nrow = ceiling(numPlots/cols))
-        }
-        
-        if (numPlots==1) {
-                print(plots[[1]])
-                
-        } else {
-                # Set up the page
-                grid.newpage()
-                pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
-                
-                # Make each plot, in the correct location
-                for (i in 1:numPlots) {
-                        # Get the i,j matrix positions of the regions that contain this subplot
-                        matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
-                        
-                        print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
-                                                        layout.pos.col = matchidx$col))
-                }
-        }
-}
-
-
-# USE THE VECTOR WITH INDIVUDUAL PREDICTIONS: High Condition
-ind.pred.social.desirability.high <- predict.ictreg(list.high, se.fit = TRUE, interval= "confidence", avg = F, return.draws = T, level = ci.level)
-
-ind.pred.social.desirability.high$fit<-round(ind.pred.social.desirability.high$fit, 10)
-ind.pred.social.desirability.high$se.fit<-round(ind.pred.social.desirability.high$se.fit, 10)
-ind.pred.social.desirability.high.d = data.frame(
-        ind.pred.social.desirability.high$fit, 
-        ind.pred.social.desirability.high$se.fit, 
-        sign = ifelse(sign(ind.pred.social.desirability.high$fit$lwr) == sign(ind.pred.social.desirability.high$fit$upr), 1, 0))
-names(ind.pred.social.desirability.high.d)[4] = "se.fit"
-rownames(ind.pred.social.desirability.high.d) <- NULL
-
-
-# USE THE VECTOR WITH INDIVUDUAL PREDICTIONS: Low Condition
-ind.pred.social.desirability.low <- predict.ictreg(list.low, se.fit = TRUE, interval= "confidence", avg = F, return.draws = T, level = ci.level)
-
-ind.pred.social.desirability.low$fit<-round(ind.pred.social.desirability.low$fit, 10)
-ind.pred.social.desirability.low$se.fit<-round(ind.pred.social.desirability.low$se.fit, 10)
-ind.pred.social.desirability.low.d = data.frame(
-        ind.pred.social.desirability.low$fit, 
-        ind.pred.social.desirability.low$se.fit, 
-        sign = ifelse(sign(ind.pred.social.desirability.low$fit$lwr) == sign(ind.pred.social.desirability.low$fit$upr), 1, 0))
-names(ind.pred.social.desirability.low.d)[4] = "se.fit"
-rownames(ind.pred.social.desirability.low.d) <- NULL
-
-# cbind regular DFs (with the two conditions) with the predictions
-dat.low.with.predict = data.frame(cbind(dat.low, ind.pred.social.desirability.low.d))
-dat.high.with.predict = data.frame(cbind(dat.high, ind.pred.social.desirability.high.d))
-dat.with.predict = data.frame(rbind(dat.low.with.predict, dat.high.with.predict))
-
-# Saving Data
-save(dat.with.predict, file = "/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint_with_predicted_voteselling.RData")
-## ---- 
-
-
-
-## ---- list:analysis:individual:predictions:plot  ----
-grid_arrange_shared_legend(
-        ind.pred.low.cond.plot, 
-        ind.pred.high.cond.plot,
-        ncol = 1, nrow = 2)
-
-individual.predictions.plot.note <- paste(
-        "{\\bf Individual Estimated Probabilities of Vote-Selling}.",
-        "\\\\\\hspace{\\textwidth}", 
-        paste(paste(paste(paste("{\\bf Note}: Figure shows the individual probabilities of vote-selling (N = ", total.sample.size, ")",  sep = ""), sep = ""), "under the ``low'' and ``high'' conditions. After fitting the model, and following the advice of \\textcite[]{Blair2012} and \\textcite[]{Imai2014a}, individual probabilities of vote-selling under the ``low'' and ``high'' conditions were estimated. ", paste("The figure also shows", paste(ci.level*100,"\\%", sep = ""), "confidence intervals.", sep = " "))),
-        "\n")
-## ----
-
-
-
 
 
