@@ -342,16 +342,9 @@ attr(d,"codebook") <- as.list(as.character(
 # call codebook
 attr(d, "codebook")
 
-        
-
 # Saving Data
 save(d, file = "mergedconjoint.RData")
 ## ----
-
-
-
-
-
 
 ######################################################################################
 # Conjoint Analysis: Conjoint and List Data
@@ -361,8 +354,9 @@ rm(list=ls())
 
 ## ---- conjoint:analysis:predicting:vote:selling:data
 # load conjoint data
-load("/Users/hectorbahamonde/RU/research/Conjoint_US/mergedconjoint.RData") # d
-
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+p_load(RCurl)
+dat <- getURL("https://github.com/hbahamonde/Conjoint_US/raw/master/mergedconjoint.RData")
 
 # function that does clustered SEs
 vcovCluster <- function(
@@ -408,17 +402,12 @@ d <- within(d, at.vote <- relevel(at.vote, "Citizens CAN vote in the next two el
 d <- d[ which(d$selected==1), ] 
 
 
-# Models: Rare Event Logistic Regression
-### https://blog.methodsconsultants.com/posts/bias-adjustment-for-rare-events-logistic-regression-in-r/
-
-if (!require("pacman")) install.packages("pacman"); library(pacman) 
-p_load(relogit)
-
-model.vs.1 <- relogit(vote.selling ~ at.run, data = d)
-model.vs.2 <- relogit(vote.selling ~ at.asso, data = d)
-model.vs.3 <- relogit(vote.selling ~ at.press, data = d)
-model.vs.4 <- relogit(vote.selling ~ at.presaut, data = d)
-model.vs.5 <- relogit(vote.selling ~ at.vote, data = d)
+# Models: Logistic Regression
+model.vs.1 <- glm(vote.selling ~ at.run, data = d, family=binomial(link = "logit"))
+model.vs.2 <- glm(vote.selling ~ at.asso, data = d, family=binomial(link = "logit"))
+model.vs.3 <- glm(vote.selling ~ at.press, data = d, family=binomial(link = "logit"))
+model.vs.4 <- glm(vote.selling ~ at.presaut, data = d, family=binomial(link = "logit"))
+model.vs.5 <- glm(vote.selling ~ at.vote, data = d, family=binomial(link = "logit"))
 
 d <- na.omit(d)
 
