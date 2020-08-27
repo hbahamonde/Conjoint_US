@@ -138,7 +138,10 @@ headpunct=:
 \usepackage{csquotes}
 \usepackage[backend=biber,style=authoryear,dashed=false,doi=false,isbn=false,url=false,arxiv=false]{biblatex}
 %\DeclareLanguageMapping{american}{american-apa}
-\addbibresource{Bahamonde_Trasberg.bib} 
+\addbibresource{Bahamonde_Quininao_Conjoint.bib} 
+\addbibresource{/Users/hectorbahamonde/Bibliografia_PoliSci/library.bib} 
+\addbibresource{/Users/hectorbahamonde/Bibliografia_PoliSci/Bahamonde_BibTex2013.bib} 
+
 % USAGES
 %% use \textcite to cite normal
 %% \parencite to cite in parentheses
@@ -199,7 +202,7 @@ We both thank.}}
 
 <<echo=FALSE, cache= F, warning = FALSE, message = F>>=
 read_chunk('/Users/hectorbahamonde/research/Conjoint_US/Bahamonde_Quininao_Conjoint.R') # Hector path // MAC
-# read_chunk('Bahamonde_Quininao_Conjoint.R') % Cristobal path
+# read_chunk('Bahamonde_Quininao_Conjoint.R') % Cristobal path
 
 @
 
@@ -243,11 +246,99 @@ options(scipen = 99999999999)
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
+\section{Introduction}
+
+\todo{summarize the scope and findings}
+
+%% Roadmap of the paper
+% 1. Democracy is a multidimensional concept.
+% 2. But the study of clientelism---as a kind of democratic failure---usually is unidimensional. The study of specific conditions that have to fail to produce clientelism is usually focused on a single factor. Perhaps the most studied one is income, and how poverty increases the probability of clientelism. 
+% 3. This paper contributes to the clientelism literature by situating clientelism within a richer and multidimensional conceptualization of democracy by specifying which specific democratic dimensions, when absent, make clientelism more likely.
+% 4. By incorporating a "Hard case", the paper also overcomes possible sources of selection bias. 
+% 5. The paper also contributes to the literature, particularly, by introducing support vector machine analyses to analyzing willingness to sell votes in the United States.
+% 6. Presenting SPV: derive, present classical analyses of conjoint data.
+
+\section{Multidimensional Approach Toward the Study of Vote-Selling}
+
+% 1. Democracy is a multidimensional concept.
+Democracy has been theorized as a multidimensional concept. Referring particularly to \emph{polyarchies}, \textcite[3]{Dahl1971} explains that among some of the requirements for sustaining a democracy, there must be some institutional guarantees that create opportunities to (1) formulate preferences, (2) signify those preferences, and (3) have preferences weighted equally when conducting a government. Since cases where a country is ``completely or almost completely responsive to all its citizens'' are rare, \textcite[8]{Dahl1971} prefers to use the multidimensional concept of \emph{polyarchy}. 
+
+% 2. But the study of clientelism---as a kind of democratic failure---usually is unidimensional. The study of specific conditions that have to fail to produce clientelism is usually focused on a single factor. Perhaps the most studied one is income, and how poverty increases the probability of clientelism. 
+Yet, clientelism---as a democratic failure---has been studied almost exclusively from a unidimensional perspective. In fact, we believe that there exists a methodological and conceptual misalignment. On the one hand, qualitative, historical and/or ethnographically based contributions describe clientelist transactions as complex and multidimensional. In general, this body of research leveraging qualitative techniques are able to provide thick descriptions of the phenomena at hand \parencite{Posada-Carbo:1996aa,Sabato2001,Auyero2000,Szwarcberg2013,Borges2019}. On the other hand, statistical, survey, and/or experimentally based work mostly explores singular issues related clientelism, such as the effect of a single variable (or treatment) on the probability of clientelism. For example, using a field experiment in Benin, \textcite{Wantchekon2003} stresses the role of incumbency on vote buying. \textcite[227]{Jensen2013a} focus on the impact of poverty on vote buying, while \textcite[84]{Khemani2015} shows that ``vote buying in poor democracies is associated with lower [public] investments.'' While the literature on clientelism has advanced a number of important questions, most studies concentrate their efforts on a single factor, often times (when possible) manipulating just one variable \parencite{Corstange2012a,Imai2014a,Nichter2014a,Hicken2015,Hicken2018,Auerbach2018,Bratton2008a,Weitz-shapiro,GonzalezOcantos2014,Bahamonde2018,Bahamonde2020a,Oliveros2016}.
+
+% 3. This paper contributes to the clientelism literature by situating clientelism within a richer and multidimensional conceptualization of democracy by specifying which specific democratic dimensions, when absent, make clientelism more likely.
+We argue that to better understand the motivations behind clientelism and the micro-dynamics that drive it, studies should situate both vote-buying and vote-selling within the multidimensionality of democracy as a concept. While qualitative researchers are better equipped to properly do so, the are some quantitative techniques that might provide broader explanations for the causes of clientelism. We do not argue that these quantitative tools might give us the kind of rich explanations ethnographies provide. However, we hope this paper might provide multidimensional answers to a multidimensional concept. In particular, \emph{Which of the democratic dimensions explained by \textcite{Dahl1971} should fail to produce clientelism?}
+
+\hyperlink{case}{The next section} gives a historical account of clientelism in the United States. The section also attempts to situate the phenomena within a historical context, at the same time that it justifies it as a case. It particularly shows how vote buying and vote selling transitioned from their status as an important institution in American elections to a scarcely practiced electoral method. \todo{add remaining sections} %The \hyperlink{experimental:design}{following section} explains the experimental design. Immediately \hyperlink{statistical:analyses}{thereafter}, the paper presents the statistical analyses of the experimental data. The last \hyperlink{discussion}{section} offers some working hypotheses and possible lines for future research.
+
+\section{The United States as a Case Study}
+\hypertarget{case}{}
+
+This paper makes both methodological and substantive contributions to the literature by leveraging a conjoint experiment on hypothetical vote selling in a consolidated democracy. 
+Most quantitative studies have been conducted primarily in developing countries, seriously narrowing the scope of our inferences. In part, this is because the clientelism literature usually focuses on realized behaviors only---that is, actual clientelist transactions. Unfortunately, by ignoring attitudes of potential vote sellers, particularly when it comes to the willingness to sell, selection bias seriously threatens causal inferences. \textcite[131]{Geddes1990} explains the well-known selection issues of studying ``only cases that have achieved the outcome of interest.'' Thus, and following the lead of \textcite{GonzalezOcantos2014}, this paper presents experimental evidence of hypothetical vote selling in the United States. 
+
+The evidence that this paper presents may be associated with a probable erosion of American democracy.\footnote{Relatedly, see \textcite{Levitsky:2018aa}.} \textcite[7]{Foa2016a} document a deep ``crisis of democratic legitimacy [that] extends across a [...] wider set of indicators'' in the United States. They find that 26\% of millennials declare that it is ``unimportant'' in a democracy for people to ``choose their leaders in free elections'' (\textcite[10]{Foa2016a}, and \textcite{Foa2017b}). And such, this study follows a ``least-likely'' design presenting the United States as a ``crucial case.'' As \textcite[12]{Levy2008} explains, ``[i]nferential leverage from a least likely case is enhanced if our theoretical priors for the leading alternative explanation make it a most likely case for that theory.'' Since the vote-buying literature mostly considers \emph{developing} countries and describes vote sellers as poor \parencite[12]{Weitz-Shapiro:2014aa}, uneducated \parencite{GonzalezOcantos2014}, and undemocratic \parencite{Carlin2015}, the willingness to sell votes in the United States should be low, making it a difficult case study on vote selling.
+
+ 
+\subsection{Brief Historical Section}
+
+At first, many advanced democracies were clientelist political systems. For instance, \textcite[200]{Stokes:2013cj} explain that in the nineteenth-century United States, ``vote buying was commonplace'' and ``the major urban political institution in the late nineteenth century'' \parencite[2]{Erie:1990aa}. Weak institutions, poor bureaucracies, and bad-quality record-keeping helped to foster electoral malpractice.\footnote{The U.S. Bureau of the Census did not exist. Consequently, it was relatively easy to invent names, ``repeat,'' or use any other subterfuge to ``stuff the ballot box.'' In fact, ``a St. Louis politician admitted registry fraud but argued that there was no proof that the names he copied into the registry were of real people and, therefore, no crime had been committed'' \parencite[680]{Argersinger1985}.} First, most states did not have actual registration laws, making voter eligibility difficult to determine \parencite[672]{Argersinger1985}. Historians frequently report that judges at polling places had a hard time determining not only the age of the potential voter,\footnote{Judges used as a rough proxy whether the prospective voter had the ability to grow a beard \parencite[20]{Bensel:2004aa}.} but also whether the prospective voter was a U.S. citizen, especially in cases that involved newly naturalized immigrants with strong foreign accents \parencite[20]{Bensel:2004aa}. Consequently, it was often up to the judge's discretion whether to let prospective voters cast a ballot. Since judges were party appointees \parencite[672]{Argersinger1985}, their discretionary powers were systematically used to shape electoral outcomes.
+
+The ``party strip'' or ``unofficial'' ballot system also permitted all sorts of fraudulent election practices. The parties themselves produced party tickets. Since tickets varied by size and color, it made ``the voter's choice of party a public act and rendered voters susceptible to various forms of intimidation and influence while facilitating vote buying'' \parencite[672]{Argersinger1985}. Similarly, \textcite[1221]{Rusk1970} explains that distinctive ticket colors and shapes ``assured instant recognition of the ballot by the voters [and] party workers.'' 
+
+The ticket system required very strong party machines, which, in turn, required considerable economic resources to make the system work. However, political machines were oiled not only with money. On the one hand, many ``ticket peddlers'' \parencite[p. 672]{Argersinger1985} were volunteers \parencite[17]{Bensel:2004aa}. Most of these volunteers ``enjoyed the patronage of elected party officials by holding government jobs, drawing public pensions, servicing government contracts, or enjoying special licensing privileges'' \parencite[p. 17]{Bensel:2004aa}. On the other hand, political appointees ``from janitor to secretary of state'' and some corporations donated annually part of their salaries and revenues \parencite[p. 197]{Reynolds1980}. Thus, parties amassed huge amounts of money.
+
+With all these resources flooding the polls on election day, voting was truly an interesting spectacle. On that day, party agents would offer voters plenty of liquor as an incentive to vote the party ticket. Hence, ``the street or square outside the voting window frequently became a kind of alcoholic festival in which many men were clearly and spectacularly drunk [to the point that] some could not remember whether or not they had voted'' \parencite[20]{Bensel:2004aa}. 
 
 
-\section{Classical Conjoint Analyses}
+Today, the \emph{modus operandi} of clientelism has changed, and both the frequency of vote buying/selling and the importance of party machines have declined. Scholars have pointed out that ``party machines are a thing of the past'' \parencite[230]{Stokes:2013cj}. However, some contemporary accounts remain of vote buying and selling in American elections.\footnote{For instance, \textcite[243-244]{Campbell:2005aa} explains how a Democratic leader in Logan County, West Virginia, accepted \$35,000 in cash to support Senator Kennedy. As the Democratic leader explained, ``this money was for one purpose: `We bought votes with it [...] that's the way real politics works.' '' Other examples are the famous primary election in March 1972 in Chicago \parencite[p. 262]{Campbell:2005aa} and the elections in the coal-rich Appalachian Mountains during the 1980s \parencite[p. 275]{Campbell:2005aa}.} Similarly, non-academic sources find that during the 2010 elections, ``selling votes [was a] common type of election fraud'' \parencite{Fahrenthold2012}. Others find that ``[v]ote-buying is extremely common in \emph{developed} [...] countries'' \parencite[1]{Leight2016b}. 
 
-TEST
+
+\todo{explain conjoint here}The next sections attempt to quantify in an unbiased way the willingness to sell votes among a representative sample of U.S. voters. In fact, \textcite[201]{Stokes:2013cj} show that industrialization drove up the electorate's median income, making vote buying more expensive for party machines.\footnote{However, \textcite[320]{Kitschelt2007} disregard the industrialization hypothesis, focusing on the lower levels of ``[s]tate involvement in the public sector.'' }
+
+
+
+
+
+
+
+
+
+
+	\textcite[3]{Dahl1971} conceptualizes polyarchy:
+
+\begin{table}[]
+\centering
+\begin{tabular}{lll}
+\textbf{Dalh's Polyarchy Dimension}                        & \textbf{Dalh's Polyarchy Component}               & \textbf{Experimental Operationalization}               \\
+\multicolumn{1}{c}{\multirow{5}{*}{Formulate preferences}} & Freedom to form and join organizations            & Citizens can associate with others and form groups     \\
+\multicolumn{1}{c}{}                                       & Freedom of expression                             & Media can confront the government                      \\
+\multicolumn{1}{c}{}                                       & Right to vote                                     & Citizens can vote in the next two elections            \\
+\multicolumn{1}{c}{}                                       & Right of political leaders to compete for support & President can rule without Congress                    \\
+\multicolumn{1}{c}{}                                       & Alternative sources of information                & Media can confront the government                      \\
+\multirow{7}{*}{Signify preferences}                       & Freedom to form and join organizations            & Citizens can associate with others and form groups     \\
+                                                           & Freedom of expression                             & Media can confront the government                      \\
+                                                           & Right to vote                                     & Citizens can vote in the next two elections            \\
+                                                           & Eligibility for public office                     & Citizens can run for office for the next two elections \\
+                                                           & Right of political leaders to compete for support & President can rule without Congress                    \\
+                                                           & Alternative sources of information                & Media can confront the Government                      \\
+                                                           & Free and fair elections                           &                                                       
+\end{tabular}
+\caption{My caption}
+\label{my-label}
+\end{table}
+
+
+
+\section{Empirical Section}
+
+\subsection{Classic Conjoint Analyses}
+
+\todo{HB}
+
+\subsection{Leveraging Support Vector Machines with Conjoint Data}
+
+\todo{CQ}
 
 
 % References
@@ -340,6 +431,7 @@ count <- comma(as.numeric(count)) # add comma
 
 
 
+\todo{Es nuestro approach causal inference? Al menos si cumple con 3 assumptions en Hainmueller2014a. Estas son dadas por el diseno del experimento.}
 
 
 
@@ -351,4 +443,83 @@ count <- comma(as.numeric(count)) # add comma
 
 
 \end{document}
+
+% Quantitative studies about vote-buying, vote-selling and clientelism in general, are usually unidimensional. (Income).
+
+``However, the designs that are typically used in survey experiments have an important limitation for analyzing multidimensional decision making.'' Hainmueller2014a 2
+- examples of these studies (Bahamonde manipulates a treatment in a list experiment, GOnzalez ocantos, etc.) ``In this case, only two words differed across the arms of the experiment'' Hainmueller2014a 2
+
+- ``A drawback of this approach, however, is that it forces researchers to examine one component of the treatment at a time. That drawback is a significant one,'' Hainmueller2014a 2
+
+
+	- Carlin2015 measure attitudes towards democracy (in Dahlian terms) creating a series of indexes using survey data. 
+
+	- Carlin2017 uses a Q-Method and Carlin2011a/Carlin2015 a cluster analyses to account for the multifaceted views towards a multidimensional concept, something that linear methods cannot do (Carlin2015, 18). 
+
+
+
+% COnjoints are multidimensional
+``determine which components of the manipulation produce the observed effect'' Hainmueller2014a 2
+`` composite treatment effect'', ``as a tool to identify the causal effects of various compo- nents of a treatment in survey experiments'' Hainmueller2014a 2 
+``The study of politics is to a significant extent the study of multidimensional choices'' Hainmueller2014a 1
+``Introduced in the early 1970s (Green and Rao 1971), conjoint analysis is widely used by marketing researchers to measure consumer preferences, forecast demand, and develop products (e.g., Green, Krieger, and Wind 2001; Raghavarao, Wiley, and Chitturi 2011)'' Hainmueller2014a 2
+``these techniques ask respondents to choose from or rate hypothetical profiles that combine multiple attributes, enabling researchers to estimate the relative influence of each attribute value on the resulting choice or rating. Although the technique has many variants (Raghavarao, Wiley, and Chitturi 2011), more than one such task is typically given to each respondent, with some or all of the attribute values varied from one task to another.'' Hainmueller2014a 2
+
+% Uses of conjoints
+Hainmueller2015: Attitudes toward Immigrants
+Ryan2000: Preferences for Health Care
+Seanehia2017: vaccine decision making by
+Poortinga2003: Preferences for Energy-Saving Measures
+Silayoi2007a: Food packaging
+Hainmueller2015a: Consumer Demand for Fair Trade
+Franchino2015, Horiuchi2017, Horiuchi2020: preferences toward political candidates
+Kuzmanovic2013: evaluations of teaching performance
+Shafranek2019: Roommate Choice
+
+% Advantages of Conjoint
+Decreases social desirability bias ``reduces social desirability bias by providing many potential reasons for supporting or opposing a proposed [housing] development [e.g., for low-income residents'' in Horiuchi2020a, 1 (esta citando a https://www.jchs.harvard.edu/sites/default/files/harvard_jchs_hankinson_2017_renters_behave_like_homeowners_0.pdf, pero es un working paper. solo tomar la idea.), but see Horiuchi2020a
+
+
+% Hainsmuller introduced this technique to political scientists from a Causal Inference perspective
+``Hainmueller2014a introduced conjoint analysis to political science as a survey experimental method for causal inference.'' Horiuchi2020a 1
+``at least 58 articles using conjoint analysis have appeared in top political science journals between 2014 and 2019 (de la Cuesta, Egami and Imai, 2019).'' Horiuchi2020a 1
+``Although the methodological literature on conjoint analysis is old and highly sophisticated Luce1964, it has not been studied explicitly from a contemporary causal inference perspective'' Hainmueller2014a 3
+``In this study, we use the potential outcomes frame- work of causal inference (Neyman 1923; Rubin 1974) to formally analyze the causal properties of conjoint analysis. We define a causal quantity of interest, the average marginal component effect (AMCE)''  Hainmueller2014a 3
+``Our identification result implies that scholars can make inferences about key quantities of
+interest without resorting to functional form assumptions. This stands in stark contrast to most existing statistical approaches to conjoint data in economics and marketing research, which start from a particular behavioral model for respondents’ decision-making processes and fit a statistical model to observed data that is constructed based on the behavioral model'' Hainmueller2014a 3
+``At the same time, our estimators avoid unnecessary statistical assumptions, affording them more internal validity than the more model-dependent procedures typical of prior research on conjoint analysis'' Hainmueller2014a 2
+``Hainmueller, Hopkins and Yamamoto (2014) show that, when attribute levels are randomized independently from one another, the ordinary least squares (OLS) estimates of the coefficients from the linear regression of the choice indicator on the set of dummy variables for the levels of the attributes provide unbiased and consistent estimates of the AMCEs'' Horiuchi2017, 14
+
+% AMCE: Average marginal component effect
+
+``This quantity equals the increase in the population probability that a profile would be chosen if the value of its lth compo- nent were changed from t0 to t1, averaged over all the possible values of the other components given the joint distribution of the profile attributes pðtÞ.'' Hainmueller2014a 11
+
+- Equation 5 , Hainmueller2014a 11
+
+``Note that the linear regression estimator is simply an alternative procedure to compute the subclassification estimator, and there- fore has properties identical to those of the subclassification estimator. This implies that the linear regression estimator is fully nonparametric, even though the estimation is conducted by a routine typically used for a parametric linear regression model.'' Hainmueller2014a 15
+
+OLS and subclasificaiton, and AMCE as non parametric: ``direct implication of the well-known correspondence between sub- classification and linear regression, and so the proof is omitted.'' Hainmueller2014a 15
+
+``a respondent who chooses a high-skilled immigrant over a low-skilled immigrant is likely to make a similar choice when presented with another pair of high- and low-skilled immigrant profiles. Thus, an uncertainty estimate for the estimators of the population AMCE must account for these dependencies across profiles'' Hainmueller2014a 17
+
+clustered std errors: ``For example, one can obtain cluster-robust standard errors for the estimated regression coefficients by using the cluster option in Stata. Then, these standard errors can be used to construct confidence intervals and conduct hypothesis tests for the AMCE based on the expression in Proposition 2. As is well known, these standard errors are valid for population inference when errors in potential outcomes are correlated within clusters (i.e., respondents) in an arbitrary manner, as long as the number of clusters is sufficiently large. Since the latter condition is not problematic in typical survey experiments where the sample includes at least several hundred respondents, we propose that this simple procedure be used in most situations'' Hainmueller2014a 17
+
+but also see the average marginal interaction effect (AMIE) Egami2019
+
+Arbitrary choice of reference category when computing the AMCE might introduce ``highly distorted descriptive interpretations of preferences among subgroups of respondents'' Leeper2020, 6.
+
+% Conjoint outside political science
+- customary in marketing research to assign aribitrary utilities to investigate ``how much difference each attribute could make in the total utility of a product.'' Orme2010 79
+- what's better, rankings or ratings: ``the use of orthogonal arrays, ratings instead of ranks (or raw data), and type of analysis (nonmetric versus metric) exert no appreciable effect on the part worth recov- eries.'' Carmone1978, 301. Louviere2010 60 criticize the use of arbitrary utilities assigned to every attribute, making traditional conjoint analyses incompatible with economic theory. Since traditional conjoints designs exploited the ``additive measurements'' of the utilities associated with the respective attribute (Luce1964, 2), some times this might lead to non-accounted-for nonlinearities.
+- ``it is generally agreed that Luce1964 marks the start of conjoint measurement'' (Green1978,103), (Franchino2015, 4)
+- ``conjoint analysis has evolved as the primary set of techniques employed by both academics and practitioners of marketing research for measuring consumer tradeoffs among multiattri- buted products and services'' Lenk1996 174
+- customary to assign utilities based on assumptions like ``A respondent generally prefers higher gas mileage to lower gas mileage'' Green1978, 107
+- since profiles were not necessarily randomized, the analyst needed to set those in advance. However, the obvious drawback was that analyst could choose only just a limited number of profiles to test. Trying to avoid ``information overload,'' analyst would choose just the minimum number of profiles (Lenk1996, 175)
+
+
+% Levering on Hainmueller2014a, we present  Our approach
+
+- classical analysis forbids ``empty counterfactuals, such as a research scientist with no formal education'' (Hainmueller2014a, 11), but what about ``rare counterfactuals''?
+- tenemos algun elemento de Evgeniou2005, Maldonado, Toubia2007, Grimmer2017 ???
+
 

@@ -276,3 +276,7 @@ TSWLatexianTemp*
 *.lpz
 
 .Rhistory
+
+.DS_Store
+
+Bahamonde_Quininao_Conjoint.tex
