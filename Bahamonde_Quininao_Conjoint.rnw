@@ -200,7 +200,7 @@ We both thank.}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % loading knitr package
 
-<<echo=FALSE, cache= F, warning = FALSE, message = F>>=
+<<echo=FALSE, cache=FALSE, warning = FALSE, message = F>>=
 read_chunk('/Users/hectorbahamonde/research/Conjoint_US/Bahamonde_Quininao_Conjoint.R') # Hector path // MAC
 # read_chunk('Bahamonde_Quininao_Conjoint.R') % Cristobal path
 
@@ -214,7 +214,14 @@ p_load(knitr)
 options(scipen = 99999999999)
 @
 
+<<constructing:data, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
 
+@
+
+
+<<lapop:bar:chart:data, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+
+@
 
 
 <<abstract, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
@@ -256,57 +263,59 @@ options(scipen = 99999999999)
 % 3. This paper contributes to the clientelism literature by situating clientelism within a richer and multidimensional conceptualization of democracy by specifying which specific democratic dimensions, when absent, make clientelism more likely.
 % 4. By incorporating a "Hard case", the paper also overcomes possible sources of selection bias. 
 % 5. The paper also contributes to the literature, particularly, by introducing support vector machine analyses to analyzing willingness to sell votes in the United States.
-% 6. Presenting SPV: derive, present classical analyses of conjoint data.
+% 6. Presenting SVM: derive, present classical analyses of conjoint data.
 
 \section{Multidimensional Approach Toward the Study of Vote-Selling}
 
 % 1. Democracy is a multidimensional concept.
-Democracy has been theorized as a multidimensional concept. Referring particularly to \emph{polyarchies}, \textcite[3]{Dahl1971} explains that among some of the requirements for sustaining a democracy, there must be some institutional guarantees that create opportunities to (1) formulate preferences, (2) signify those preferences, and (3) have preferences weighted equally when conducting a government. Since cases where a country is ``completely or almost completely responsive to all its citizens'' are rare, \textcite[8]{Dahl1971} prefers to use the multidimensional concept of \emph{polyarchy}. 
+Democracy has been theorized as a multidimensional concept. Referring particularly to \emph{polyarchies}, \textcite[3]{Dahl1971} explains that among some of the requirements for sustaining a democracy, there must be some institutional guarantees that create opportunities to (1) formulate preferences, (2) signify those preferences, and (3) have preferences weighted equally when conducting a government. Since cases where countries are ``completely or almost completely responsive to all its citizens'' are rare, \textcite[8]{Dahl1971} prefers to use the multidimensional concept of \emph{polyarchy}. 
 
 % 2. But the study of clientelism---as a kind of democratic failure---usually is unidimensional. The study of specific conditions that have to fail to produce clientelism is usually focused on a single factor. Perhaps the most studied one is income, and how poverty increases the probability of clientelism. 
-Yet, clientelism---as a democratic failure---has been studied almost exclusively from a unidimensional perspective. In fact, we believe that there exists a methodological and conceptual misalignment. On the one hand, qualitative, historical and/or ethnographically based contributions describe clientelist transactions as complex and multidimensional. In general, this body of research leveraging qualitative techniques are able to provide thick descriptions of the phenomena at hand \parencite{Posada-Carbo:1996aa,Sabato2001,Auyero2000,Szwarcberg2013,Borges2019}. On the other hand, statistical, survey, and/or experimentally based work mostly explores singular issues related clientelism, such as the effect of a single variable (or treatment) on the probability of clientelism. For example, using a field experiment in Benin, \textcite{Wantchekon2003} stresses the role of incumbency on vote buying. \textcite[227]{Jensen2013a} focus on the impact of poverty on vote buying, while \textcite[84]{Khemani2015} shows that ``vote buying in poor democracies is associated with lower [public] investments.'' While the literature on clientelism has advanced a number of important questions, most studies concentrate their efforts on a single factor, often times (when possible) manipulating just one variable \parencite{Corstange2012a,Imai2014a,Nichter2014a,Hicken2015,Hicken2018,Auerbach2018,Bratton2008a,Weitz-shapiro,GonzalezOcantos2014,Bahamonde2018,Bahamonde2020a,Oliveros2016}.
+Yet, clientelism---as a democratic failure---has been studied almost exclusively from a unidimensional perspective. In fact, we believe that there exists a methodological and conceptual alignment. On the one hand, qualitative, historical and/or ethnographically based contributions describe clientelist transactions as complex and multidimensional. In general, this body of research leveraging qualitative techniques are able to provide thick descriptions of the phenomena at hand \parencite{Posada-Carbo:1996aa,Sabato2001,Auyero2000,Szwarcberg2013,Borges2019}. On the other hand, statistical, survey, and/or experimentally based work mostly explores singular issues related to clientelism, such as the effect of a single variable (or treatment) on the probability of clientelism. For example, using a field experiment in Benin, \textcite{Wantchekon2003} stresses the role of \emph{incumbency} on vote buying. \textcite[227]{Jensen2013a} focus on the impact of \emph{poverty} on vote buying, while \textcite[84]{Khemani2015} shows that ``vote buying in poor democracies is associated with lower [public] investments.'' While the quantitative literature on clientelism has advanced on a number of important questions, most studies concentrate their efforts on a single factor, often times (when possible) manipulating just one variable \parencite{Corstange2012a,Imai2014a,Nichter2014a,Hicken2015,Hicken2018,Auerbach2018,Bratton2008a,Weitz-shapiro,GonzalezOcantos2014,Bahamonde2018,Bahamonde2020a,Oliveros2016}.
 
 % 3. This paper contributes to the clientelism literature by situating clientelism within a richer and multidimensional conceptualization of democracy by specifying which specific democratic dimensions, when absent, make clientelism more likely.
-We argue that to better understand the motivations behind clientelism and the micro-dynamics that drive it, studies should situate both vote-buying and vote-selling within the multidimensionality of democracy as a concept. While qualitative researchers are better equipped to properly do so, the are some quantitative techniques that might provide broader explanations for the causes of clientelism. We do not argue that these quantitative tools might give us the kind of rich explanations ethnographies provide. However, we hope this paper might provide multidimensional answers to a multidimensional concept. In particular, \emph{Which of the democratic dimensions explained by \textcite{Dahl1971} should fail to produce clientelism?}
+We argue that to better understand the motivations behind clientelism and the micro-dynamics that drive it, studies should situate both vote-buying and vote-selling within the multidimensionality of \emph{democracy} as a concept. While qualitative researchers are better equipped to properly do so, the are some quantitative techniques that might provide broader explanations for the causes of clientelism. We do not argue that these quantitative tools might give us the kind of rich explanations ethnographies provide. However, we hope this paper provides multidimensional answers to a multidimensional concept. In particular, \emph{Which of the three democratic subdimensions explained by \textcite{Dahl1971} should fail to produce clientelism?}
 
-\hyperlink{case}{The next section} gives a historical account of clientelism in the United States. The section also attempts to situate the phenomena within a historical context, at the same time that it justifies it as a case. It particularly shows how vote buying and vote selling transitioned from their status as an important institution in American elections to a scarcely practiced electoral method. \todo{add remaining sections} %The \hyperlink{experimental:design}{following section} explains the experimental design. Immediately \hyperlink{statistical:analyses}{thereafter}, the paper presents the statistical analyses of the experimental data. The last \hyperlink{discussion}{section} offers some working hypotheses and possible lines for future research.
+\hyperlink{case}{The next section} gives a historical account of clientelism in the United States. The section also attempts to situate the phenomena within a historical context, at the same time that it justifies it as a case. It particularly shows how vote buying and vote selling transitioned from their status as an important institution in American elections to a scarcely practiced electoral method. \todo{section's ok. add remaining sections} %The \hyperlink{experimental:design}{following section} explains the experimental design. Immediately \hyperlink{statistical:analyses}{thereafter}, the paper presents the statistical analyses of the experimental data. The last \hyperlink{discussion}{section} offers some working hypotheses and possible lines for future research.
 
 \section{The United States as a Case Study}
 \hypertarget{case}{}
 
 This paper makes both methodological and substantive contributions to the literature by leveraging a conjoint experiment on hypothetical vote selling in a consolidated democracy. 
-Most quantitative studies have been conducted primarily in developing countries, seriously narrowing the scope of our inferences. In part, this is because the clientelism literature usually focuses on realized behaviors only---that is, actual clientelist transactions. Unfortunately, by ignoring attitudes of potential vote sellers, particularly when it comes to the willingness to sell, selection bias seriously threatens causal inferences. \textcite[131]{Geddes1990} explains the well-known selection issues of studying ``only cases that have achieved the outcome of interest.'' Thus, and following the lead of \textcite{GonzalezOcantos2014}, this paper presents experimental evidence of hypothetical vote selling in the United States. 
+Most quantitative studies have been conducted in developing countries, seriously narrowing the scope of our inferences. In part, this is because the clientelism literature usually focuses on realized behaviors only---that is, actual clientelist transactions. Unfortunately, by ignoring attitudes of potential vote sellers, particularly when it comes to the willingness to sell, selection bias seriously threatens causal inferences. \textcite[131]{Geddes1990} explains the well-known selection issues of studying ``only cases that have achieved the outcome of interest.'' Thus, and following the lead of \textcite{GonzalezOcantos2014}, this paper presents experimental evidence of hypothetical willingness to sell the vote in the United States. 
 
-The evidence that this paper presents may be associated with a probable erosion of American democracy.\footnote{Relatedly, see \textcite{Levitsky:2018aa}.} \textcite[7]{Foa2016a} document a deep ``crisis of democratic legitimacy [that] extends across a [...] wider set of indicators'' in the United States. They find that 26\% of millennials declare that it is ``unimportant'' in a democracy for people to ``choose their leaders in free elections'' (\textcite[10]{Foa2016a}, and \textcite{Foa2017b}). And such, this study follows a ``least-likely'' design presenting the United States as a ``crucial case.'' As \textcite[12]{Levy2008} explains, ``[i]nferential leverage from a least likely case is enhanced if our theoretical priors for the leading alternative explanation make it a most likely case for that theory.'' Since the vote-buying literature mostly considers \emph{developing} countries and describes vote sellers as poor \parencite[12]{Weitz-Shapiro:2014aa}, uneducated \parencite{GonzalezOcantos2014}, and undemocratic \parencite{Carlin2015}, the willingness to sell votes in the United States should be low, making it a difficult case study on vote selling.
+The evidence that this paper presents may be associated with a probable erosion of American democracy.\footnote{Relatedly, see \textcite{Levitsky:2018aa}.} \textcite[7]{Foa2016a} document a deep ``crisis of democratic legitimacy [that] extends across a [...] wider set of indicators'' in the United States. They find that 26\% of millennials declare that it is ``unimportant'' in a democracy for people to ``choose their leaders in free elections'' (\textcite[10]{Foa2016a}, and \textcite{Foa2017b}). And such, this study follows a ``least-likely'' design presenting the United States as a ``crucial case.'' As \textcite[12]{Levy2008} explains, ``[i]nferential leverage from a least likely case is enhanced if our theoretical priors for the leading alternative explanation make it a most likely case for that theory.'' Since the vote-buying literature mostly considers \emph{developing} countries and describes vote sellers as poor \parencite[12]{Weitz-Shapiro:2014aa}, uneducated \parencite{GonzalezOcantos2014}, and undemocratic \parencite{Carlin2015}, the willingness to sell votes in the United States should be low, making it a difficult case study on vote selling.\todo{section ok}
 
  
 \subsection{Brief Historical Section}
 
-At first, many advanced democracies were clientelist political systems. For instance, \textcite[200]{Stokes:2013cj} explain that in the nineteenth-century United States, ``vote buying was commonplace'' and ``the major urban political institution in the late nineteenth century'' \parencite[2]{Erie:1990aa}. Weak institutions, poor bureaucracies, and bad-quality record-keeping helped to foster electoral malpractice.\footnote{The U.S. Bureau of the Census did not exist. Consequently, it was relatively easy to invent names, ``repeat,'' or use any other subterfuge to ``stuff the ballot box.'' In fact, ``a St. Louis politician admitted registry fraud but argued that there was no proof that the names he copied into the registry were of real people and, therefore, no crime had been committed'' \parencite[680]{Argersinger1985}.} First, most states did not have actual registration laws, making voter eligibility difficult to determine \parencite[672]{Argersinger1985}. Historians frequently report that judges at polling places had a hard time determining not only the age of the potential voter,\footnote{Judges used as a rough proxy whether the prospective voter had the ability to grow a beard \parencite[20]{Bensel:2004aa}.} but also whether the prospective voter was a U.S. citizen, especially in cases that involved newly naturalized immigrants with strong foreign accents \parencite[20]{Bensel:2004aa}. Consequently, it was often up to the judge's discretion whether to let prospective voters cast a ballot. Since judges were party appointees \parencite[672]{Argersinger1985}, their discretionary powers were systematically used to shape electoral outcomes.
+At first, many advanced democracies were clientelist political systems. For instance, \textcite[200]{Stokes:2013cj} explain that in the nineteenth-century United States, ``vote buying was commonplace'' and ``the major urban political institution in the late nineteenth century'' \parencite[2]{Erie:1990aa}. Poor bureaucracies and bad-quality record-keeping helped to foster electoral malpractice.\footnote{The U.S. Bureau of the Census did not exist. Consequently, it was relatively easy to invent names, ``repeat,'' or use any other subterfuge to ``stuff the ballot box'' \parencite[680]{Argersinger1985}.} First, most states did not have actual registration laws, making voter eligibility difficult to determine \parencite[672]{Argersinger1985}. Historians frequently report that judges at polling places had a hard time determining not only the age of the potential voter, but also whether the prospective voter was a U.S. citizen, especially in cases that involved newly naturalized immigrants with strong foreign accents \parencite[20]{Bensel:2004aa}. For instance, judges used as a rough proxy whether the prospective voter had the ability to grow a beard \parencite[20]{Bensel:2004aa}. Consequently, it was often up to the judge's discretion whether to let prospective voters cast a ballot. Since judges were party appointees \parencite[672]{Argersinger1985}, their discretionary powers were systematically used to shape electoral outcomes.
 
-The ``party strip'' or ``unofficial'' ballot system also permitted all sorts of fraudulent election practices. The parties themselves produced party tickets. Since tickets varied by size and color, it made ``the voter's choice of party a public act and rendered voters susceptible to various forms of intimidation and influence while facilitating vote buying'' \parencite[672]{Argersinger1985}. Similarly, \textcite[1221]{Rusk1970} explains that distinctive ticket colors and shapes ``assured instant recognition of the ballot by the voters [and] party workers.'' 
-
-The ticket system required very strong party machines, which, in turn, required considerable economic resources to make the system work. However, political machines were oiled not only with money. On the one hand, many ``ticket peddlers'' \parencite[p. 672]{Argersinger1985} were volunteers \parencite[17]{Bensel:2004aa}. Most of these volunteers ``enjoyed the patronage of elected party officials by holding government jobs, drawing public pensions, servicing government contracts, or enjoying special licensing privileges'' \parencite[p. 17]{Bensel:2004aa}. On the other hand, political appointees ``from janitor to secretary of state'' and some corporations donated annually part of their salaries and revenues \parencite[p. 197]{Reynolds1980}. Thus, parties amassed huge amounts of money.
-
-With all these resources flooding the polls on election day, voting was truly an interesting spectacle. On that day, party agents would offer voters plenty of liquor as an incentive to vote the party ticket. Hence, ``the street or square outside the voting window frequently became a kind of alcoholic festival in which many men were clearly and spectacularly drunk [to the point that] some could not remember whether or not they had voted'' \parencite[20]{Bensel:2004aa}. 
+The ``party strip'' or ``unofficial'' ballot system also permitted all sorts of fraudulent practices. The parties themselves produced party tickets. Since tickets varied by size and color, it made ``the voter's choice of party a public act and rendered voters susceptible to various forms of intimidation and influence while facilitating vote buying'' \parencite[672]{Argersinger1985}. In addition, the ticket system required very strong party machines, which, in turn, required considerable economic resources to make the system work. However, political machines were oiled not only with money. On the one hand, many ``ticket peddlers'' \parencite[p. 672]{Argersinger1985} were volunteers \parencite[17]{Bensel:2004aa}. Most of these volunteers ``enjoyed the patronage of elected party officials by holding government jobs'' \parencite[p. 17]{Bensel:2004aa}. On the other hand, political appointees ``from janitor to secretary of state'' and some corporations donated annually part of their revenues \parencite[p. 197]{Reynolds1980}. Thus, parties amassed huge amounts of money. With all these resources flooding the polls on election day, voting was truly an interesting spectacle. On that day, party agents would offer voters plenty of liquor as an incentive to vote the party ticket. Hence, ``the street or square outside the voting window frequently became a kind of alcoholic festival in which many men were clearly and spectacularly drunk [to the point that] some could not remember whether or not they had voted'' \parencite[20]{Bensel:2004aa}. 
 
 
-Today, the \emph{modus operandi} of clientelism has changed, and both the frequency of vote buying/selling and the importance of party machines have declined. Scholars have pointed out that ``party machines are a thing of the past'' \parencite[230]{Stokes:2013cj}. However, some contemporary accounts remain of vote buying and selling in American elections.\footnote{For instance, \textcite[243-244]{Campbell:2005aa} explains how a Democratic leader in Logan County, West Virginia, accepted \$35,000 in cash to support Senator Kennedy. As the Democratic leader explained, ``this money was for one purpose: `We bought votes with it [...] that's the way real politics works.' '' Other examples are the famous primary election in March 1972 in Chicago \parencite[p. 262]{Campbell:2005aa} and the elections in the coal-rich Appalachian Mountains during the 1980s \parencite[p. 275]{Campbell:2005aa}.} Similarly, non-academic sources find that during the 2010 elections, ``selling votes [was a] common type of election fraud'' \parencite{Fahrenthold2012}. Others find that ``[v]ote-buying is extremely common in \emph{developed} [...] countries'' \parencite[1]{Leight2016b}. 
+% LAPOP Bar Chart
+<<lapop:bar:chart:plot, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=lapop.bar.chart.p.note, fig.align='center', fig.width=4, fig.height=2,dpi=100 ,cache=FALSE, include = TRUE>>=
 
 
-\todo{explain conjoint here}The next sections attempt to quantify in an unbiased way the willingness to sell votes among a representative sample of U.S. voters. In fact, \textcite[201]{Stokes:2013cj} show that industrialization drove up the electorate's median income, making vote buying more expensive for party machines.\footnote{However, \textcite[320]{Kitschelt2007} disregard the industrialization hypothesis, focusing on the lower levels of ``[s]tate involvement in the public sector.'' }
+@
+
+
+Today, the \emph{modus operandi} of clientelism has changed, and both the frequency of vote buying/selling and the importance of party machines have declined (\autoref{fig:lapop:bar:chart:plot}). Scholars have pointed out that ``party machines are a thing of the past'' \parencite[230]{Stokes:2013cj}. However, some contemporary accounts remain of vote buying and selling in American elections.\footnote{For instance, \textcite[243-244]{Campbell:2005aa} explains how a Democratic leader in Logan County, West Virginia, accepted \$35,000 in cash to support Senator Kennedy. As the Democratic leader explained, ``this money was for one purpose: `We bought votes with it [...] that's the way real politics works.' '' Other examples are the famous primary election in March 1972 in Chicago \parencite[p. 262]{Campbell:2005aa} and the elections in the coal-rich Appalachian Mountains during the 1980s \parencite[p. 275]{Campbell:2005aa}.} Similarly, non-academic sources find that during the 2010 elections, ``selling votes [was a] common type of election fraud'' \parencite{Fahrenthold2012}. Others find that ``[v]ote-buying is extremely common in \emph{developed} [...] countries'' \parencite[1]{Leight2016b}. \emph{While vote-selling and vote-buying seem to have declined, which of the three subdimensions explained by \textcite{Dahl1971} would need to fail to make clientelism more likely?}
+
+
+\todo{section ok}%The next sections attempt to quantify in an unbiased way the willingness to sell votes among a representative sample of U.S. voters. In fact, \textcite[201]{Stokes:2013cj} show that industrialization drove up the electorate's median income, making vote buying more expensive for party machines.\footnote{However, \textcite[320]{Kitschelt2007} disregard the industrialization hypothesis, focusing on the lower levels of ``[s]tate involvement in the public sector.''}
+
+
+\section{Studying Vote-Selling Multidimensionally: Classic and Support Vector Machines Approaches}
+\todo{esta seccion esta work in progress}
+% 1. Explain data
+% 2. Explain experiment.
+% 3. Link with Dahl.
 
 
 
-
-
-
-
-
-
-
-	\textcite[3]{Dahl1971} conceptualizes polyarchy:
-
+\todo{arreglar tabla}
 \begin{table}[]
 \centering
 \begin{tabular}{lll}
@@ -329,12 +338,34 @@ Today, the \emph{modus operandi} of clientelism has changed, and both the freque
 \end{table}
 
 
+% 1. Explain data
+Collected in 2016, the data (N=\Sexpr{total.sample.size.c}) are representative at the national level.\footnote{\Sexpr{total.sample.size.n/(tasks*candidates)} respondents, everyone answering \Sexpr{tasks} with \Sexpr{candidates} each. \emph{Research Now SSI} collected the data between March 2 and March 6. Survey respondents belong to the online panel owned and administered by SSI. Notice of IRB exemption Protocol \#E16-292 is kept on file at the Office of Research and Regulatory Affairs of \fbox{\phantom{Rutgers}} University.}  \autoref{fig:us:map:plot} shows the geographical distribution of survey respondents, grouped by party identification. The experiment was framed as a study about crime in the United States, not as a study about vote selling.\footnote{To isolate the risks and costs associated with engaging in any illegal activity, the next phrase was included: ``assuming you would not go to jail.''} While pretesting the study, it was decided that the experiment needed to mask a very serious felony (selling one's vote) among other equally serious felonies (such as stealing) and other less serious crimes (such as speeding or downloading music illegally from the Internet). Otherwise, the vote-selling item would have stood out among the other items, making it seem totally negative and undoable, and/or making the true purpose of the study obvious.
 
-\section{Empirical Section}
+
+\todo{work in progress}
+See \hyperlink{direct.question}{Appendix} for wording 
+
+To further prevent the possibility of biased answers when asking the direct question to individuals in the treated group, the direct question stated that the hypothetical possibility of doing one of the illegal things mentioned previously in the excerpt would be randomly assigned. However, all participants were directly asked whether they would be interested in selling their vote. Direct answers were then used to estimate the proportion of ``liars.''
+
+
+
+
+%  
+As a follow-up, subjects answering ``yes'' to the direct question answered a pricing test that asked them to indirectly put a price on their votes. Following standard practice in marketing research, participants slid a handle indicating which price was considered ``too cheap'' for one's vote. The slide ranged from \$0 to \$1,000, in one-dollar increments. The idea was to capture the respondent's willingness to sell. The pricing test particularly measures the lowest bound at which the participant would perceive the least economic benefit that was still enough to make selling his/her vote interesting. Moving forward, the list experiment contemplated one control and two possible treatments, each with different vote-selling prices. Since pricing a vote is difficult and based on several pretests, an arbitrarily low (\$100) or an arbitrarily high (\$500) price appeared. Participants randomly assigned to the treatment condition answered only one of these two treatments. More than hard-pricing tests, these two treatments account for possible different elasticities that might have interacted with individual socioeconomic backgrounds, mainly defined by income.\footnote{\textcite[1189]{Holland2015} explain that ``the poor are thought to be more susceptible to vote buying.''}
+
+
+
+
+Before splitting the subject pool into the subjects' respective experimental conditions, participants were asked to read an excerpt describing four illegal activities (including vote selling).\footnote{See \hyperlink{distractor.vignette}{Appendix} for wording.} All were formatted as news pieces. The idea was to explain ``vote selling'' to ``newsreaders.''%\footnote{According to several pre-studies that were conducted, it was noticed that the concept of ``vote selling'' was not common knowledge.}
+
+
 
 \subsection{Classic Conjoint Analyses}
 
+ 
 \todo{HB}
+
+
 
 \subsection{Leveraging Support Vector Machines with Conjoint Data}
 
@@ -361,12 +392,14 @@ Today, the \emph{modus operandi} of clientelism has changed, and both the freque
 
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % WORD COUNT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \newpage
 \pagenumbering{gobble}
+\clearpage
 <<wordcount, echo=FALSE, cache=FALSE>>=
 library(knitr)
 
@@ -423,11 +456,45 @@ count <- comma(as.numeric(count)) # add comma
 \subsection{Appendix}
 
 
+\subsection{Experimental Manipulations and Vignettes}
 
 
-\paragraph{First Appendix} 
+\paragraph{Distractor Paragraph.} \hypertarget{distractor.vignette}{The next paragraph was used to distract subjects} from the main purpose of the study, and also to define vote selling.
+
+\begin{lstlisting}[frame=lrtb]
+Washington, D.C.- A department store downtown had a robbery incident last week, reporting several missing iPods from their inventory. Authorities also inform that a group of local residents are trying to ``sell'' their votes to political candidates ahead of a local election for city council. Residents approached some of the candidates running for office and offered to vote for that candidate in return for monetary compensation. In a different subject matter, the local police station released a report on driving habits and behaviors in the Capitol district last week. Finally, cyber-crime has become an increasingly serious issue in the area in the past few year.
+\end{lstlisting}
+
+% Other wording (Chris Chambers Ju)
+% A close associate of a politician offers to give you $100 for your vote. All you have to do is take a cellphone pic of your marked ballot before you cast it
+
+\newpage
+\paragraph{Direct Question.} \hypertarget{direct.question}{All subjects} read the next paragraph, and then \emph{all} answered the direct question:
+
+\begin{lstlisting}[frame=lrtb]
+Now you will be entered into a random lottery for the opportunity to do ONE of the illegal things you just read before. This means that you might be randomly offered to hypothetically do ANY of the activities mentioned before.
+\end{lstlisting}
 
 
+\begin{lstlisting}[frame=lrtb]
+After a random assignment, you have been selected for the opportunity to hypothetically sell your vote. This means that you will have the hypothetical opportunity to accept money from a candidate for your vote. Would you be willing to accept the offer, assuming you would not go to jail? By selecting ``Yes,'' you could earn up to $\dollar$1,000.
+\end{lstlisting}
+\vspace*{\fill}
+\pagebreak
+
+
+
+
+
+\newpage
+\subsection{Geographical Distribution of Survey Respondents}
+
+% barplot:figure:control:treatment
+<<us:map:plot, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap='Geographical Distribution of Survey Respondents by Party Identification.', fig.align='center', fig.width=6, fig.height=4,dpi=1000 ,cache=FALSE>>=
+
+
+@
+\pagebreak
 
 
 

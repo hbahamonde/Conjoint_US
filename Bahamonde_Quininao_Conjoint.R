@@ -3,10 +3,6 @@
 ##############################
 
 ## ---- constructing:data
-cat("\014")
-rm(list=ls())
-
-
 # Load the data
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
 p_load(foreign)
@@ -342,6 +338,12 @@ attr(d,"codebook") <- as.list(as.character(
 # call codebook
 attr(d, "codebook")
 
+# total.sample.size
+total.sample.size.c = as.character(formatC(c(nrow(d)), format="d", big.mark=","))
+total.sample.size.n = nrow(d)
+tasks = 5
+candidates = 2
+
 # Saving Data
 save(d, file = "mergedconjoint.RData")
 ## ----
@@ -361,9 +363,9 @@ save(d, file = "mergedconjoint.RData")
 ###############################################
 
 ## ---- lapop:bar:chart:data ----
-# cat("\014")
-# rm(list=ls())
-datLAPOP = read.dta("https://github.com/hbahamonde/Conjoint_US/raw/master/datLAPOP.rdata")
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+p_load(foreign)
+datLAPOP = read.dta("https://github.com/hbahamonde/Conjoint_US/raw/master/datLAPOP.dta")
 clientelism = datLAPOP$clien1
 clientelism <- factor(clientelism, labels = c("Often", "Sometimes", "Never"))
 clientelism <- na.omit(clientelism)
@@ -422,30 +424,8 @@ lapop.bar.chart.p.note <- paste(
 ######################################################
 
 ## ---- us:map:plot ----
-
-# Load Data
-if (!require("pacman")) install.packages("pacman"); library(pacman) 
-p_load(RCurl)
-myfile <- getURL("https://github.com/hbahamonde/Conjoint_US/raw/master/dat_list.RData")
-
-
-## Map of Observations
-
-# install package zipcode from source when I run this script during January 2020.
-## zipcode was removed from R, and last version (bellow installed) is 1.0 (dated 2012).
-install.packages("https://cran.r-project.org/src/contrib/Archive/zipcode/zipcode_1.0.tar.gz", repos=NULL, type="source")
-
-
-# plyr is dicontinued/retired as it January 2020. Hence, I'll be installing from source
-# install.packages("https://cran.r-project.org/src/contrib/plyr_1.8.6.tar.gz", repos=NULL, type="source")
-# if (!require("pacman")) install.packages("pacman"); library(pacman) 
-# p_load(plyr)
-
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
 p_load(zipcode,ggplot2,ggmap)
-# install.packages("ggmap", type = "source")library(ggmap) # if it gives the following error ("Error: GeomRasterAnn was built with an incompatible version of ggproto"), install ggmap from source.
-
-
 
 data(zipcode)
 zipcode <- zipcode[c("zip", "latitude", "longitude")]
