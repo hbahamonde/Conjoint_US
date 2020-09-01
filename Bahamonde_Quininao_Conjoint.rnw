@@ -174,8 +174,8 @@ headpunct=:
 We both thank.}}
 
 
-\affil[1]{Assistant Professor, Instituto de Ciencias Sociales, O$'$Higgins University (Chile)}
-\affil[2]{Assistant Professor, Instituto de Ciencias de la Ingenier\'ia O$'$Higgins University (Chile)}
+\affil[1]{Assistant Professor, Instituto de Ciencias Sociales, O$'$Higgins University}
+\affil[2]{Assistant Professor, Instituto de Ciencias de la Ingenier\'ia O$'$Higgins University}
 
 
 \date{\today}
@@ -212,6 +212,7 @@ chooseCRANmirror(graphics=FALSE, ind=1)
 if (!require("pacman")) install.packages("pacman"); library(pacman)
 p_load(knitr)
 options(scipen = 99999999999)
+
 @
 
 <<constructing:data, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
@@ -397,10 +398,7 @@ Before splitting the subject pool into the subjects' respective experimental con
 % WORD COUNT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\newpage
-\pagenumbering{gobble}
-\clearpage
-<<wordcount, echo=FALSE, cache=FALSE>>=
+<<wordcount, echo=FALSE, cache=FALSE, warning=FALSE>>=
 library(knitr)
 
 comma <- function (x, ...) {
@@ -461,7 +459,7 @@ count <- comma(as.numeric(count)) # add comma
 
 \paragraph{Distractor Paragraph.} \hypertarget{distractor.vignette}{The next paragraph was used to distract subjects} from the main purpose of the study, and also to define vote selling.
 
-\begin{lstlisting}[frame=lrtb]
+\begin{lstlisting}[frame=lrtb, breaklines=true, breakatwhitespace=true]
 Washington, D.C.- A department store downtown had a robbery incident last week, reporting several missing iPods from their inventory. Authorities also inform that a group of local residents are trying to ``sell'' their votes to political candidates ahead of a local election for city council. Residents approached some of the candidates running for office and offered to vote for that candidate in return for monetary compensation. In a different subject matter, the local police station released a report on driving habits and behaviors in the Capitol district last week. Finally, cyber-crime has become an increasingly serious issue in the area in the past few year.
 \end{lstlisting}
 
@@ -471,13 +469,13 @@ Washington, D.C.- A department store downtown had a robbery incident last week, 
 \newpage
 \paragraph{Direct Question.} \hypertarget{direct.question}{All subjects} read the next paragraph, and then \emph{all} answered the direct question:
 
-\begin{lstlisting}[frame=lrtb]
+\begin{lstlisting}[frame=lrtb, breaklines=true, breakatwhitespace=true]
 Now you will be entered into a random lottery for the opportunity to do ONE of the illegal things you just read before. This means that you might be randomly offered to hypothetically do ANY of the activities mentioned before.
 \end{lstlisting}
 
 
-\begin{lstlisting}[frame=lrtb]
-After a random assignment, you have been selected for the opportunity to hypothetically sell your vote. This means that you will have the hypothetical opportunity to accept money from a candidate for your vote. Would you be willing to accept the offer, assuming you would not go to jail? By selecting ``Yes,'' you could earn up to $\dollar$1,000.
+\begin{lstlisting}[frame=lrtb, breaklines=true, breakatwhitespace=true]
+After a random assignment, you have been selected for the opportunity to hypothetically sell your vote. This means that you will have the hypothetical opportunity to accept money from a candidate for your vote. Would you be willing to accept the offer, assuming you would not go to jail? By selecting ``Yes,'' you could earn up to $ 1,000.
 \end{lstlisting}
 \vspace*{\fill}
 \pagebreak
