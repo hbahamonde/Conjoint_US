@@ -138,8 +138,8 @@ headpunct=:
 \usepackage[backend=biber,style=authoryear,dashed=false,doi=false,isbn=false,url=false,arxiv=false]{biblatex}
 %\DeclareLanguageMapping{american}{american-apa}
 \addbibresource{Bahamonde_Quininao_Conjoint.bib} 
-\addbibresource{/Users/hectorbahamonde/Bibliografia_PoliSci/library.bib} 
-\addbibresource{/Users/hectorbahamonde/Bibliografia_PoliSci/Bahamonde_BibTex2013.bib} 
+%\addbibresource{/Users/hectorbahamonde/Bibliografia_PoliSci/library.bib} 
+%\addbibresource{/Users/hectorbahamonde/Bibliografia_PoliSci/Bahamonde_BibTex2013.bib} 
 
 % USAGES
 %% use \textcite to cite normal
@@ -268,7 +268,7 @@ Yet, clientelism---as a democratic failure---has been studied almost exclusively
 % 3. This paper contributes to the clientelism literature by situating clientelism within a richer and multidimensional conceptualization of democracy by specifying which specific democratic dimensions, when absent, make clientelism more likely.
 We argue that to better understand the motivations behind clientelism and the micro-dynamics that drive it, studies should situate the phenomena within the multidimensionality of \emph{democracy}. While qualitative researchers are better equipped to properly do so, the are some quantitative techniques that might provide broader explanations for the causes of clientelism. We do not argue that these quantitative tools might give us the kind of rich explanations ethnographies provide. However, we hope this paper provides multidimensional answers to a multidimensional concept. Ultimately, this paper tries to provide a multidimensional explanation for clientelism within the ``effects of causes'' approach. Exploiting a novel conjoint dataset, this paper developed an experimental designs which sough to answer \emph{which of the three democratic subdimensions explained by \textcite{Dahl1971} should fail to produce clientelism?} 
 
-\todo{summarize methods, findings and contribution, the paper continues as follows. 1 parapgrah}
+\todo{hb: summarize methods, findings and contribution, the paper continues as follows. 1 parapgrah}
 
 
 %\hyperlink{case}{The next section} gives a historical account of clientelism in the United States. The section also attempts to situate the phenomena within a historical context, at the same time that it justifies it as a case. It particularly shows how vote buying transitioned from their status as an important institution in American elections to a scarcely practiced electoral method. \todo{add remaining sections} %The \hyperlink{experimental:design}{following section} explains the experimental design. Immediately \hyperlink{statistical:analyses}{thereafter}, the paper presents the statistical analyses of the experimental data. The last \hyperlink{discussion}{section} offers some working hypotheses and possible lines for future research.
@@ -412,7 +412,7 @@ The conjoint experiment was framed as a study about crime in the United States, 
 
 @
 
-\todo{analyze figure 2 briefly}
+\todo{hb: analyze figure 2 briefly}
 
 
 
