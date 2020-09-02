@@ -463,6 +463,221 @@ ggmap(map) + geom_point(aes(
 ## ----
 
 
+
+
+
+############################## 
+# CONJOINT Experiment DATA ANALYSES
+##############################
+cat("\014")
+rm(list=ls())
+
+# Load Data
+load("/Users/hectorbahamonde/research/Conjoint_US/mergedconjoint.RData") # Load data
+
+## ---- amce:plot:d ----
+
+# example script to implement estimators of Average Marginal Component Effects (ACMEs) for Conjoint Data
+# developed in :
+# Causal Inference in Conjoint Analysis:
+# Understanding Multidimensional Choices via Stated Preference Experiments
+# Jens Hainmueller, Daniel Hopkins, Teppei Yamamoto
+
+# function that does clustered SEs
+vcovCluster <- function(
+        model,
+        cluster
+)
+{
+        require(sandwich)
+        require(lmtest)
+        if(nrow(model.matrix(model))!=length(cluster)){
+                stop("check your data: cluster variable has different N than model")
+        }
+        M <- length(unique(cluster))
+        N <- length(cluster)           
+        K <- model$rank   
+        if(M<50){
+                warning("Fewer than 50 clusters, variances may be unreliable (could try block bootstrap instead).")
+        }
+        dfc <- (M/(M - 1)) * ((N - 1)/(N - K))
+        uj  <- apply(estfun(model), 2, function(x) tapply(x, cluster, sum));
+        rcse.cov <- dfc * sandwich(model, meat = crossprod(uj)/N)
+        return(rcse.cov)
+}
+
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+p_load(lmtest,sandwich,msm)
+
+############################## 
+# Selected Candidate
+##############################
+
+# make outcome numeric
+d$selected <- as.numeric(d$selected)
+
+# make treatments factors
+d$at.run = as.factor(d$at.run)
+d$at.asso = as.factor(d$at.asso)
+d$at.press = as.factor(d$at.press)
+d$at.presaut = as.factor(d$at.presaut)
+d$at.vote = as.factor(d$at.vote)
+
+
+# change reference ctegories // Reference is DEMOCRATIC value, so we see the effect of UNDEMOCRATIC treat on being elected.
+d <- within(d, at.run <- relevel(at.run, ref = "Citizens CAN run for office for the next two elections" ))
+d <- within(d, at.asso <- relevel(at.asso, ref = "Citizens CAN associate with others and form groups"))
+d <- within(d, at.press <- relevel(at.press, ref = "Media CAN confront the Government"))
+d <- within(d, at.presaut <- relevel(at.presaut, ref = "President CANNOT rule without Congress"))
+d <- within(d, at.vote <- relevel(at.vote, ref = "Citizens CAN vote in the next two elections"))
+
+model.1 = lm(selected ~ at.run, data=d)
+model.2 = lm(selected ~ at.asso, data=d)
+model.3 = lm(selected ~ at.press, data=d)
+model.4 = lm(selected ~ at.presaut, data=d)
+model.5 = lm(selected ~ at.vote, data=d)
+
+acme.1 = coeftest(model.1, vcov = vcovCluster(model.1, cluster = d$idnum))
+acme.2 = coeftest(model.2, vcov = vcovCluster(model.2, cluster = d$idnum))
+acme.3 = coeftest(model.3, vcov = vcovCluster(model.3, cluster = d$idnum))
+acme.4 = coeftest(model.4, vcov = vcovCluster(model.4, cluster = d$idnum))
+acme.5 = coeftest(model.5, vcov = vcovCluster(model.5, cluster = d$idnum))
+
+
+
+############################## 
+# Vote Selling
+##############################
+
+d2 = d
+
+# make outcome numeric
+d2$vote.selling <- as.numeric(d2$vote.selling)
+
+# make treatments factors
+d2$at.run = as.factor(d2$at.run)
+d2$at.asso = as.factor(d2$at.asso)
+d2$at.press = as.factor(d2$at.press)
+d2$at.presaut = as.factor(d2$at.presaut)
+d2$at.vote = as.factor(d2$at.vote)
+
+
+# change reference ctegories // Reference is DEMOCRATIC value, so we see the effect of UNDEMOCRATIC treat on being elected.
+d2 <- within(d2, at.run <- relevel(at.run, ref = "Citizens CAN run for office for the next two elections" ))
+d2 <- within(d2, at.asso <- relevel(at.asso, ref = "Citizens CAN associate with others and form groups"))
+d2 <- within(d2, at.press <- relevel(at.press, ref = "Media CAN confront the Government"))
+d2 <- within(d2, at.presaut <- relevel(at.presaut, ref = "President CANNOT rule without Congress"))
+d2 <- within(d2, at.vote <- relevel(at.vote, ref = "Citizens CAN vote in the next two elections"))
+
+model.1.2 = lm(vote.selling ~ at.run, data=d2)
+model.2.2 = lm(vote.selling ~ at.asso, data=d2)
+model.3.2 = lm(vote.selling ~ at.press, data=d2)
+model.4.2 = lm(vote.selling ~ at.presaut, data=d2)
+model.5.2 = lm(vote.selling ~ at.vote, data=d2)
+
+acme.1.2 = coeftest(model.1.2, vcov = vcovCluster(model.1.2, cluster = d2$idnum))
+acme.2.2 = coeftest(model.2.2, vcov = vcovCluster(model.2.2, cluster = d2$idnum))
+acme.3.2 = coeftest(model.3.2, vcov = vcovCluster(model.3.2, cluster = d2$idnum))
+acme.4.2 = coeftest(model.4.2, vcov = vcovCluster(model.4.2, cluster = d2$idnum))
+acme.5.2 = coeftest(model.5.2, vcov = vcovCluster(model.5.2, cluster = d2$idnum))
+
+
+############################## 
+# DF AMCE
+##############################
+
+acme.d <- data.frame(
+        coefficients = c(
+                # Candidate Selected
+                acme.1[2], 
+                acme.2[2],
+                acme.3[2],
+                acme.4[2],
+                acme.5[2],
+                # Vote Selling 
+                acme.1.2[2],
+                acme.2.2[2],
+                acme.3.2[2],
+                acme.4.2[2],
+                acme.5.2[2]),
+        se = c(
+                # Candidate Selected
+                acme.1[4], 
+                acme.2[4],
+                acme.3[4],
+                acme.4[4],
+                acme.5[4],
+                # Vote Selling
+                acme.1.2[4],
+                acme.2.2[4],
+                acme.3.2[4],
+                acme.4.2[4],
+                acme.5.2[4]),
+        variable = c(
+                # Candidate Selected
+                "Citizens CANNOT run for office for the next two elections", 
+                "Citizens CANNOT associate with others and form groups",
+                "Media CANNOT confront the Government",
+                "President CAN rule without Congress",
+                "Citizens CANNOT vote in the next two elections",
+                # Vote Selling
+                "Citizens CANNOT run for office for the next two elections", 
+                "Citizens CANNOT associate with others and form groups",
+                "Media CANNOT confront the Government",
+                "President CAN rule without Congress",
+                "Citizens CANNOT vote in the next two elections"),
+        Model = c(rep("Candidate Selected", 5), rep("Vote Selling", 5))
+        )
+
+
+acme.d$upper <- acme.d$coefficient + 1.96*acme.d$se
+acme.d$lower <- acme.d$coefficient - 1.96*acme.d$se
+
+
+
+
+
+# Plot
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+p_load(ggplot2)
+
+amce.plot = ggplot() + geom_hline(yintercept = 0, colour = gray(1/2), lty = 2) + 
+        geom_pointrange(data=acme.d, 
+                        mapping=aes(x=variable, 
+                                    y=coefficients, 
+                                    ymin=upper, 
+                                    ymax=lower,
+                                    colour = Model),
+                        shape=22, 
+                        fill = "WHITE") +
+        coord_flip() + 
+        xlab("") + 
+        ylab("Coefficient") +
+        theme_bw() +
+        theme(axis.text.y = element_text(size=9), 
+              axis.text.x = element_text(size=9), 
+              axis.title.y = element_text(size=9), 
+              axis.title.x = element_text(size=9), 
+              legend.text=element_text(size=9), 
+              legend.title=element_text(size=9),
+              plot.title = element_text(size=9),
+              legend.position="bottom")
+## ---- 
+
+
+## ---- amce:plot ----
+### calling plot
+amce.plot
+### defining legend, title and notes.
+amce.plot.note <- paste(
+        "{\\bf Classic AMCE Analyses: Candidate Selection and Vote Selling Models}.",
+        "\\\\\\hspace{\\textwidth}", 
+        paste("{\\bf Note}: Following \\textcite{Hainmueller2014a}, the figure shows the corresponding AMCEs for every of the attributes explained \\autoref{tab:dim}. These attributes were based on \\textcite{Dahl1971}."),
+        "\n")
+## ----
+
+
+
 ################
 #### ABSTRACT
 ################
