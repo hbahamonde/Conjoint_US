@@ -1,1 +1,1 @@
-Vote Selling in the United States: Introducing Machine Learning Methods to Analyzing Conjoint Experimental Data
+Vote Selling in the United States: Introducing Support Vector Machine Methods to Analyzing Conjoint Experimental Data
