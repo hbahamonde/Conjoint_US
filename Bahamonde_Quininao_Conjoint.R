@@ -473,8 +473,8 @@ cat("\014")
 rm(list=ls())
 
 # Load Data
-load("/Users/hectorbahamonde/research/Conjoint_US/mergedconjoint.RData") # Load data
-
+#load("/Users/hectorbahamonde/research/Conjoint_US/mergedconjoint.RData") # Load data
+load("~/Documents/GitHub/Conjoint_US/mergedconjoint.RData") # Load data
 ## ---- amce:plot:d ----
 
 # example script to implement estimators of Average Marginal Component Effects (ACMEs) for Conjoint Data
