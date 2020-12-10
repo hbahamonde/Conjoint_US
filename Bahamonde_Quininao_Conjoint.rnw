@@ -168,7 +168,6 @@ headpunct=:
 
 \textsc{Cristobal Quininao}
 \thanks{\href{mailto:cristobal.quininao@uoh.cl}{cristobal.quininao@uoh.cl}; 
-\href{https://www.uoh.cl}{\texttt{PAGINA AQUI}}. \\
 \href{https://www.uoh.cl}{\texttt{cquininao.wordpress.com}}. \\
 We both thank.}}
 
