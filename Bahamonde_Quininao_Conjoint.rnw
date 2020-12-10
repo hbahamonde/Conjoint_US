@@ -168,7 +168,7 @@ headpunct=:
 
 \textsc{Cristobal Quininao}
 \thanks{\href{mailto:cristobal.quininao@uoh.cl}{cristobal.quininao@uoh.cl}; 
-\href{https://www.uoh.cl}{\texttt{cquininao.wordpress.com}}. \\
+\href{https://www.uoh.cl}{\texttt{PAGINA AQUI}}. \\
 We both thank.}}
 
 
@@ -181,8 +181,8 @@ We both thank.}}
 %----------------------------------------------------------------------------------------
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
-\Sweave2knitr("Bahamonde_Quininao_Conjoint.rnw")
+%\SweaveOpts{concordance=TRUE}
+% Sweave2knitr("Bahamonde_Quininao_Conjoint.rnw")
 \pagenumbering{gobble} 
 
 
@@ -199,15 +199,19 @@ We both thank.}}
 % loading knitr package
 
 <<echo=FALSE, cache=FALSE, warning = FALSE, message = F>>=
-#read_chunk('/Users/hectorbahamonde/research/Conjoint_US/Bahamonde_Quininao_Conjoint.R') # Hector path // MAC
+read_chunk('/Users/hectorbahamonde/research/Conjoint_US/Bahamonde_Quininao_Conjoint.R') # Hector path // MAC
+# read_chunk('Bahamonde_Quininao_Conjoint.R') % Cristobal path
+
+@
+
+
+<<rsetup, include=FALSE>>=
 chooseCRANmirror(graphics=FALSE, ind=1)
 if (!require("pacman")) install.packages("pacman"); library(pacman)
 p_load(knitr)
 options(scipen = 99999999999)
-read_chunk('~/Documents/GitHub/Conjoint_US/Bahamonde_Quininao_Conjoint.R') # Cristobal path
-@
 
-<<rsetup, include=FALSE>>=@
+@
 
 <<constructing:data, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
 
