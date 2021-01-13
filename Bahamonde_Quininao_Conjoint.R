@@ -423,7 +423,7 @@ lapop.bar.chart.p.note <- paste(
 # Descriptive Maps
 ######################################################
 
-## ---- us:map:plot ----
+## ---- us:map:plot:d ----
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
 p_load(zipcode,ggplot2,ggmap)
 
@@ -436,7 +436,7 @@ map <- get_stamenmap(us, zoom = 4, maptype = "toner-lite", scale = 2, format = "
 levels(dat$partyid)[levels(dat$partyid)=="SomethingElse"] <- "Something Else"
 
 
-ggmap(map) + geom_point(aes(
+us.map = ggmap(map) + geom_point(aes(
         x = longitude,
         shape=partyid,
         y = latitude), 
@@ -446,23 +446,31 @@ ggmap(map) + geom_point(aes(
         data = dat) +
         xlab("Longitude") + 
         ylab("Latitude") +
-        theme_bw() +
-        labs(color='') +
+        #labs(color='') +
         #scale_colour_manual(values=c("blue", "red", "forestgreen", "cyan1")) +
-        scale_color_grey() +
+        # scale_color_grey() +
         theme_bw() +
         theme(axis.text.y = element_text(size=7), 
               axis.text.x = element_text(size=7), 
               axis.title.y = element_text(size=7), 
               axis.title.x = element_text(size=7), 
               legend.text=element_text(size=7), 
-              legend.title=element_text(size=7),
+              legend.title=element_blank(),
               plot.title = element_text(size=7),
               legend.position="bottom")
-
 ## ----
 
 
+## ---- us:map:plot ----
+### calling plot
+us.map
+### defining legend, title and notes.
+us.map.note <- paste(
+        "{\\bf Geographical Distribution of Survey Respondents by Party Identification}.",
+        "\\\\\\hspace{\\textwidth}", 
+        paste("{\\bf Note}: The data (N=",total.sample.size.c,") were collected by \\emph{Research Now SSI} between March 2 and March 6 2016 and are representative at the national level. Survey respondents belong to the online panel owned and administered by SSI.", sep = ""),
+        "\n")
+## ----
 
 
 
@@ -616,7 +624,7 @@ amce.plot
 amce.plot.note <- paste(
         "{\\bf Classic AMCE Analysis: Candidate Selection and Dahl's Democratic Dimensions}.",
         "\\\\\\hspace{\\textwidth}", 
-        paste("{\\bf Note}: Following \\textcite{Hainmueller2014a}, the figure shows the corresponding AMCEs for every of the attributes explained \\autoref{tab:dim}. All attributes based on \\textcite{Dahl1971}. All reference categories were omitted---all of them are at the 0 vertical line."),
+        paste("{\\bf Note}: Following \\textcite{Hainmueller2014a}, the figure shows the corresponding AMCEs for every of the attributes explained \\autoref{tab:dim}. All attributes based on \\textcite{Dahl1971}. All reference categories were omitted---all of them are at the 0 vertical line and represent the opposite of the attribute shown in the plot. The figure strongly suggests that respondents systematically preferred hypothetical candidates who supported democratic policies."),
         "\n")
 ## ----
 
@@ -626,9 +634,12 @@ amce.plot.note <- paste(
 cat("\014")
 rm(list=ls())
 
+
+## ---- w:analyses:d ----
+
 # Load the data
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
-p_load(openxlsx)
+p_load(openxlsx,texreg)
 
 options(scipen=9999999) # turn off sci not
 w = read.xlsx("https://github.com/hbahamonde/Conjoint_US/raw/master/w.xlsx") # loads data
@@ -655,48 +666,22 @@ dat.w = subset(dat.w, select = c(idnum,w1,w2,w3,w4,w5,woman,socideo,partyid,reg,
 dat.w$partyid <- relevel(as.factor(dat.w$partyid), ref = 3) # partyid is factor. change reference category to ind
 
 
-# Density Plots
-p_load(ggplot2)
-
-## gender
-ggplot(dat.w, aes(x=w1, fill=as.factor(woman))) + geom_density(alpha=0.4) # w1
-ggplot(dat.w, aes(x=w2, fill=as.factor(woman))) + geom_density(alpha=0.4) # w2
-ggplot(dat.w, aes(x=w3, fill=as.factor(woman))) + geom_density(alpha=0.4) # w3
-ggplot(dat.w, aes(x=w4, fill=as.factor(woman))) + geom_density(alpha=0.4) # w4
-ggplot(dat.w, aes(x=w5, fill=as.factor(woman))) + geom_density(alpha=0.4) # w5
-
-
-## vote.selling
-ggplot(dat.w, aes(x=w1, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w1
-ggplot(dat.w, aes(x=w2, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w2
-ggplot(dat.w, aes(x=w3, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w3
-ggplot(dat.w, aes(x=w4, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w4
-ggplot(dat.w, aes(x=w5, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w5
-
-
-## partyid
-ggplot(dat.w, aes(x=w1, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w1
-ggplot(dat.w, aes(x=w2, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w2
-ggplot(dat.w, aes(x=w3, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w3
-ggplot(dat.w, aes(x=w4, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w4
-ggplot(dat.w, aes(x=w5, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w5
-
 # OLS
 
 ## define iv's
 independent.variables = paste0('vote.selling + woman + as.factor(partyid) + socideo + educ.n + polknow + reg + trustfed + income.n')
 
 ## fit models
-m1 = summary(lm(paste('w3 ~ ', independent.variables), dat.w)) # Press
+m1 = summary(lm(paste('w3 ~ ', independent.variables), dat.w)) # Media
 m2 = summary(lm(paste('w4 ~ ', independent.variables), dat.w)) # Pres. Autonomy
 m3 = summary(lm(paste('w5 ~ ', independent.variables), dat.w)) # Vote
-m4 = summary(lm(paste('w1 ~ ', independent.variables), dat.w)) # Run
+m4 = summary(lm(paste('w1 ~ ', independent.variables), dat.w)) # Run for Office
 m5 = summary(lm(paste('w2 ~ ', independent.variables), dat.w)) # Association
+## ----
 
-# make a table
-p_load(texreg)
-screenreg(list(m1,m2,m3,m4,m5), custom.model.names=c("Press", "Pres. Autonomy", "Vote", "Run", "Association"))
-
+## ---- w:analyses:t ----
+texreg(list(m1,m2,m3,m4,m5), custom.model.names=c("Free Media", "Pres. Autonomy", "Right to Vote", "Right to Run for Office", "Right to Associate"), custom.note= c("Every column represents each of \\textcite{Dahl1971} democracy dimensions. All models are OLS."))
+## ----
 
 ################
 #### ABSTRACT

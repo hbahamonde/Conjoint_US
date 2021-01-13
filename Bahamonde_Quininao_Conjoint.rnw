@@ -169,7 +169,7 @@ headpunct=:
 \textsc{Cristobal Quininao}
 \thanks{\href{mailto:cristobal.quininao@uoh.cl}{cristobal.quininao@uoh.cl}; 
 \href{https://www.uoh.cl}{\texttt{PAGINA AQUI}}. \\
-We both thank.}}
+This project was funded by the Center for \fbox{\phantom{the Experimental Study of Psychology and Politics}} at \fbox{\phantom{Rutgers University---New Brunswick}}. We both thank Richard Lau and David Redlawsk for their comments and suggestions.}}
 
 
 \affil[1]{Assistant Professor, Instituto de Ciencias Sociales, O$'$Higgins University}
@@ -222,10 +222,18 @@ options(scipen = 99999999999)
 
 @
 
+<<us:map:plot:d, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+
+@
+
+
 <<amce:plot:d, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
 
 @
 
+<<w:analyses:d, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+
+@
 
 <<abstract, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
 
@@ -381,17 +389,6 @@ Our contribution builds directly on \textcite{Carlin2011a,Carlin2015,Carlin2017}
 % Our conjoint
 Conjoint designs are suitable tools to ``determine which components of the manipulation produce the observed effect'' \parencite[2]{Hainmueller2014a}. \autoref{tab:dim} specifies three general dimensions that should be satisfied for a country to be considered a democracy \parencite{Dahl1971}. Every dimension has a number of requirements. In order to operationalize \textcite{Dahl1971}'s requirements, we devised for the conjoint experiment five attributes that reflected these requirements: (1) \emph{media can confront the government}, (2) \emph{president cannot rule without congress}, (3) \emph{citizens can vote in the next two elections}, (4) \emph{citizens can run for office for the next two elections} and (5) \emph{citizens can associate with others and form groups}. Given that conjoint designs are able ``to identify the causal effects of various components of a treatment in survey experiments'' \parencite[2]{Hainmueller2014a}, we claim that this is an appropriate tool to shed some light on the multi-causal study of clientelism. 
 
-% the design: possible problems of unlikely scenarios
-To study which democratic dimension(s) should fail to produce clientelism, we presented subjects (as in \autoref{tab:conj:ex}) two hypothetical candidates that supported (or not) every policy (attribute)---as operationalized in \autoref{tab:dim}. We recognize that the resulting candidate profiles are highly unlikely. Unlikely profiles (such as doctors with no education) have been a big concern in the conjoint literature. So far the suggestion has been to delete them before hand by restricting randomization of certain unlikely profiles \parencite{Hainmueller2014a} or by marginalizing ``factors over the target population distribution'' via the population AMCE \parencite[12]{Cuesta2020}. While acknowledging the advantages of both approaches, our goal is identifying a set of democratic attributes that, when absent, make clientelism more likely. In fact, external validity seems to be the trade-off when building a case study according to the \emph{least}-likely case design \parencite{Levy2008}. In addition, one of the methodological contributions of this paper is to overcome selection bias by studying \emph{hypothetical} behaviors, specially the ones where the outcome of interest has not been produced \parencite{Geddes1990}. And finally, there are several survey experiments that have fielded hypothetical questions, mostly putting respondents in experimental conditions that do not necessarily mimic reality. For instance, \textcite{Bahamonde2020a} finds that a big portion of U.S. voters would be willing to sell their vote to an hypothetical candidate in exchange for money, while \textcite{Ballard-Rosa2017} examine a number of tax proposals ``that are infeasible in the real world politics'' \parencite[5]{Cuesta2020}. Nonetheless, in order to minimize possible concerns of external validity, survey participants were asked to choose \emph{which candidate represented the lesser of the two evils} for them. 
-
-\autoref{tab:conj:ex} shows one possible realization of the experiment. It is important to note that every attribute was randomly assigned, and consequently, every participant in practice chose between two unique hypothetical candidates. Also, in order to minimize experimental fatigue, the \emph{can} and \emph{cannot} were capitalized.
-
-% the flow and the framing of the experiment.
-The study considered a \hyperlink{direct.question}{direct question} about the intention to sell the vote. As a whole, the conjoint experiment was framed as a study about crime in the United States, not as a study about clientelism. Participants were asked to read \hyperlink{distractor.vignette}{an excerpt} mentioning a number of crimes. All were formatted as news pieces. The idea was to explain ``vote selling'' to ``newsreaders.'' To further prevent bias, the direct question stated that there was the hypothetical possibility of doing one of the illegal things mentioned in the excerpt. And that this possibility would be randomly assigned. However, all participants were directly asked whether they would be interested in selling their vote. Following \textcite{Bahamonde2020a}, to capture the willingness to sell without the potential costs, participants were asked whether they would be willing to accept the offer, assuming they would not go to jail. After answering the conjoint portion of the study, participants were asked to answer a battery of socio-demographic and political questions. 
-
-
-Ultimately, our design will allow a series of hypotheses tests between every of the five democracy dimensions and the vote-selling question. Typical conjoint analyses offer descriptive associations between hypothetical attributes. While these analyses have advanced a number of important research avenues, they do not permit statistical associations between the selected profiles and the respondents attitudes or preferences. By introducing support vector machine techniques to analyzing conjoint experiments, we are able to do so. As we explain later, this approach improves our causal inferences by permitting statistical correlations between the selected conjoint profiles (democracy) and the respondents attitudes (vote selling). We also are able to control for other observables (the socio-demographic battery). Next section presents our novel dataset and analyzes it first leveraging the traditional conjoint approach. 
-
 
 \begin{table}
 \begin{center}
@@ -413,25 +410,54 @@ Ultimately, our design will allow a series of hypotheses tests between every of 
 \end{center}
 \end{table}
 
+% the design: possible problems of unlikely scenarios
+To study which democratic dimension(s) should fail to produce clientelism, we presented subjects (as in \autoref{tab:conj:ex}) two hypothetical candidates that supported (or not) every policy (attribute)---as operationalized in \autoref{tab:dim}. We recognize that the resulting candidate profiles are highly unlikely. Unlikely profiles (such as doctors with no education) have been a big concern in the conjoint literature. So far the suggestion has been to delete them before hand by restricting randomization of certain unlikely profiles \parencite{Hainmueller2014a} or by marginalizing ``factors over the target population distribution'' via the population AMCE \parencite[12]{Cuesta2020}. While acknowledging the advantages of both approaches, our goal is identifying a set of democratic attributes that, when absent, make clientelism more likely. In fact, external validity seems to be the trade-off when building a case study according to the \emph{least}-likely case design \parencite{Levy2008}. In addition, one of the methodological contributions of this paper is to overcome selection bias by studying \emph{hypothetical} behaviors, specially the ones where the outcome of interest has not been produced \parencite{Geddes1990}. And finally, there are several survey experiments that have fielded hypothetical questions, mostly putting respondents in experimental conditions that do not necessarily mimic reality. For instance, \textcite{Bahamonde2020a} finds that a big portion of U.S. voters would be willing to sell their vote to an hypothetical candidate in exchange for money, while \textcite{Ballard-Rosa2017} examine a number of tax proposals ``that are infeasible in the real world politics'' \parencite[5]{Cuesta2020}. Nonetheless, in order to minimize possible concerns of external validity, survey participants were asked to choose \emph{which candidate represented the lesser of the two evils} for them. 
+
+\autoref{tab:conj:ex} shows one possible realization of the experiment. It is important to note that every attribute was randomly assigned, and consequently, every participant in practice chose between two unique hypothetical candidates. Also, in order to minimize experimental fatigue, the \emph{can} and \emph{cannot} were capitalized.
+
+% the flow and the framing of the experiment.
+The study considered a \hyperlink{direct.question}{direct question} about the intention to sell the vote. As a whole, the conjoint experiment was framed as a study about crime in the United States, not as a study about clientelism. Participants were asked to read \hyperlink{distractor.vignette}{an excerpt} mentioning a number of crimes. All were formatted as news pieces. The idea was to explain ``vote selling'' to ``newsreaders.'' To further prevent bias, the direct question stated that there was the hypothetical possibility of doing one of the illegal things mentioned in the excerpt. And that this possibility would be randomly assigned. However, all participants were directly asked whether they would be interested in selling their vote. Following \textcite{Bahamonde2020a}, to capture the willingness to sell without the potential costs, participants were asked whether they would be willing to accept the offer, assuming they would not go to jail. After answering the conjoint portion of the study, participants were asked to answer a battery of socio-demographic and political questions. 
+
+
+Ultimately, our design will allow a series of hypotheses tests between every of the five democracy dimensions and the vote-selling question. Typical conjoint analyses offer descriptive associations between hypothetical attributes. While these analyses have advanced a number of important research avenues, they do not permit statistical associations between the selected profiles and the respondents attitudes or preferences. By introducing support vector machine techniques to analyzing conjoint experiments, we are able to do so. As we explain later, this approach improves our causal inferences by permitting statistical correlations between the selected conjoint profiles (democracy) and the respondents attitudes (vote selling). We also are able to control for other observables (the socio-demographic battery). Next section presents our novel dataset and analyzes it first leveraging the traditional conjoint approach. 
+
 
 \subsection{Classic Conjoint Data Approach}\hypertarget{our.cj.classic}{}{}
 
-Collected in 2016, the data (N=\Sexpr{total.sample.size.c}) are representative at the national level.\footnote{\Sexpr{total.sample.size.n/(tasks*candidates)} respondents, everyone answering \Sexpr{tasks} tasks with \Sexpr{candidates} candidates each. \emph{Research Now SSI} collected the data between March 2 and March 6. Survey respondents belong to the online panel owned and administered by SSI. Notice of IRB exemption Protocol \#E16-292 is kept on file at the Office of Research and Regulatory Affairs of \fbox{\phantom{Rutgers}} University.}  \autoref{fig:us:map:plot} shows the geographical distribution of survey respondents, grouped by party identification.  Following \textcite{Hainmueller2014a}, we computed the AMCE via the OLS estimator using clustered standard errors. In this section we present a classic conjoint analysis. Particularly, we show the hypothetical candidates' attributes that were selected by survey respondents. 
-
-
-
+% barplot:figure:control:treatment
 % LAPOP Bar Chart
+<<us:map:plot, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=us.map.note, fig.align='center', fig.width=10, fig.height=5,dpi=100000,cache=FALSE, include = TRUE>>=
+
+
+@
+
+Collected in 2016, the data (N=\Sexpr{total.sample.size.c}) are representative at the national level.\footnote{\Sexpr{total.sample.size.n} respondents, everyone answering \Sexpr{tasks} tasks with \Sexpr{candidates} candidates each. \emph{Research Now SSI} collected the data between March 2 and March 6. Survey respondents belong to the online panel owned and administered by SSI. Notice of IRB exemption Protocol \#E16-292 is kept on file at the Office of Research and Regulatory Affairs of \fbox{\phantom{Rutgers}} University.}  \autoref{fig:us:map:plot} shows the geographical distribution of survey respondents grouped by party identification.  Following \textcite{Hainmueller2014a}, we computed the AMCE via the OLS estimator using clustered standard errors. In this section we present a classic conjoint analysis. Particularly, we show the hypothetical candidates' attributes that were selected by survey respondents. 
+
+
+% amce:plot
 <<amce:plot, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=amce.plot.note, fig.align='center', fig.width=10, fig.height=5,dpi=1000,cache=FALSE, include = TRUE>>=
 
 
 @
-\todo{hb: improve fig note of amce:plot}
 
-\todo{hb: analyze figure 2 briefly}
 
-\section{Analyzing The Conjoint Data via Support Vector Machines}\hypertarget{our.cj.svm}{}
-\todo{cq: explain why the traditional analyses fall short in explaining the data}
+\autoref{fig:amce:plot} suggests that respondents systematically preferred hypothetical candidates who supported democratic policies. Authoritarian candidates that can rule without Congress, or political systems in which there is controlled mass media, or where citizens are not allowed to vote, run for office or associate with others, are systematically rejected by the nationally represented pool of respondents. These analyses are not surprising as they conform with our theoretical priors, i.e. the United States has been (traditionally) considered a strong democracy. However, it should be noted that these data were collected during 2016, year in which Donald Trump won the U.S. presidency. 
+
+Since traditional conjoint analyses do not allow for studying relationships between subject attitudes and attribute choices, we might (wrongly) conclude that democratic values scored high in the United States. Hence, the intention to sell the vote should be low. In fact, the \href{https://www.vanderbilt.edu/lapop/usa/2010_United_States_Questionnaire.pdf}{LAPOP} 2010 survey wave for the United States suggests that \Sexpr{percentage.never}\% of respondents has never been asked to sell the vote. Again, signaling good democratic values in 2016. Next section introduces support vector machines that allow analyzing conjoint data considering subject attitudes (such as intention to sell the vote). By doing so we hope to better understand how healthy or broken democratic values were during the campaign period that gave Donald Trump the U.S. presidency.
+
+
+\section{Introducing Support Vector Machines Techniques}\hypertarget{our.cj.svm}{}
+
 \todo{cq: motivate why SVM are better.}
+
+\subsection{Analyzing The Conjoint Data via Support Vector Machines}
+
+
+<<w:analyses:t, echo = FALSE, results='asis', warning = FALSE, message = F,cache=F, include = TRUE>>=
+
+@
+
+\todo{hb:}
 
 
 
@@ -522,14 +548,8 @@ count <- comma(as.numeric(count)) # add comma
 \section{Appendix}
 
 
-\subsection{Geographical Distribution of Survey Respondents}
-
-% barplot:figure:control:treatment
-<<us:map:plot, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap='Geographical Distribution of Survey Respondents by Party Identification.', fig.align='center', fig.width=6, fig.height=4,dpi=1000 ,cache=FALSE>>=
 
 
-@
-\pagebreak
 
 
 
