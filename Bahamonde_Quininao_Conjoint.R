@@ -319,13 +319,13 @@ attr(d,"codebook") <- as.list(as.character(
           "candidate: hypothetical candidate id.",
           "at.run: hypothetical candidate attribute regarding the right to run as a candidate.",
           "at.asso: hypothetical candidate attribute regarding the right to associate and form civil society groups like parties.",
-          "at.press: hypothetical candidate attribute regarding the right freedom of the press.",
+          "at.press: hypothetical candidate attribute regarding the right of freedom of the press.",
           "at.presaut: hypothetical candidate attribute regarding presidential autonomy---weather the president can rule without a congress.",
-          "at.vote: hypothetical candidate attribute regarding the right of the citizens to vote.",
+          "at.vote: hypothetical candidate attribute regarding the right of the citizens to cast ballots",
           "selected: which of the two candidates is selected---the pair is denotes by variable pair.",
-          "woman: whether the subject participant, the respondent, is woman or not. 0 otherwise.",
-          "socideo: ideology type of the subject participant, the respondent--- 1 extremely lefty, 5 extremely right-wing.",
-          "partyid: party identification of the subject participant, the respondent---1: Democrat, 2: Republican, 3: Independent, 4: Others.",
+          "woman: whether the subject participant, the respondent, is a woman. 0 otherwise.",
+          "socideo: ideology type of the subject participant, the respondent--- 1 extremely left-wing, 5 extremely right-wing.",
+          "partyid: party identification of the subject participant, the respondent---1: Democrat, 2: Republican, 3: Independent, 4: Other.",
           "reg: weather the subject participant, the respondent, is registered to vote.", 
           "trustfed: How much trust and confidence do you have in the [FEDERAL GOBERNMENT]---1 no trust, 4 fair amount.",
           "income.n: income levels.",
@@ -339,8 +339,8 @@ attr(d,"codebook") <- as.list(as.character(
 attr(d, "codebook")
 
 # total.sample.size
-total.sample.size.c = as.character(formatC(c(nrow(d)), format="d", big.mark=","))
-total.sample.size.n = nrow(d)
+total.sample.size.c = as.character(formatC(c(nrow(d)/10), format="d", big.mark=","))
+total.sample.size.n = nrow(d)/10
 tasks = 5
 candidates = 2
 
@@ -546,43 +546,6 @@ acme.5 = coeftest(model.5, vcov = vcovCluster(model.5, cluster = d$idnum))
 
 
 ############################## 
-# Vote Selling
-##############################
-
-d2 = d
-
-# make outcome numeric
-d2$vote.selling <- as.numeric(d2$vote.selling)
-
-# make treatments factors
-d2$at.run = as.factor(d2$at.run)
-d2$at.asso = as.factor(d2$at.asso)
-d2$at.press = as.factor(d2$at.press)
-d2$at.presaut = as.factor(d2$at.presaut)
-d2$at.vote = as.factor(d2$at.vote)
-
-
-# change reference ctegories // Reference is DEMOCRATIC value, so we see the effect of UNDEMOCRATIC treat on being elected.
-d2 <- within(d2, at.run <- relevel(at.run, ref = "Citizens CAN run for office for the next two elections" ))
-d2 <- within(d2, at.asso <- relevel(at.asso, ref = "Citizens CAN associate with others and form groups"))
-d2 <- within(d2, at.press <- relevel(at.press, ref = "Media CAN confront the Government"))
-d2 <- within(d2, at.presaut <- relevel(at.presaut, ref = "President CANNOT rule without Congress"))
-d2 <- within(d2, at.vote <- relevel(at.vote, ref = "Citizens CAN vote in the next two elections"))
-
-model.1.2 = lm(vote.selling ~ at.run, data=d2)
-model.2.2 = lm(vote.selling ~ at.asso, data=d2)
-model.3.2 = lm(vote.selling ~ at.press, data=d2)
-model.4.2 = lm(vote.selling ~ at.presaut, data=d2)
-model.5.2 = lm(vote.selling ~ at.vote, data=d2)
-
-acme.1.2 = coeftest(model.1.2, vcov = vcovCluster(model.1.2, cluster = d2$idnum))
-acme.2.2 = coeftest(model.2.2, vcov = vcovCluster(model.2.2, cluster = d2$idnum))
-acme.3.2 = coeftest(model.3.2, vcov = vcovCluster(model.3.2, cluster = d2$idnum))
-acme.4.2 = coeftest(model.4.2, vcov = vcovCluster(model.4.2, cluster = d2$idnum))
-acme.5.2 = coeftest(model.5.2, vcov = vcovCluster(model.5.2, cluster = d2$idnum))
-
-
-############################## 
 # DF AMCE
 ##############################
 
@@ -593,41 +556,23 @@ acme.d <- data.frame(
                 acme.2[2],
                 acme.3[2],
                 acme.4[2],
-                acme.5[2],
-                # Vote Selling 
-                acme.1.2[2],
-                acme.2.2[2],
-                acme.3.2[2],
-                acme.4.2[2],
-                acme.5.2[2]),
+                acme.5[2]),
         se = c(
                 # Candidate Selected
                 acme.1[4], 
                 acme.2[4],
                 acme.3[4],
                 acme.4[4],
-                acme.5[4],
-                # Vote Selling
-                acme.1.2[4],
-                acme.2.2[4],
-                acme.3.2[4],
-                acme.4.2[4],
-                acme.5.2[4]),
+                acme.5[4]),
         variable = c(
                 # Candidate Selected
                 "Citizens CANNOT run for office for the next two elections", 
                 "Citizens CANNOT associate with others and form groups",
                 "Media CANNOT confront the Government",
                 "President CAN rule without Congress",
-                "Citizens CANNOT vote in the next two elections",
-                # Vote Selling
-                "Citizens CANNOT run for office for the next two elections", 
-                "Citizens CANNOT associate with others and form groups",
-                "Media CANNOT confront the Government",
-                "President CAN rule without Congress",
                 "Citizens CANNOT vote in the next two elections"),
-        Model = c(rep("Candidate Selected", 5), rep("Vote Selling", 5))
-)
+        Model = c(rep("Candidate Selected", 5))
+        )
 
 
 acme.d$upper <- acme.d$coefficient + 1.96*acme.d$se
@@ -646,8 +591,7 @@ amce.plot = ggplot() + geom_hline(yintercept = 0, colour = gray(1/2), lty = 2) +
                         mapping=aes(x=variable, 
                                     y=coefficients, 
                                     ymin=upper, 
-                                    ymax=lower,
-                                    colour = Model),
+                                    ymax=lower),
                         shape=22, 
                         fill = "WHITE") +
         coord_flip() + 
@@ -670,12 +614,88 @@ amce.plot = ggplot() + geom_hline(yintercept = 0, colour = gray(1/2), lty = 2) +
 amce.plot
 ### defining legend, title and notes.
 amce.plot.note <- paste(
-        "{\\bf Classic AMCE Analyses: Candidate Selection and Vote Selling Models}.",
+        "{\\bf Classic AMCE Analysis: Candidate Selection and Dahl's Democratic Dimensions}.",
         "\\\\\\hspace{\\textwidth}", 
-        paste("{\\bf Note}: Following \\textcite{Hainmueller2014a}, the figure shows the corresponding AMCEs for every of the attributes explained \\autoref{tab:dim}. These attributes were based on \\textcite{Dahl1971}."),
+        paste("{\\bf Note}: Following \\textcite{Hainmueller2014a}, the figure shows the corresponding AMCEs for every of the attributes explained \\autoref{tab:dim}. All attributes based on \\textcite{Dahl1971}. All reference categories were omitted---all of them are at the 0 vertical line."),
         "\n")
 ## ----
 
+################
+#### W Analyses
+################
+cat("\014")
+rm(list=ls())
+
+# Load the data
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+p_load(openxlsx)
+
+options(scipen=9999999) # turn off sci not
+w = read.xlsx("https://github.com/hbahamonde/Conjoint_US/raw/master/w.xlsx") # loads data
+
+# Correct Classification
+per.correct.class = round((as.numeric(table(w$X19)["TRUE"])*100)/nrow(w),0)
+
+w = subset(w, select = c(k,w1,w2,w3,w4,w5)) # Keeping only columns I need
+colnames(w)[1] <- "idnum" # renames id variable
+w = w[!duplicated(w$idnum), ] # dropping duplicates
+
+
+# merge w's con conjoint dataset
+load(url("https://github.com/hbahamonde/Conjoint_US/raw/master/mergedconjoint.RData")) # load data
+d = d[!duplicated(d$idnum), ] # dropping duplicates
+dat.w = merge(w,d,by="idnum") # merge
+dat.w = subset(dat.w, select = c(idnum,w1,w2,w3,w4,w5,woman,socideo,partyid,reg,trustfed,income.n,educ.n,polknow,vote.selling)) # Keeping only columns I need
+
+# Labels
+## woman: 1 man, 2 woman
+## reg: 1 yes, 2 no
+## partyid: 1 dem, 2 rep, 3 ind, 4 something else
+
+dat.w$partyid <- relevel(as.factor(dat.w$partyid), ref = 3) # partyid is factor. change reference category to ind
+
+
+# Density Plots
+p_load(ggplot2)
+
+## gender
+ggplot(dat.w, aes(x=w1, fill=as.factor(woman))) + geom_density(alpha=0.4) # w1
+ggplot(dat.w, aes(x=w2, fill=as.factor(woman))) + geom_density(alpha=0.4) # w2
+ggplot(dat.w, aes(x=w3, fill=as.factor(woman))) + geom_density(alpha=0.4) # w3
+ggplot(dat.w, aes(x=w4, fill=as.factor(woman))) + geom_density(alpha=0.4) # w4
+ggplot(dat.w, aes(x=w5, fill=as.factor(woman))) + geom_density(alpha=0.4) # w5
+
+
+## vote.selling
+ggplot(dat.w, aes(x=w1, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w1
+ggplot(dat.w, aes(x=w2, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w2
+ggplot(dat.w, aes(x=w3, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w3
+ggplot(dat.w, aes(x=w4, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w4
+ggplot(dat.w, aes(x=w5, fill=as.factor(vote.selling))) + geom_density(alpha=0.4) # w5
+
+
+## partyid
+ggplot(dat.w, aes(x=w1, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w1
+ggplot(dat.w, aes(x=w2, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w2
+ggplot(dat.w, aes(x=w3, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w3
+ggplot(dat.w, aes(x=w4, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w4
+ggplot(dat.w, aes(x=w5, fill=as.factor(partyid))) + geom_density(alpha=0.4) # w5
+
+# OLS
+
+## define iv's
+independent.variables = paste0('vote.selling + woman + as.factor(partyid) + socideo + educ.n + polknow + reg + trustfed + income.n')
+
+## fit models
+m1 = summary(lm(paste('w3 ~ ', independent.variables), dat.w)) # Press
+m2 = summary(lm(paste('w4 ~ ', independent.variables), dat.w)) # Pres. Autonomy
+m3 = summary(lm(paste('w5 ~ ', independent.variables), dat.w)) # Vote
+m4 = summary(lm(paste('w1 ~ ', independent.variables), dat.w)) # Run
+m5 = summary(lm(paste('w2 ~ ', independent.variables), dat.w)) # Association
+
+# make a table
+p_load(texreg)
+screenreg(list(m1,m2,m3,m4,m5), custom.model.names=c("Press", "Pres. Autonomy", "Vote", "Run", "Association"))
 
 
 ################
@@ -684,7 +704,7 @@ amce.plot.note <- paste(
 
 ## ---- abstract ----
 fileConn <- file ("abstract.txt")
-writeLines(c("This paper explains that democracy has been theorized as a multidimensional concept. Yet, clientelism---as a democratic failure---has been studied almost exclusively from a unidimensional perspective. We argue that to better understand the motivations behind clientelism and the micro-dynamics that drive it, studies should situate the phenomena within the multidimensionality of \\emph{democracy}. This paper makes both methodological and substantive contributions to the literature by leveraging a conjoint experiment on hypothetical vote selling in a consolidated democracy. Conjoint designs ask respondents to choose from hypothetical profiles that combine multiple attributes. To study which democratic dimension(s) should fail to produce clientelism, we presented subjects two hypothetical candidates that supported (or not) every policy (attribute). Using machine learning techniques, we identify which dimensions should ``fail'' to produce likely vote-sellers."), fileConn)
+writeLines(c("This paper explains that democracy has been theorized as a multidimensional concept. Yet, the quantitative study of clientelism---as a democracy failure---has been studied almost exclusively from a unidimensional perspective. For instance, list experiments usually study one aspect at a time by manipulating a word, a sentence or a framing. We argue that to better understand clientelism quantitative studies should situate the phenomena within the multidimensionality of democracy. This paper makes both methodological and substantive contributions to the literature by leveraging a conjoint experiment on hypothetical vote selling in a consolidated democracy. Conjoint designs ask respondents to choose from hypothetical profiles that combine multiple attributes. To study which democratic dimension(s) should fail to produce clientelism, we presented subjects two hypothetical candidates that supported (or not) every policy (attribute). Using machine learning techniques, we identify which dimensions should ``fail'' to produce likely vote-sellers."), fileConn)
 close(fileConn)
 ## ----
 
