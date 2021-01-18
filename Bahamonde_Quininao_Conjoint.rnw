@@ -591,24 +591,27 @@ After a random assignment, you have been selected for the opportunity to hypothe
 \pagebreak
 
 
-
+\newpage
 \subsection{Summary Statistics}
 
 
 <<summary:stats:t, echo = FALSE, results='asis', warning = FALSE, message = F,cache=F, include = TRUE>>=
 
 @
+\pagebreak
 
+
+\newpage
 \subsection{Regression Table: OLS Analyses using the SVM Approach to Analyzing Conjoint Data}
 
 
 <<w:analyses:t, echo = FALSE, results='asis', warning = FALSE, message = F,cache=F, include = TRUE>>=
 
 @
+\pagebreak
 
 
 
-\todo{Es nuestro approach causal inference? Al menos si cumple con 3 assumptions en Hainmueller2014a. Estas son dadas por el diseno del experimento.}
 
 
 
