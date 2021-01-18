@@ -558,27 +558,29 @@ acme.5 = coeftest(model.5, vcov = vcovCluster(model.5, cluster = d$idnum))
 ##############################
 
 acme.d <- data.frame(
+        nrow = c(1:5),
         coefficients = c(
                 # Candidate Selected
-                acme.1[2], 
-                acme.2[2],
-                acme.3[2],
-                acme.4[2],
-                acme.5[2]),
+                acme.3[2], # press
+                acme.4[2], # presaut
+                acme.5[2], # vote
+                acme.1[2], # run 
+                acme.2[2]), # asso
         se = c(
                 # Candidate Selected
-                acme.1[4], 
-                acme.2[4],
-                acme.3[4],
-                acme.4[4],
-                acme.5[4]),
-        variable = c(
+                acme.3[4], # press
+                acme.4[4], # presaut
+                acme.5[4], # vote
+                acme.1[4], # run 
+                acme.2[4]), # asso
+        variable = as.factor(c(
                 # Candidate Selected
-                "Citizens CANNOT run for office for the next two elections", 
-                "Citizens CANNOT associate with others and form groups",
-                "Media CANNOT confront the Government",
-                "President CAN rule without Congress",
-                "Citizens CANNOT vote in the next two elections"),
+                "Media CANNOT confront the Government", # press
+                "President CAN rule without Congress", # presaut
+                "Citizens CANNOT vote in the next two elections", # vote
+                "Citizens CANNOT run for office for the next two elections", # run 
+                "Citizens CANNOT associate with others and form groups" # asso
+                )),
         Model = c(rep("Candidate Selected", 5))
         )
 
@@ -587,14 +589,16 @@ acme.d$upper <- acme.d$coefficient + 1.96*acme.d$se
 acme.d$lower <- acme.d$coefficient - 1.96*acme.d$se
 
 
-
+p_load(forcats, tidyverse)
+acme.d = acme.d %>% mutate(variable = fct_rev(fct_reorder(variable,nrow)))
 
 
 # Plot
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
 p_load(ggplot2)
 
-amce.plot = ggplot() + geom_hline(yintercept = 0, colour = gray(1/2), lty = 2) + 
+amce.plot = ggplot() + 
+        geom_hline(yintercept = 0, colour = gray(1/2), lty = 2) + 
         geom_pointrange(data=acme.d, 
                         mapping=aes(x=variable, 
                                     y=coefficients, 
@@ -624,7 +628,7 @@ amce.plot
 amce.plot.note <- paste(
         "{\\bf Classic AMCE Analysis: Candidate Selection and Dahl's Democratic Dimensions}.",
         "\\\\\\hspace{\\textwidth}", 
-        paste("{\\bf Note}: Following \\textcite{Hainmueller2014a}, the figure shows the corresponding AMCEs for every of the attributes explained \\autoref{tab:dim}. All attributes based on \\textcite{Dahl1971}. All reference categories were omitted---all of them are at the 0 vertical line and represent the opposite of the attribute shown in the plot. The figure strongly suggests that respondents systematically preferred hypothetical candidates who supported democratic policies."),
+        paste("{\\bf Note}: Following \\textcite{Hainmueller2014a}, the figure shows the corresponding AMCEs for every of the attributes explained in \\autoref{tab:dim}. All attributes are based on \\textcite{Dahl1971}. All reference categories were omitted---all of them are at the 0 vertical line and represent the opposite of the attribute shown in the plot. For substantive reasons, all categories displayed in the figure represent non-democratic attributes. The figure strongly suggests that respondents systematically preferred hypothetical candidates who supported democratic policies."),
         "\n")
 ## ----
 
@@ -639,7 +643,7 @@ rm(list=ls())
 
 # Load the data
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
-p_load(openxlsx,texreg)
+p_load(openxlsx,texreg,jtools,stargazer)
 
 options(scipen=9999999) # turn off sci not
 w = read.xlsx("https://github.com/hbahamonde/Conjoint_US/raw/master/w.xlsx") # loads data
@@ -656,32 +660,82 @@ w = w[!duplicated(w$idnum), ] # dropping duplicates
 load(url("https://github.com/hbahamonde/Conjoint_US/raw/master/mergedconjoint.RData")) # load data
 d = d[!duplicated(d$idnum), ] # dropping duplicates
 dat.w = merge(w,d,by="idnum") # merge
-dat.w = subset(dat.w, select = c(idnum,w1,w2,w3,w4,w5,woman,socideo,partyid,reg,trustfed,income.n,educ.n,polknow,vote.selling)) # Keeping only columns I need
+dat.w = subset(dat.w, select = c(w1,w2,w3,w4,w5,woman,socideo,partyid,reg,trustfed,income.n,educ.n,polknow,vote.selling)) # Keeping only columns I need
 
 # Labels
 ## woman: 1 man, 2 woman
 ## reg: 1 yes, 2 no
 ## partyid: 1 dem, 2 rep, 3 ind, 4 something else
 
-dat.w$partyid <- relevel(as.factor(dat.w$partyid), ref = 3) # partyid is factor. change reference category to ind
+
+# party id to factor
+dat.w$partyid = factor(dat.w$partyid)
+levels(dat.w$partyid) <- c("Democrat","Republican","Independent", "Other")
+dat.w$partyid = relevel(dat.w$partyid, ref = "Independent")
+
+# change var name
+colnames(dat.w)[which(names(dat.w) == "woman")] <- "Woman"
+colnames(dat.w)[which(names(dat.w) == "socideo")] <- "Ideology"
+colnames(dat.w)[which(names(dat.w) == "partyid")] <- "Party Id."
+colnames(dat.w)[which(names(dat.w) == "reg")] <- "Registered to Vote"
+colnames(dat.w)[which(names(dat.w) == "trustfed")] <- "Trust in Federal Gov."
+colnames(dat.w)[which(names(dat.w) == "income.n")] <- "Income"
+colnames(dat.w)[which(names(dat.w) == "educ.n")] <- "Education"
+colnames(dat.w)[which(names(dat.w) == "polknow")] <- "Political Knowledge"
+colnames(dat.w)[which(names(dat.w) == "vote.selling")] <- "Sell Vote"
+
+colnames(dat.w)[which(names(dat.w) == "w3")] <- "Free Media"
+colnames(dat.w)[which(names(dat.w) == "w4")] <- "Presidential Autonomy"
+colnames(dat.w)[which(names(dat.w) == "w5")] <- "Right to Vote"
+colnames(dat.w)[which(names(dat.w) == "w1")] <- "Right to Run for Office"
+colnames(dat.w)[which(names(dat.w) == "w2")] <- "Right to Associate"
 
 
 # OLS
 
 ## define iv's
-independent.variables = paste0('vote.selling + woman + as.factor(partyid) + socideo + educ.n + polknow + reg + trustfed + income.n')
+independent.variables = paste0(' `Sell Vote` + Woman + `Party Id.` + Ideology + Education + `Political Knowledge` + `Registered to Vote` + `Trust in Federal Gov.` + Income ')
+
 
 ## fit models
-m1 = summary(lm(paste('w3 ~ ', independent.variables), dat.w)) # Media
-m2 = summary(lm(paste('w4 ~ ', independent.variables), dat.w)) # Pres. Autonomy
-m3 = summary(lm(paste('w5 ~ ', independent.variables), dat.w)) # Vote
-m4 = summary(lm(paste('w1 ~ ', independent.variables), dat.w)) # Run for Office
-m5 = summary(lm(paste('w2 ~ ', independent.variables), dat.w)) # Association
+m1 = lm(paste(' `Free Media` ~ ', independent.variables), dat.w) # Free Media
+m2 = lm(paste(' `Presidential Autonomy` ~ ', independent.variables), dat.w) # Presidential Autonomy
+m3 = lm(paste(' `Right to Vote`  ~ ', independent.variables), dat.w) # Right to Vote
+m4 = lm(paste(' `Right to Run for Office` ~ ', independent.variables), dat.w) # Right to Run for Office
+m5 = lm(paste(' `Right to Associate` ~ ', independent.variables), dat.w) # Right to Associate
 ## ----
 
-## ---- w:analyses:t ----
-texreg(list(m1,m2,m3,m4,m5), custom.model.names=c("Free Media", "Pres. Autonomy", "Right to Vote", "Right to Run for Office", "Right to Associate"), custom.note= c("Every column represents each of \\textcite{Dahl1971} democracy dimensions. All models are OLS."))
+
+## ---- w:analyses:p:d ----
+# p_load(jtools)
+w.analyses.p = plot_summs(m1,m2,m3,m4,m5, legend.title="Democracy Dimension", colors = "Rainbow", point.shape = F, scale = TRUE, model.names = c("Free Media", "Presidential Autonomy", "Right to Vote", "Right to Run for Office", "Right to Associate"))
 ## ----
+
+## ---- w:analyses:p:p ----
+### calling plot
+w.analyses.p
+### defining legend, title and notes.
+w.analyses.p.note <- paste(
+        "{\\bf SVM Analysis: Vote Selling and \\textcite{Dahl1971}'s Democracy Dimensions}.",
+        "\\\\\\hspace{\\textwidth}", 
+        paste("{\\bf Note}: The figure shows OLS models where PENDING. \\autoref{w:analyses:t} shows the respective regression tables."),
+        "\n")
+## ----
+
+
+
+
+
+
+## ---- w:analyses:t ----
+texreg(list(m1,m2,m3,m4,m5), custom.model.names=c("Free Media", "Presidential Autonomy", "Right to Vote", "Right to Run for Office", "Right to Associate"), label = "w:analyses:t", custom.note= c("Every column represents each of \\textcite{Dahl1971} democracy dimensions. All models OLS. Intercept omitted."), scalebox=0.7, use.packages = F, omit.coef="(Intercept)")
+## ----
+
+
+## ---- summary:stats:t ----
+stargazer(dat.w, label = "summary:stats:t")
+## ----
+
 
 ################
 #### ABSTRACT
