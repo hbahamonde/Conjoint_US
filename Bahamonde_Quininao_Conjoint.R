@@ -690,6 +690,38 @@ colnames(dat.w)[which(names(dat.w) == "w5")] <- "Right to Vote"
 colnames(dat.w)[which(names(dat.w) == "w1")] <- "Right to Run for Office"
 colnames(dat.w)[which(names(dat.w) == "w2")] <- "Right to Associate"
 
+# Density plots (w's)
+## dataset
+density.plot.w.d = data.frame(
+        Value = as.vector(rbind(dat.w$`Free Media`,
+                                dat.w$`Presidential Autonomy`,
+                                dat.w$`Right to Vote`,
+                                dat.w$`Right to Run for Office`,
+                                dat.w$`Right to Associate`
+                                )),
+        Dimension = as.factor(as.vector(rbind(rep("Free Media", nrow(dat.w)),
+                      rep("Presidential Autonomy", nrow(dat.w)),
+                      rep("Right to Vote", nrow(dat.w)),
+                      rep("Right to Run for Office", nrow(dat.w)),
+                      rep("Right to Associate", nrow(dat.w))
+                      )))
+        )
+
+p_load(ggplot2)
+
+density.plot.w.p = ggplot(density.plot.w.d, aes(x=Value, fill=Dimension)) + geom_density(alpha=0.4) + theme_bw() +
+        xlab("Afinity (w)") + 
+        ylab("Density") +
+        theme(axis.text.y = element_text(size=7), 
+              axis.text.x = element_text(size=7), 
+              axis.title.y = element_text(size=7), 
+              axis.title.x = element_text(size=7), 
+              legend.text=element_text(size=7), 
+              legend.title=element_text(size=7),
+              plot.title = element_text(size=7),
+              legend.position="none") +
+        facet_grid(. ~ Dimension)
+
 
 # OLS
 
@@ -724,7 +756,16 @@ w.analyses.p.note <- paste(
 
 
 
-
+## ---- density:plot:w:p ----
+### calling plot
+density.plot.w.p
+### defining legend, title and notes.
+density.plot.w.p.note <- paste(
+        "{\\bf SVM Analysis: Five Democracy Attributes (\\textcite{Dahl1971})}.",
+        "\\\\\\hspace{\\textwidth}", 
+        paste("{\\bf Note}: The figure shows the five dependent variables used in \\autoref{w:analyses:t}."),
+        "\n")
+## ----
 
 
 ## ---- w:analyses:t ----
