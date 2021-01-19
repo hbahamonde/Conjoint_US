@@ -628,7 +628,7 @@ amce.plot
 amce.plot.note <- paste(
         "{\\bf Classic AMCE Analysis: Candidate Selection and Dahl's Democratic Dimensions}.",
         "\\\\\\hspace{\\textwidth}", 
-        paste("{\\bf Note}: Following \\textcite{Hainmueller2014a}, the figure shows the corresponding AMCEs for every of the attributes explained in \\autoref{tab:dim}. All attributes are based on \\textcite{Dahl1971}. All reference categories were omitted---all of them are at the 0 vertical line and represent the opposite of the attribute shown in the plot. For substantive reasons, all categories displayed in the figure represent non-democratic attributes. The figure strongly suggests that respondents systematically preferred hypothetical candidates who supported democratic policies."),
+        paste("{\\bf Note}: Following \\textcite{Hainmueller2014a}, the figure shows the corresponding AMCEs for every of the attributes explained in \\autoref{tab:dim}. All attributes are based on \\textcite{Dahl1971}. All reference categories were omitted---all of them are at the 0 vertical line and represent the opposite of the attribute shown in the plot. For substantive reasons, all categories displayed in the figure represent the non-democratic side of the attributes. The figure strongly suggests that respondents systematically preferred hypothetical candidates who supported democratic policies."),
         "\n")
 ## ----
 
