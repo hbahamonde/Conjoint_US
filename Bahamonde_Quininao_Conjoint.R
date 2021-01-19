@@ -649,10 +649,10 @@ options(scipen=9999999) # turn off sci not
 w = read.xlsx("https://github.com/hbahamonde/Conjoint_US/raw/master/w.xlsx") # loads data
 
 # Correct Classification
-per.correct.class = round((as.numeric(table(w$X19)["TRUE"])*100)/nrow(w),0)
+# per.correct.class = round((as.numeric(table(w$X19)["TRUE"])*100)/nrow(w),0)
 
 w = subset(w, select = c(k,w1,w2,w3,w4,w5)) # Keeping only columns I need
-colnames(w)[1] <- "idnum" # renames id variable
+colnames(w)[which(names(w) == "k")] <- "idnum" # renames id variable
 w = w[!duplicated(w$idnum), ] # dropping duplicates
 
 
@@ -750,7 +750,7 @@ w.analyses.p
 w.analyses.p.note <- paste(
         "{\\bf SVM Analysis: Vote Selling and \\textcite{Dahl1971}'s Democracy Dimensions}.",
         "\\\\\\hspace{\\textwidth}", 
-        paste("{\\bf Note}: The figure shows OLS models where PENDING. \\autoref{w:analyses:t} shows the respective regression tables."),
+        paste("{\\bf Note}: The figure shows OLS models where PENDING. \\autoref{w:analyses:t} shows the respective regression table."),
         "\n")
 ## ----
 
@@ -761,7 +761,7 @@ w.analyses.p.note <- paste(
 density.plot.w.p
 ### defining legend, title and notes.
 density.plot.w.p.note <- paste(
-        "{\\bf SVM Analysis: Five Democracy Attributes (\\textcite{Dahl1971})}.",
+        "{\\bf SVM Analyses: Five Democracy Attributes \\parencite{Dahl1971}}.",
         "\\\\\\hspace{\\textwidth}", 
         paste("{\\bf Note}: The figure shows the five dependent variables used in \\autoref{w:analyses:t}."),
         "\n")

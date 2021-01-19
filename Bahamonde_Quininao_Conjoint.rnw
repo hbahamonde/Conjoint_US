@@ -468,7 +468,7 @@ While classic conjoint analyses provide consistent causal estimates, they unfort
 
 Based on \autoref{w:analyses:t}, \autoref{fig:w:analyses:p:p} shows {\color{red}PENDING}.\footnote{\autoref{summary:stats:t} shows summary statistics.}
 
-<<density:plot:w:p, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=density.plot.w.p.note, fig.align='center', fig.width=4, fig.height=2,dpi=1000,cache=FALSE, include = TRUE>>=
+<<density:plot:w:p, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=density.plot.w.p.note, fig.align='center', fig.width=8, fig.height=2,dpi=1000,cache=FALSE, include = TRUE>>=
 
 
 @
