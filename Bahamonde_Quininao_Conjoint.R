@@ -769,7 +769,7 @@ density.plot.w.p.note <- paste(
 
 
 ## ---- w:analyses:t ----
-texreg(list(m1,m2,m3,m4,m5), custom.model.names=c("Free Media", "Presidential Autonomy", "Right to Vote", "Right to Run for Office", "Right to Associate"), label = "w:analyses:t", custom.note= c("Every column represents each of \\textcite{Dahl1971} democracy dimensions. All models OLS. Intercept omitted."), scalebox=0.7, use.packages = F, omit.coef="(Intercept)", float.pos="H")
+texreg(list(m1,m2,m3,m4,m5), custom.model.names=c("Free Media", "Presidential Autonomy", "Right to Vote", "Right to Run for Office", "Right to Associate"), label = "w:analyses:t", custom.note= c( "%stars. Every column represents each of \\textcite{Dahl1971} democracy dimensions. All models OLS. Intercept omitted."), scalebox=0.7, use.packages = F, omit.coef="(Intercept)", float.pos="H", stars = c(0.001, 0.01, 0.05))
 ## ----
 
 

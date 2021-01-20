@@ -93,6 +93,19 @@ headpunct=:
 
 
 
+% Les principaux ensembles
+\newcommand{\Abs}[1]{\left\lvert#1\right\rvert}
+\newcommand\N{{\mathbb N}}
+\newcommand\R{{\mathbb R}}
+\newcommand\T{{\mathbb T}}
+\newcommand\C{{\mathbb C}}
+\newcommand\Q{{\mathbb Q}}
+\newcommand\Z{{\mathbb Z}}
+\newcommand\Pp{{\mathbb P}}
+\newcommand\Ee{{\mathbb E}}
+\def\x{{\mathbf x}}
+\def\w{{\mathbf w}}
+\def\xxi{{\pmb \xi}}
 
 
 
@@ -255,7 +268,7 @@ options(scipen = 99999999999)
 
 \hspace*{1.3cm}{\bf Please consider downloading the last version of the paper} \href{https://github.com/hbahamonde/Conjoint_US/raw/master/Bahamonde_Quininao_Conjoint.pdf}{\texttt{{\color{red}here}}}.
 
-\providecommand{\keywords}[1]{\textbf{\textit{Keywords---}} #1} % keywords.  
+\providecommand{\keywords}[1]{\textbf{\emph{Keywords---}} #1} % keywords.  
 \keywords{conjoint designs; vector support machines; support for democracy; United States.}
 
 
@@ -282,7 +295,7 @@ Substantively, we argue that to better understand the motivations behind cliente
 
 Since the vote-buying literature mostly considers developing countries and describes vote sellers as poor \parencite[12]{Weitz-Shapiro:2014aa}, uneducated \parencite{GonzalezOcantos2014}, and undemocratic \parencite{Carlin2015}, the willingness to sell votes in the United States should be low, making it a difficult case study on vote selling.\footnote{However see \textcite{Bahamonde2020a}.} And such, this study follows a ``least-likely'' design presenting the United States as a ``crucial case.'' As \textcite[12]{Levy2008} explains, ``[i]nferential leverage from a least likely case is enhanced if our theoretical priors for the leading alternative explanation make it a most likely case for that theory.'' However, the evidence that this paper presents may be associated with a probable erosion of American democracy \parencite{Levitsky:2018aa}. \textcite[7]{Foa2016a} document a deep ``crisis of democratic legitimacy [that] extends across a [...] wider set of indicators'' in the United States. They find that 26\% of millennials declare that it is ``unimportant'' in a democracy for people to ``choose their leaders in free elections'' (\textcite[10]{Foa2016a} and \textcite{Foa2017b}). Our study aims to contribute to this debate by presenting experimental evidence that links the democratic theory literature with the clientelism literature.
 
-The methodological contribution of this paper is twofolds. First, this paper contributes to the literature by leveraging a conjoint experiment on hypothetical vote selling in a traditionally considered consolidated democracy. First, most quantitative studies have been conducted in developing countries, seriously narrowing the scope of our inferences. In part, this is because the clientelism literature usually focuses on realized behaviors only---that is, actual clientelist transactions. Unfortunately, by ignoring attitudes of potential vote sellers, particularly when it comes to the willingness to sell, selection bias seriously threatens causal inferences. \textcite[131]{Geddes1990} explains the well-known selection issues of studying ``only cases that have achieved the outcome of interest.'' Thus, and following the lead of \textcite{GonzalezOcantos2014,Bahamonde2020a}, this paper presents experimental evidence of hypothetical willingness to sell the vote in the United States. 
+The methodological contribution of this paper is twofolds. First, this paper contributes to the literature by leveraging a conjoint experiment on hypothetical vote selling in a traditionally considered consolidated democracy. Most quantitative studies have been conducted in developing countries, seriously narrowing the scope of our inferences. In part, this is because the clientelism literature usually focuses on realized behaviors only---that is, actual clientelist transactions. Unfortunately, by ignoring attitudes of potential vote sellers, particularly when it comes to the willingness to sell, selection bias seriously threatens causal inferences. \textcite[131]{Geddes1990} explains the well-known selection issues of studying ``only cases that have achieved the outcome of interest.'' Thus, and following the lead of \textcite{GonzalezOcantos2014,Bahamonde2020a}, this paper presents experimental evidence of hypothetical willingness to sell the vote in the United States. 
 
 Second, we introduce machine learning techniques, particularly support vector machine analyses (SVM) for analyzing conjoint datasets.\todo{qc: one paragraph explain why SVM are ``good''. 1 paragraph}
 
@@ -316,30 +329,6 @@ A number of topics have been studied, such as preferences for health care \paren
 \textcite{Hainmueller2014a} ``introduced conjoint analysis to political science as a survey experimental method for causal inference'' \parencite[1]{Horiuchi2020a}, particularly making conjoint designs compatible with the potential outcomes framework of causal inference \parencite{Rubin1974}. Since then, a number of important studies have been published, making a very common tool for causal inference in political science \parencite{Cuesta2020}. Just to name a few examples in political science, conjoint designs have been used to study attitudes toward immigrants \parencite{Hainmueller2015}, preferences toward political candidates \parencite{Franchino2015,Horiuchi2017,Horiuchi2020,Mares2020}, the role of candidate sex on voter choice \parencite{Ono2019} and the role of the information environment in partisan voting \parencite{Peterson2017}. In part, this is due to the simplicity of the main quantity of interest developed by \textcite[3]{Hainmueller2014a}---the \emph{average marginal component effect} (AMCE).\footnote{Due to space concerns, we are not deriving the AMCE here. The AMCE has been well explained and widely used before. See Equation 5 in \textcite[11]{Hainmueller2014a}. In addition to that, see \textcite{Egami2019}, who have introduced another quantity of interest, the average marginal interaction effect (AMIE).} The quantity equals the counterfactual probability where a specific characteristic would be chosen if the value of that characteristic is absent \parencite[11]{Hainmueller2014a}.\footnote{Importantly, \textcite[6]{Leeper2020} explain that arbitrary choice of reference category when computing the AMCE might introduce ``highly distorted descriptive interpretations of preferences among subgroups of respondents.''} Since the AMCE does not rely on arbitrary utility assignments nor does resort to functional form assumptions \parencite[3]{Hainmueller2014a}, it has become a very common quantity of interest in political science, specially, because it also avoids ``unnecessary statistical assumptions'' at the same time that improves ``internal validity than the more model-dependent procedures'' \parencite[2-3]{Hainmueller2014a}.\footnote{Yet, some necessary assumptions need to be made. For instance, in order to make statistical inferences, the AMCE depends on (clustered) standard errors, which in turn rely on the central limit theorem. See \textcite[17]{Hainmueller2014a}.} Importantly, they show that ``when attribute levels are randomized independently from one another, the ordinary least squares (OLS) estimates of the coefficients from the linear regression of the choice indicator on the set of dummy variables for the levels of the attributes provide unbiased and consistent estimates of the AMCEs'' \parencite[14]{Horiuchi2017}.\footnote{\textcite[15]{Hainmueller2014a} show that OLS estimators have ``identical'' properties to the subclassification estimators, and therefore this ``implies that the linear regression estimator is fully nonparametric.''} Others have argued that when attribute levels are randomized, the design ``reduces social desirability bias by providing many potential reasons for supporting or opposing a proposed [attribute]'' \parencite[7]{Hankinson2018},\footnote{However, see \textcite{Horiuchi2020a}.} while others offer guidance regarding the number of attributes by developing a two-stage conjoint design \parencite{Bansak2019}.
 
 
-
-
- 
-%\subsection{Clientelism in the U.S.: A Brief Historical Account}
-
-%At first, many advanced democracies were clientelist political systems. For instance, \textcite[200]{Stokes:2013cj} explain that in the nineteenth-century United States, ``vote buying was commonplace'' and ``the major urban political institution in the late nineteenth century'' \parencite[2]{Erie:1990aa}. Poor bureaucracies and bad-quality record-keeping helped to foster electoral malpractice. First, most states did not have actual registration laws, making voter eligibility difficult to determine \parencite[672]{Argersinger1985}. Historians frequently report that judges at polling places had a hard time determining not only the age of the potential voter, but also whether the prospective voter was a U.S. citizen, especially in cases that involved newly naturalized immigrants with strong foreign accents \parencite[20]{Bensel:2004aa}. For instance, judges used as a rough proxy whether the prospective voter had the ability to grow a beard \parencite[20]{Bensel:2004aa}. Consequently, it was often up to the judge's discretion whether to let prospective voters cast a ballot. Since judges were party appointees \parencite[672]{Argersinger1985}, their discretionary powers were systematically used to shape electoral outcomes.
-
-%The ``party strip'' or ``unofficial'' ballot system also permitted all sorts of fraudulent practices. The parties themselves produced party tickets. Since tickets varied by size and color, it made ``the voter's choice of party a public act and rendered voters susceptible to various forms of intimidation and influence while facilitating vote buying'' \parencite[672]{Argersinger1985}. In addition, the ticket system required very strong party machines, which, in turn, required considerable economic resources to make the system work. However, political machines were oiled not only with money. On the one hand, many ``ticket peddlers'' \parencite[p. 672]{Argersinger1985} were volunteers \parencite[17]{Bensel:2004aa}. Most of these volunteers ``enjoyed the patronage of elected party officials by holding government jobs'' \parencite[p. 17]{Bensel:2004aa}. On the other hand, political appointees ``from janitor to secretary of state'' and some corporations donated annually part of their revenues \parencite[p. 197]{Reynolds1980}. Thus, parties amassed huge amounts of money. With all these resources flooding the polls on election day, voting was truly an interesting spectacle. On that day, party agents would offer voters plenty of liquor as an incentive to vote the party ticket. Hence, ``the street or square outside the voting window frequently became a kind of alcoholic festival in which many men were clearly and spectacularly drunk [to the point that] some could not remember whether or not they had voted'' \parencite[20]{Bensel:2004aa}. 
-
-
-
-%Today, the \emph{modus operandi} of clientelism has changed, and both the frequency of vote buying/selling and the importance of party machines have declined (\autoref{fig:lapop:bar:chart:plot}). Scholars have pointed out that ``party machines are a thing of the past'' \parencite[230]{Stokes:2013cj}. However, some contemporary accounts remain of vote buying and selling in American elections.\footnote{For instance, \textcite[243-244]{Campbell:2005aa} explains how a Democratic leader in Logan County, West Virginia, accepted \$35,000 in cash to support Senator Kennedy. As the Democratic leader explained, ``this money was for one purpose: `We bought votes with it [...] that's the way real politics works.' '' Other examples are the famous primary election in March 1972 in Chicago \parencite[p. 262]{Campbell:2005aa} and the elections in the coal-rich Appalachian Mountains during the 1980s \parencite[p. 275]{Campbell:2005aa}.} Similarly, non-academic sources find that during the 2010 elections, ``selling votes [was a] common type of election fraud'' \parencite{Fahrenthold2012}. Others find that ``[v]ote-buying is extremely common in \emph{developed} [...] countries'' \parencite[1]{Leight2016b}. \emph{While clientelism seems to have declined in the United States, which of the three subdimensions explained by \textcite{Dahl1971} would need to fail to make clientelism more likely?} 
-
-% LAPOP Bar Chart
-%<<lapop:bar:chart:plot, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=lapop.bar.chart.p.note, fig.align='center', fig.width=4, fig.height=2,dpi=100 ,cache=FALSE, include = TRUE>>=
-%
-%
-%@
-
-
-%The next sections attempt to quantify in an unbiased way the willingness to sell votes among a representative sample of U.S. voters. In fact, \textcite[201]{Stokes:2013cj} show that industrialization drove up the electorate's median income, making vote buying more expensive for party machines.\footnote{However, \textcite[320]{Kitschelt2007} disregard the industrialization hypothesis, focusing on the lower levels of ``[s]tate involvement in the public sector.''}
-
-
-
 \section{Studying Clientelism Multidimensionally via Conjoint Designs}\hypertarget{our.cj}{}
 
 
@@ -365,7 +354,7 @@ Our contribution builds directly on \textcite{Carlin2011a,Carlin2015,Carlin2017}
                                                            & Alternative sources of information                & Media can confront the government                      \\\cline{2-3}
                                                            & Right of political leaders to compete for support & President cannot rule without Congress                    \\\cline{2-3}
                                                            & Right to vote                                     & Citizens can vote in the next two elections            \\\cline{2-3}
-														   & Freedom to form and join organizations            & Citizens can associate with others and form groups     \\\cline{2-3}
+														                               & Freedom to form and join organizations            & Citizens can associate with others and form groups     \\\cline{2-3}
 \hline
 \multirow{7}{*}{{\bf Signify preferences}}                 & Freedom of expression                             & Media can confront the government\\ \cline{2-3}
                                                            & Alternative sources of information                & Media can confront the Government\\ \cline{2-3}
@@ -373,7 +362,7 @@ Our contribution builds directly on \textcite{Carlin2011a,Carlin2015,Carlin2017}
                                                            & Right to vote                                     & Citizens can vote in the next two elections\\ \cline{2-3}
                                                            & Free and fair elections                           & Citizens can vote in the next two elections\\ \cline{2-3}
                                                            & Eligibility for public office                     & Citizens can run for office for the next two elections\\ \cline{2-3}
-														   & Freedom to form and join organizations            & Citizens can associate with others and form groups\\ \cline{2-3}
+														                               & Freedom to form and join organizations            & Citizens can associate with others and form groups\\ \cline{2-3}
 \hline
 \multirow{8}{*}{\pbox{3.5cm}{{\bf Preferences are weighted} \\ {\bf equally in conduct of government}}} & Freedom of expression & Media can confront the government\\ \cline{2-3} 
                                                            & Alternative sources of information                & Media can confront the Government\\ \cline{2-3}
@@ -382,7 +371,7 @@ Our contribution builds directly on \textcite{Carlin2011a,Carlin2015,Carlin2017}
                                                            & Free and fair elections                           & Citizens can vote in the next two elections \\ \cline{2-3}
                                                            & Institutions for making government policies depend on votes and other expressions of preference & Citizens can vote in the next two elections\\\cline{2-3}
                                                            & Eligibility for public office                     & Citizens can run for office for the next two elections\\ \cline{2-3}
-														   & Freedom to form and join organizations & Citizens can associate with others and form groups\\ 
+														                               & Freedom to form and join organizations & Citizens can associate with others and form groups\\ 
                                                            
 \bottomrule
 \end{tabular}}}
@@ -460,9 +449,88 @@ While classic conjoint analyses provide consistent causal estimates, they unfort
 % In fact, the \href{https://www.vanderbilt.edu/lapop/usa/2010_United_States_Questionnaire.pdf}{LAPOP} 2010 survey wave for the United States suggests that \Sexpr{percentage.never}\% of respondents has never been asked to sell the vote. 
 
 
-\section{Introducing Support Vector Machines Techniques}\hypertarget{our.cj.svm}{}
+\section{Introducing Support Vector Machines Techniques to Analyzing Conjoint Data}\hypertarget{our.cj.svm}{}
 
-\todo{cq: motivate why SVM are better.}
+Support vector machines (SVMs) are a set of methods of supervised learning\todo{definir brevemente que es ``supervised learning''} which might be extended to classification applications and/or standard regression techniques \parencite[Chapter 12]{maimon2005data}. In this paper we are interested in applying SVM methods to---first---solve a classification problem, and then in a second stage, apply OLS methods. The first stage is a data-driven process which consists of finding a classification rule that assigns {\color{red}an object to one of two classes}\todo{mejorar redaccion, ``object''/``classes''}. In particular, we are interested in learning about the political preferences of survey participants by using the information participants provided when making choices between the two hypothetical candidates and the policies those candidates endorsed (as exemplified in \autoref{tab:conj:ex}). Since the focus is to account for the multi-dimensionality of democracy, we separately perform these analyses for all five democracy attributes. In the second stage we use standard regression methods to study correlations between the five democracy attributes (obtained in the first stage) and respondent's socio-political attitudes, particularly, the intention to sell the vote. In sum, we exploit the conjoint dataset to first classify all participants within a common space for all five attributes individually. Then we fit five separate OLS regression models between those five spaces and the intention to sell the vote (controlling for relevant covariates).
+
+\paragraph{Stating the problem} Consider the following classification task: estimate a function $f:\R^J\rightarrow\{-1,1\}$ using a system of {\color{red}input-output training data pairs}\todo{explain}. Since $f$ is undefined, we define it in this article.\todo{te re interprete. antes decia Of course, there are several functions that can account for this problem, thus we have to search for such $f$ in a particular space. ESTA BIEN?} The $f$ function should be able to map every participant attitudes toward the five democracy attributes and classify those attitudes within a common numeric space. 
+
+
+As exemplified in \autoref{tab:conj:ex}, all hypothetical political candidates took stances in favor (or against) the five democracy policies. For an input $\mathbf x\in\{0,1\}^5$, which represents the range of possible political stances of a candidate, the function $f$ maps\todo{esta ok maps?} a democracy attribute with the survey participant, linking both in what could be described as the ``decision'' made by the survey participant. For instance, hypothetical candidates 1 and 2 in \autoref{tab:conj:ex} are represented by vectors $(1,1,0,1,1)$ and $(0,0,0,1,0)$, respectively. Then, the function $f$ connects the respondent's attribute choices (embodied by hypothetical candidates $1$ or $2$) with the respondent herself (i.e. her ``decision''). 
+
+\paragraph{Constructing the vector weight $\mathbf w^i$} One way to motivate our approach is via the latent variable and the standard maximization utility approaches. For simplicity, we assume that participant preferences can be modeled by an additive linear utility function, and that the decision function $f$ takes a utility sign $\{+, -\}$ depending on the attribute chosen---more details are provided below. If the data can be partitioned by an hyperplane (which is the case in most randomized conjoint designs), such functions can be defined for every participant $i$.
+
+Survey participants evaluate between two hypothetical candidates and choose one. They do so for all five tasks. To clarify, for a survey participant $i$, we have the following conjoint data,
+
+\begin{equation}
+(\mathbf x_1^{1,i},\mathbf x_1^{2,i};y_{1}^i),\,\,(\mathbf x_2^{1,i},\mathbf x_2^{2,i};y_{2}^i),\,\,\ldots\,\, (\mathbf x_5^{1,i},\mathbf x_5^{2,i};y_{5}^i)
+\end{equation}
+
+{\color{red}where $\mathbf x_k^{1,i}\in \{0,1\}^5$ (respectively $\mathbf x_k^{2,i}$) representing the attributes shown to citizen $i$ of candidate 1 (respectively 2) at round $k$} \todo{mejorar redaccion-me perdi}. The corresponding $y_k$ is the selected candidate. We coded \todo{bien ``coded''?} $y_k^i=1$ when survey participant $i$ selected candidate $1$, and $y_k=-1$ \todo{no indexado por i} when survey participant $i$ selected candidate $2$. Since we are trying to characterize a linear function for every $i$, survey participants can be mapped by a vector weight $\mathbf w^i\in\mathbb R^5$ and an intercept $b^i$. Indeed, for a candidate $\mathbf x$, the function,
+
+\begin{equation}
+u_i(\mathbf x) = \w^i\cdot\mathbf x+b,
+\end{equation}
+
+models the utility function of every survey participant $i$. For consistency, we identify weights $\w^i\in\R^5$ and intercept $b\in\R$ such that,
+
+\begin{equation}
+\w^i\cdot(\mathbf x_k^{1,i}-\mathbf x_k^{2,i}) > 0 \quad\Leftrightarrow\quad y_k^i=1,
+\end{equation}
+
+
+and
+
+\begin{equation}
+\w^i\cdot(\mathbf x_k^{1,i}-\mathbf x_k^{2,i}) < 0 \quad\Leftrightarrow\quad y_k^i=-1,
+\end{equation}
+
+implying that whenever two candidates $\mathbf x_1^{1,i}$ and $\mathbf x_1^{2,i}$ are presented, the survey respondent will choose the one that provides him with a larger utility.
+
+\paragraph{Optimization strategy} Note that, within this framework, it is sufficient to consider the differences between the democracy attributes among the two hypothetical candidates. We define then the centered coordinates \todo{por que necesitamos cent coord?} $\mathbf z^i_k\in\{-1,0,1\}$ as,
+
+\begin{equation}
+\mathbf z^i_k=\mathbf x_k^{1,i}-\mathbb x_k^{2,i},
+\end{equation}
+
+and from now on, the intercept $b$ is ignored because a function of the type $f_i(\mathbf z_k)=\text{sign}(\w_i\cdot\mathbf z^i_k)$ \todo{sgn o sign?} is mathematically sufficient \todo{necesitamos probar esto? suena como arbitrario?}. 
+
+It should be clear by now that the challenge is to identify weights $\w^i$ for every survey participant $i$. Under the data separability assumption, it has been shown by \textcite{vapnik1991necessary} that it suffices to focus on the margin, defined as {\color{red}the minimal distance of a sample to the decision surface}\todo{rephrase this}. For notation simplicity, the dependence of $y^i$ and $\mathbf z_k^i$ on $i$ will be dropped. By rescaling $\w_i$ we know that the closest {\color{red}points to the hyperplane}\todo{explayar} must satisfy,
+
+\begin{equation}
+|\w^i\cdot\mathbf z_k| = 1,
+\end{equation}
+
+and if two {\color{red}samples}\todo{explayar} $\mathbf z_k$ and $\mathbf z_m$ belong to different {\color{red}classes}\todo{explayar}, then the margin is defined as the distance of these two {\color{red}points to the hyperplane}\todo{explayar},
+
+\begin{equation}
+\frac{\w^i}{\|\w^i\|} \cdot(\mathbf z_k-\mathbf z_m) = \frac{2}{\|\w^i\|}.
+\end{equation}
+
+It should be clear by now that for each survey participant $i$, the optimal hyperplane is the solution to the following optimization problem,
+
+\begin{eqnarray*}
+&&\min_{\w^i}\frac12\|\w^i\|^2
+\\
+\text{subject to} && y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
+\end{eqnarray*}
+
+Regarding the actual dataset analyzed in this study, it is unknown if these data can be separated by an hyperplane. To allow for bad classification issues, \textcite{cortes1995support} introduced the concept of ``slack variables'' $\xi_i$ that relax the previous {\color{red}formulation}\todo{which one?}:
+
+\begin{equation}
+y_k\,( \w^i\cdot\mathbf z_k)\geq 1-\xi_k,\quad \xi_k\geq0,\quad k=1,2,3,4,5.
+\end{equation}
+
+All in all, this allows controlling for both the classification strength of $\|\w^i\|$, and the sum of the slack variables $\sum_{k=1}^5 \xi_k$ which account for possible classification deviations. A widely used solution to that {\color{red}trade-off}\todo{explayar} is the $C$-SVM, or ``soft margin classifying,'' which is based on the minimization of the following objective function,
+
+\begin{equation}
+\min_{\w^i,\xi}\frac12\|\w^i\|^2+C\sum_{k=1}^5\xi_k,
+\end{equation}
+
+where the {\color{red}regularization}\todo{standardizing?} constant $C>0$ determines the trade-off between the empirical error and the {\color{red}complexity term}\todo{explayar}. The optimization problem was solved using the \texttt{sklearn} library in \texttt{Python}. We also make available in the Appendix an \texttt{R} routine that directly solves the optimization problem by using the {\color{red}steepest descent approach}\todo{explayar}. Since the optimization problem is {\color{red}convex}\todo{explayar}, algorithms converge to a unique solution.
+
+
+\todo{motivate why SVM are better.}
 
 \subsection{Analyzing The Conjoint Data via Support Vector Machines}
 
