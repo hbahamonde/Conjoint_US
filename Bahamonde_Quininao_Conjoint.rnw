@@ -453,10 +453,10 @@ While classic conjoint analyses provide consistent causal estimates, they unfort
 
 Support vector machines (SVMs) are a set of methods of supervised learning\todo{definir brevemente que es ``supervised learning''} which might be extended to classification applications and/or standard regression techniques \parencite[Chapter 12]{maimon2005data}. In this paper we are interested in applying SVM methods to---first---solve a classification problem, and then in a second stage, apply OLS methods. The first stage is a data-driven process which consists of finding a classification rule that assigns {\color{red}an object to one of two classes}\todo{mejorar redaccion, ``object''/``classes''}. In particular, we are interested in learning about the political preferences of survey participants by using the information participants provided when making choices between the two hypothetical candidates and the policies those candidates endorsed (as exemplified in \autoref{tab:conj:ex}). Since the focus is to account for the multi-dimensionality of democracy, we separately perform these analyses for all five democracy attributes. In the second stage we use standard regression methods to study correlations between the five democracy attributes (obtained in the first stage) and respondent's socio-political attitudes, particularly, the intention to sell the vote. In sum, we exploit the conjoint dataset to first classify all participants within a common space for all five attributes individually. Then we fit five separate OLS regression models between those five spaces and the intention to sell the vote (controlling for relevant covariates).
 
-\paragraph{Stating the problem} Consider the following classification task: estimate a function $f:\R^J\rightarrow\{-1,1\}$ using a system of {\color{red}input-output training data pairs}\todo{explain}. Since $f$ is undefined, we define it in this article.\todo{te re interprete. antes decia Of course, there are several functions that can account for this problem, thus we have to search for such $f$ in a particular space. ESTA BIEN?} The $f$ function should be able to map every participant attitudes toward the five democracy attributes and classify those attitudes within a common numeric space. 
+\paragraph{Stating the problem} Consider the following classification task: estimate a function $f:\R^J\rightarrow\{-1,1\}$ using a system of {\color{red}input-output training data pairs}\todo{explain}. The $f$ function should be able to map every participant attitudes toward the five democracy attributes and classify those attitudes within a common numeric space. 
 
 
-As exemplified in \autoref{tab:conj:ex}, all hypothetical political candidates took stances in favor (or against) the five democracy policies. For an input $\mathbf x\in\{0,1\}^5$, which represents the range of possible political stances of a candidate, the function $f$ maps\todo{esta ok maps?} a democracy attribute with the survey participant, linking both in what could be described as the ``decision'' made by the survey participant. For instance, hypothetical candidates 1 and 2 in \autoref{tab:conj:ex} are represented by vectors $(1,1,0,1,1)$ and $(0,0,0,1,0)$, respectively. Then, the function $f$ connects the respondent's attribute choices (embodied by hypothetical candidates $1$ or $2$) with the respondent herself (i.e. her ``decision''). 
+As exemplified in \autoref{tab:conj:ex}, all hypothetical political candidates took stances in favor (or against) the five democracy policies. For an input $\mathbf x\in\{0,1\}^5$, which represents the range of possible political stances of a candidate, the function $f$ maps survey participants with all democracy attributes\todo{hb: consistencia de que son todos los attributes}, linking both in what could be described as the ``decision'' made by the survey participant. For instance, hypothetical candidates 1 and 2 in \autoref{tab:conj:ex} are represented by vectors $(1,1,0,1,1)$ and $(0,0,0,1,0)$, respectively. Then, the function $f$ connects the respondent's attribute choices (embodied by hypothetical candidates $1$ or $2$) with the respondent herself (i.e. her ``decision''). 
 
 \paragraph{Constructing the vector weight $\mathbf w^i$} One way to motivate our approach is via the latent variable and the standard maximization utility approaches. For simplicity, we assume that participant preferences can be modeled by an additive linear utility function, and that the decision function $f$ takes a utility sign $\{+, -\}$ depending on the attribute chosen---more details are provided below. If the data can be partitioned by an hyperplane (which is the case in most randomized conjoint designs), such functions can be defined for every participant $i$.
 
@@ -466,7 +466,7 @@ Survey participants evaluate between two hypothetical candidates and choose one.
 (\mathbf x_1^{1,i},\mathbf x_1^{2,i};y_{1}^i),\,\,(\mathbf x_2^{1,i},\mathbf x_2^{2,i};y_{2}^i),\,\,\ldots\,\, (\mathbf x_5^{1,i},\mathbf x_5^{2,i};y_{5}^i)
 \end{equation}
 
-{\color{red}where $\mathbf x_k^{1,i}\in \{0,1\}^5$ (respectively $\mathbf x_k^{2,i}$) representing the attributes shown to citizen $i$ of candidate 1 (respectively 2) at round $k$} \todo{mejorar redaccion-me perdi}. The corresponding $y_k$ is the selected candidate. We coded \todo{bien ``coded''?} $y_k^i=1$ when survey participant $i$ selected candidate $1$, and $y_k=-1$ \todo{no indexado por i} when survey participant $i$ selected candidate $2$. Since we are trying to characterize a linear function for every $i$, survey participants can be mapped by a vector weight $\mathbf w^i\in\mathbb R^5$ and an intercept $b^i$. Indeed, for a candidate $\mathbf x$, the function,
+{\color{red}where $\mathbf x_k^{1,i}\in \{0,1\}^5$ (respectively $\mathbf x_k^{2,i}$) representing the attributes shown to citizen $i$ of candidate 1 (respectively 2) at round $k$} \todo{mejorar redaccion-me perdi}. The corresponding $y_k$ is the selected candidate. We coded $y_k^i=1$ when survey participant $i$ selected candidate $1$, and $y_k^{i}=-1$ when survey participant $i$ selected candidate $2$. Since we are trying to characterize a linear function for every $i$, survey participants can be mapped by a vector weight $\mathbf w^i\in\mathbb R^5$ and an intercept $b^i$. Indeed, for a candidate $\mathbf x$, the function,
 
 \begin{equation}
 u_i(\mathbf x) = \w^i\cdot\mathbf x+b,
@@ -490,18 +490,18 @@ implying that whenever two candidates $\mathbf x_1^{1,i}$ and $\mathbf x_1^{2,i}
 \paragraph{Optimization strategy} Note that, within this framework, it is sufficient to consider the differences between the democracy attributes among the two hypothetical candidates. We define then the centered coordinates \todo{por que necesitamos cent coord?} $\mathbf z^i_k\in\{-1,0,1\}$ as,
 
 \begin{equation}
-\mathbf z^i_k=\mathbf x_k^{1,i}-\mathbb x_k^{2,i},
+\mathbf z^i_k=\mathbf x_k^{1,i}-\mathbf x_k^{2,i},
 \end{equation}
 
-and from now on, the intercept $b$ is ignored because a function of the type $f_i(\mathbf z_k)=\text{sign}(\w_i\cdot\mathbf z^i_k)$ \todo{sgn o sign?} is mathematically sufficient \todo{necesitamos probar esto? suena como arbitrario?}. 
+and from now on, the intercept $b$ will be ignored because a function of the type $f_i(\mathbf z_k)=\text{sgn}(\w_i\cdot\mathbf z^i_k)$ is mathematically sufficient \todo{necesitamos probar esto? suena como arbitrario?}. 
 
-It should be clear by now that the challenge is to identify weights $\w^i$ for every survey participant $i$. Under the data separability assumption, it has been shown by \textcite{vapnik1991necessary} that it suffices to focus on the margin, defined as {\color{red}the minimal distance of a sample to the decision surface}\todo{rephrase this}. For notation simplicity, the dependence of $y^i$ and $\mathbf z_k^i$ on $i$ will be dropped. By rescaling $\w_i$ we know that the closest {\color{red}points to the hyperplane}\todo{explayar} must satisfy,
+It should be clear by now that the challenge is to identify weights $\w^i$ for every survey participant $i$. Under the data separability assumption, it has been shown by \textcite{vapnik1991necessary} that it suffices to focus on the margin, defined as {\color{red}the minimal distance of a sample to the decision surface}\todo{rephrase this}. For notation simplicity, the dependence of $y^i$ and $\mathbf z_k^i$ on $i$ will be dropped. By rescaling $\w_i$ we know that the closest {\color{red}points to the hyperplane} must satisfy,
 
 \begin{equation}
 |\w^i\cdot\mathbf z_k| = 1,
 \end{equation}
 
-and if two {\color{red}samples}\todo{explayar} $\mathbf z_k$ and $\mathbf z_m$ belong to different {\color{red}classes}\todo{explayar}, then the margin is defined as the distance of these two {\color{red}points to the hyperplane}\todo{explayar},
+and if two observations $\mathbf z_k$ and $\mathbf z_m$ belong to different classes (i.e. selected candidate), then the margin is defined as the distance of these two {\color{red}points to the hyperplane},
 
 \begin{equation}
 \frac{\w^i}{\|\w^i\|} \cdot(\mathbf z_k-\mathbf z_m) = \frac{2}{\|\w^i\|}.
@@ -509,25 +509,24 @@ and if two {\color{red}samples}\todo{explayar} $\mathbf z_k$ and $\mathbf z_m$ b
 
 It should be clear by now that for each survey participant $i$, the optimal hyperplane is the solution to the following optimization problem,
 
-\begin{eqnarray*}
-&&\min_{\w^i}\frac12\|\w^i\|^2
-\\
-\text{subject to} && y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
-\end{eqnarray*}
+\begin{equation}\label{eq:restriction}
+\min_{\w^i}\frac12\|\w^i\|^2
+\text{subject to} \; y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
+\end{equation}
 
-Regarding the actual dataset analyzed in this study, it is unknown if these data can be separated by an hyperplane. To allow for bad classification issues, \textcite{cortes1995support} introduced the concept of ``slack variables'' $\xi_i$ that relax the previous {\color{red}formulation}\todo{which one?}:
+Regarding the actual dataset analyzed in this study, it is unknown if these data can be separated by an hyperplane. To allow for bad classification issues, \textcite{cortes1995support} introduced the concept of ``slack variables'' $\xi_i$ that relax the optimization problem restrictions (\autoref{eq:restriction}):
 
 \begin{equation}
 y_k\,( \w^i\cdot\mathbf z_k)\geq 1-\xi_k,\quad \xi_k\geq0,\quad k=1,2,3,4,5.
 \end{equation}
 
-All in all, this allows controlling for both the classification strength of $\|\w^i\|$, and the sum of the slack variables $\sum_{k=1}^5 \xi_k$ which account for possible classification deviations. A widely used solution to that {\color{red}trade-off}\todo{explayar} is the $C$-SVM, or ``soft margin classifying,'' which is based on the minimization of the following objective function,
+All in all, this allows controlling for both the classification strength of $\|\w^i\|$, and the sum of the slack variables $\sum_{k=1}^5 \xi_k$ which account for possible classification deviations. \todo{explicar aqui el trade-off} A widely used solution to that trade-off is the $C$-SVM, or ``soft margin classifying,'' which is based on the minimization of the following objective function,
 
 \begin{equation}
 \min_{\w^i,\xi}\frac12\|\w^i\|^2+C\sum_{k=1}^5\xi_k,
 \end{equation}
 
-where the {\color{red}regularization}\todo{standardizing?} constant $C>0$ determines the trade-off between the empirical error and the {\color{red}complexity term}\todo{explayar}. The optimization problem was solved using the \texttt{sklearn} library in \texttt{Python}. We also make available in the Appendix an \texttt{R} routine that directly solves the optimization problem by using the {\color{red}steepest descent approach}\todo{explayar}. Since the optimization problem is {\color{red}convex}\todo{explayar}, algorithms converge to a unique solution.
+where the regularization constant $C>0$ determines the trade-off between the empirical error and the {\color{red}complexity term}\todo{explayar}. The optimization problem was solved using the \texttt{sklearn} library in \texttt{Python}. We also make available in the Appendix an \texttt{R} routine that directly solves the optimization problem by using the {\color{red}steepest descent approach}\todo{explayar}. Since the optimization problem is convex, algorithms converge to a unique solution.
 
 
 \todo{motivate why SVM are better.}
