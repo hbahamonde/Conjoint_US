@@ -161,6 +161,67 @@ headpunct=:
 %%% bib end
 
 
+% r code verbatim config
+\lstdefinestyle{R}{ %
+  language=R,                     % the language of the code
+  basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{dkgreen},   % comment style
+  stringstyle=\color{mauve},      % string literal style
+  morekeywords={*,...}            % if you want to add more keywords to the set
+}
+
+\lstdefinestyle{Python}{ %
+  language=Python,                     % the language of the code
+  basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{dkgreen},   % comment style
+  stringstyle=\color{mauve},      % string literal style
+  morekeywords={*,...}            % if you want to add more keywords to the set
+} 
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{language=R,frame=lines}
+\lstset{language=Python,frame=lines}
+
 % DOCUMENT ID
 
 
@@ -287,26 +348,22 @@ options(scipen = 99999999999)
 Democracy has been theorized as a multidimensional concept. Specifically referring to \emph{polyarchies}, \textcite[3]{Dahl1971} explains that full democracies should satisfy a number of dimensions which speak to certain institutional guarantees that create opportunities to (1) formulate political and social preferences, (2) signify those preferences, and (3) have preferences weighted equally when conducting a government. %Since cases where countries are ``completely or almost completely responsive to all its citizens'' are rare, \textcite[8]{Dahl1971} prefers to use the multidimensional concept of \emph{polyarchy}. 
 
 % 2. But the study of clientelism---as a kind of democratic failure \parencite{Kuo2018}---usually is unidimensional. The study of specific conditions that have to fail to produce clientelism is usually focused on a single factor. Perhaps the most studied one is income, and how poverty increases the probability of clientelism. 
-Yet, clientelism---as a democracy failure---has been studied almost exclusively from a unidimensional perspective. We believe that there exists a methodological and conceptual alignment---one that biases our inferences. On the one hand, qualitative, historical and/or ethnographically-based contributions describe clientelist transactions as complex and multidimensional. Leveraging qualitative techniques, researchers are able to provide ``thick descriptions'' \parencite{Goertz1973} of the phenomena at hand \parencite{Posada-Carbo:1996aa,Sabato2001,Auyero2000,Szwarcberg2013,Borges2019}. On the other hand, statistical, survey, and/or experimentally-based work mostly explores singular aspects related to clientelism---typically, the effect of a single variable (or treatment) on the probability of clientelism.\footnote{Quantitative scholars then usually focus on the ``effects of causes'' rather than on the ``causes of effects'' \parencite{Pearl2015}.} For example, using a field experiment in Benin, \textcite{Wantchekon2003} stresses the role of ``incumbency'' on vote buying, while \textcite[227]{Jensen2013a} focus on the impact of ``poverty'' on vote buying. While the quantitative literature on clientelism has advanced on a number of important questions, most studies concentrate their efforts on a single variable which (when possible) is manipulated in an experimental or quasi-experimental design \parencite{Corstange2012a,Imai2014a,Nichter2014a,Hicken2015,Hicken2018,Auerbach2018,Bratton2008a,Weitz-shapiro,GonzalezOcantos2014,Bahamonde2018,Bahamonde2020a,Oliveros2016}. Since the approach (i.e. unicausal/multicausal) is correlated with the method (quantitative/qualitative), we believe this methodological and conceptual alignment represents an important gap in the literature. 
+Yet, clientelism---as a democracy failure---has been studied almost exclusively from a unidimensional perspective. We believe that there exists a methodological and conceptual alignment---one that biases our inferences. On the one hand, qualitative, historical and/or ethnographically-based contributions describe clientelist transactions as complex and multidimensional. By employing qualitative techniques, researchers are able to provide ``thick descriptions'' \parencite{Goertz1973} of the phenomena at hand \parencite{Posada-Carbo:1996aa,Sabato2001,Auyero2000,Szwarcberg2013,Borges2019}. On the other hand, statistical, survey, and/or experimentally-based work mostly explores singular aspects related to clientelism---typically, the effect of a single variable (or treatment) on the probability of clientelism.\footnote{Quantitative scholars then usually focus on the ``effects of causes'' rather than on the ``causes of effects'' \parencite{Pearl2015}.} For example, using a field experiment in Benin, \textcite{Wantchekon2003} stresses the role of ``incumbency'' on vote buying, while \textcite[227]{Jensen2013a} focus on the impact of ``poverty'' on vote buying. While the quantitative literature on clientelism has advanced on a number of important questions, most studies concentrate their efforts on a single variable which (when possible) is manipulated in an experimental or quasi-experimental design \parencite{Corstange2012a,Imai2014a,Nichter2014a,Hicken2015,Hicken2018,Auerbach2018,Bratton2008a,Weitz-shapiro,GonzalezOcantos2014,Bahamonde2018,Bahamonde2020a,Oliveros2016}. Since the approach (i.e. unicausal/multicausal) is correlated with the method (quantitative/qualitative), we believe this methodological and conceptual alignment represents an important gap in the literature. 
 
 % 3. This paper contributes to the clientelism literature by situating clientelism within a richer and multidimensional conceptualization of democracy by specifying which specific democratic dimensions, when absent, make clientelism more likely.
-Substantively, we argue that to better understand the motivations behind clientelism and the micro-dynamics that drive it, studies should situate the phenomena within the \emph{multidimensionality of democracy}. In other words, What are the \emph{causes} of clientelism? Which \emph{dimensions} of democracy---as described by \textcite{Dahl1971}---should fail to produce clientelism? While qualitative researchers are better equipped to properly answer these questions, there are some quantitative techniques that might provide broader explanations for the causes of clientelism. We do not argue that these quantitative tools might give us the kind of rich explanations ethnographies provide. However, we hope this paper provides multidimensional answers to a multidimensional concept within the quantitative framework. Ultimately, this paper tries to provide a multidimensional explanation for clientelism within the ``effects of causes'' approach \parencite{Pearl2015}. Exploiting a novel conjoint dataset, this paper developed an experimental design which sought to answer \emph{which of the three democratic dimensions explained by \textcite{Dahl1971} should fail to produce clientelism in the United States?} 
+Substantively, we argue that to better understand the motivations behind clientelism and the micro-dynamics that drive it, studies should situate the phenomena within the \emph{multidimensionality of democracy}. In other words, What are the \emph{causes} of clientelism? Which \emph{dimensions} of democracy---as described by \textcite{Dahl1971}---should fail to produce clientelism? While qualitative researchers are better equipped to properly answer these questions, there are some quantitative techniques that might provide broader explanations for the causes of clientelism. We do not argue that these quantitative tools might give us the kind of rich explanations ethnographies provide. However, we hope this paper provides multidimensional answers to a multidimensional concept within the quantitative framework. Ultimately, this paper tries to provide a multidimensional explanation for clientelism within the ``effects of causes'' approach \parencite{Pearl2015}. Exploiting a novel conjoint dataset, this paper developed an experimental design which sought to answer \emph{Which of the three democratic dimensions explained by \textcite{Dahl1971} should fail to produce clientelism in the United States?} 
 
 
-Since the vote-buying literature mostly considers developing countries and describes vote sellers as poor \parencite[12]{Weitz-Shapiro:2014aa}, uneducated \parencite{GonzalezOcantos2014}, and undemocratic \parencite{Carlin2015}, the willingness to sell votes in the United States should be low, making it a difficult case study on vote selling.\footnote{However see \textcite{Bahamonde2020a}.} And such, this study follows a ``least-likely'' design presenting the United States as a ``crucial case.'' As \textcite[12]{Levy2008} explains, ``[i]nferential leverage from a least likely case is enhanced if our theoretical priors for the leading alternative explanation make it a most likely case for that theory.'' However, the evidence that this paper presents may be associated with a probable erosion of American democracy \parencite{Levitsky:2018aa}. \textcite[7]{Foa2016a} document a deep ``crisis of democratic legitimacy [that] extends across a [...] wider set of indicators'' in the United States. They find that 26\% of millennials declare that it is ``unimportant'' in a democracy for people to ``choose their leaders in free elections'' (\textcite[10]{Foa2016a} and \textcite{Foa2017b}). Our study aims to contribute to this debate by presenting experimental evidence that links the democratic theory literature with the clientelism literature.
+Since the vote-buying literature mostly considers developing countries and describes vote sellers as poor \parencite[12]{Weitz-Shapiro:2014aa}, uneducated \parencite{GonzalezOcantos2014}, and undemocratic \parencite{Carlin2015}, the willingness to sell votes in the United States should be low, making it a difficult case study on vote selling.\footnote{However see \textcite{Bahamonde2020a}.} And such, this study follows a ``least-likely'' design presenting the United States as a ``crucial case.'' As \textcite[12]{Levy2008} explains, ``[i]nferential leverage from a least likely case is enhanced if our theoretical priors for the leading alternative explanation make it a most likely case for that theory.'' However, the evidence that this paper presents may be associated with a probable erosion of American democracy \parencite{Levitsky:2018aa}. \textcite[7]{Foa2016a} document a deep ``crisis of democratic legitimacy [that] extends across a [...] wider set of indicators'' in the United States. They find that 26\% of millennials declare that it is ``unimportant'' in a democracy for people to ``choose their leaders in free elections'' (\textcite[10]{Foa2016a} and \textcite{Foa2017b}). Our study aims to contribute to this debate by presenting experimental evidence that links the democracy theory literature with the clientelism literature.
 
-The methodological contribution of this paper is twofolds. First, this paper contributes to the literature by leveraging a conjoint experiment on hypothetical vote selling in a traditionally considered consolidated democracy. Most quantitative studies have been conducted in developing countries, seriously narrowing the scope of our inferences. In part, this is because the clientelism literature usually focuses on realized behaviors only---that is, actual clientelist transactions. Unfortunately, by ignoring attitudes of potential vote sellers, particularly when it comes to the willingness to sell, selection bias seriously threatens causal inferences. \textcite[131]{Geddes1990} explains the well-known selection issues of studying ``only cases that have achieved the outcome of interest.'' Thus, and following the lead of \textcite{GonzalezOcantos2014,Bahamonde2020a}, this paper presents experimental evidence of hypothetical willingness to sell the vote in the United States. 
+The methodological contribution of this paper is twofolds. First, this paper contributes to the literature by leveraging a conjoint experiment on hypothetical vote selling in the United States, a traditionally considered consolidated democracy. Most quantitative studies have been conducted in developing countries, seriously narrowing the scope of our inferences. In part, this is because the clientelism literature usually focuses on realized behaviors only---that is, actual clientelist transactions. Unfortunately, by ignoring attitudes of \emph{potential} vote sellers, particularly when it comes to the willingness to sell, selection bias seriously threatens causal inferences. \textcite[131]{Geddes1990} explains the well-known selection issues of studying ``only cases that have achieved the outcome of interest.'' Thus, and following the lead of \textcite{GonzalezOcantos2014,Bahamonde2020a}, this paper presents experimental evidence of hypothetical willingness to sell the vote in the United States. 
 
-Second, we introduce machine learning techniques, particularly support vector machine analyses (SVM) for analyzing conjoint datasets.\todo{qc: one paragraph explain why SVM are ``good''. 1 paragraph}
+Second, we introduce machine learning techniques, particularly support vector machine analyses (SVM) for analyzing conjoint datasets. SVMs rely on computational algorithms that solve classification problems in a data-driven fashion. One of the main advantages of SVM methods is that their optimal classification properties are robust even when working with multiple dimensions at the same time. Since this paper makes the case for a multidimensional approach to the study of clientelism, we claim the method is appropriate and relevant to the discipline. From a technical standpoint, SVMs separate groups of observations in a hyperplane. A hyperplane is a geometrical space where observations---survey respondents, in this case---are located. As explained later, the three democracy dimensions described by \textcite{Dahl1971} were operationalized in five different subdimensions (i.e. conjoint attributes). This paper employed SVM methods to group most-similar observations according to their preferences toward the five conjoint attributes. After the classification problem was solved, standard regression techniques were used to study correlations between the preferences of survey participants toward the five conjoint attributes and their willingness to sell the vote---captured by a question asked during the same study. 
 
-
-\todo{hb: summarize methods, findings and contribution, the paper continues as follows. 1 paragraph}
-
-
-%\hyperlink{case}{The next section} gives a historical account of clientelism in the United States. The section also attempts to situate the phenomena within a historical context, at the same time that it justifies it as a case. It particularly shows how vote buying transitioned from their status as an important institution in American elections to a scarcely practiced electoral method. \todo{add remaining sections} %The \hyperlink{experimental:design}{following section} explains the experimental design. Immediately \hyperlink{statistical:analyses}{thereafter}, the paper presents the statistical analyses of the experimental data. The last \hyperlink{discussion}{section} offers some working hypotheses and possible lines for future research.
+We claim this set of techniques might provide new insights about the \emph{specific} democracy dimensions \parencite{Dahl1971} that should fail to make vote selling most likely. In fact, we find that among the five attributes, the only one that ought fail to make vote selling most likely, is the presence of presidential checks and balances. That is, individuals who systematically do not value accountable Presidents, thus preferring a fully autonomous President---one that governs \emph{without} a Congress---are more likely to sell their vote. We believe that this contribution is novel. The authors are not aware of any study in the quantitative literature of clientelism that conceives democracy as a multidimensional concept. In fact, the literature usually assumes that clientelism emerges when ``democracy''---as a whole---fails. This paper takes a step further explaining which \emph{specific} democracy attribute ought to fail to make vote selling most likely. 
 
 
-The paper continue as follows. \hyperlink{traditional.cj}{First} we explain the logic of conjoint analyses and their main contribution to political science. \hyperlink{our.cj}{Second} we introduce a novel dataset of U.S. voters representative at the country level. In this section we analyze our conjoint dataset exploiting the traditional approach and explain its shortcomings\todo{qc: a sentence on the shortcomings}. \hyperlink{our.cj.svm}{Third} we introduce the support vector machine approach to analyzing conjoint data, and proceed to explaining its main advantages. We also provide \texttt{Matlab} routines to replicate the data analyses.\todo{qn:?} The \hyperlink{conclusion}{final section} concludes.
+The paper continue as follows. \hyperlink{traditional.cj}{First}, we explain the logic of conjoint analyses and their main contribution to political science. \hyperlink{our.cj}{Second}, we introduce a novel dataset of U.S. voters representative at the country level. In that section we \hyperlink{our.cj.classic}{analyze} the conjoint dataset exploiting the traditional conjoint approach and explain its shortcomings. \hyperlink{our.cj.svm}{Third}, we introduce the support vector machine approach to analyzing conjoint data, and proceed to explaining its main advantages and show our main results. Finally, in the \hyperlink{appendix}{Appendix} section we make available \texttt{R} (\autoref{r.code}) and \texttt{Python} (\autoref{p.code}) routines not only to replicate the data analyses in this study, but also to spread these methods among interested researchers, to hopefully move this area of research forward. The \hyperlink{conclusion}{final section} concludes.
 
 
 
@@ -334,7 +391,7 @@ A number of topics have been studied, such as preferences for health care \paren
 
 
 % Levering on Hainmueller2014a we present our approach
-Our multidimensional approach toward the study of vote selling is novel in the quantitative literature. Quantitative contributions on vote buying, vote selling and clientelism in general, are usually unidimensional. Survey experiments have been widely used to study this phenomena. For instance, \textcite{Bahamonde2020a,Gonzalez-Ocantos2012,GonzalezOcantos2014,Gonzalez-Ocantos2015} use list experiments to study the effect of selling prices or specific issues related to norms and legitimacy on the probability of vote selling. While these and other studies have advanced a number of important questions in the discipline, unfortunately, they are able to study one aspect at a time, mainly, by manipulating a word, a sentence, a framing or a price. As \textcite[2]{Hainmueller2014a} point out, these designs ``have an important limitation for analyzing multidimensional decision making.'' We fill this gap by introducing a multidimensional conjoint-based approach to studying vote-selling in the United States.
+Our multidimensional approach toward the study of vote selling is novel in the quantitative literature. Quantitative contributions on vote buying, vote selling and clientelism in general, are usually unidimensional. Survey experiments have been widely used to study this phenomena. For instance, \textcite{Bahamonde2020a,Gonzalez-Ocantos2012,GonzalezOcantos2014,Gonzalez-Ocantos2015} use list experiments to study the effect of selling prices or specific issues related to norms and legitimacy on the probability of vote selling. While these and other studies have advanced a number of important questions in the discipline, unfortunately, they are able to study one aspect at a time, mainly, by manipulating a word, a sentence, a framing or a price. As \textcite[2]{Hainmueller2014a} point out, these designs ``have an important limitation for analyzing multidimensional decision making.'' We fill this gap by introducing a multidimensional conjoint-based approach to studying vote selling in the United States.
 
 
 Our contribution builds directly on \textcite{Carlin2011a,Carlin2015,Carlin2017}. Using survey data, they build a series of multidimensional indexes to measure---in Dahlian terms---attitudes towards democracy. Particularly, using the Q-Method and cluster analyses, they account for the multifaceted views towards a democracy. Considering their operationalization strategy of Dahl's conceptualization of democracy (\autoref{tab:dim}) but also leveraging the \textcite{Hainmueller2014a} approach to designing conjoint experiments, we implemented a conjoint design (\autoref{tab:conj:ex}) aimed to studying the multidimensionality of conditions that make vote selling most likely in the United States. Particularly, we are interested in specifying which of the three democracy dimensions of \textcite{Dahl1971} ought to fail to make vote selling most likely in the United States. 
@@ -420,7 +477,7 @@ Given that conjoint designs are able ``to identify the causal effects of various
 The study considered a \hyperlink{direct.question}{direct question} about the intention to sell the vote. As a whole, the conjoint experiment was framed as a study about crime in the United States, not as a study about clientelism. Participants were asked to read \hyperlink{distractor.vignette}{an excerpt} mentioning a number of crimes. All were formatted as news pieces. The idea was to explain ``vote selling'' to ``newsreaders.'' To further prevent bias, the direct question stated that there was the hypothetical possibility of doing one of the illegal things mentioned in the excerpt. And that this possibility would be randomly assigned. However, all participants were directly asked whether they would be interested in selling their vote. Following \textcite{Bahamonde2020a}, to capture the willingness to sell without the potential costs, participants were asked whether they would be willing to accept the offer, assuming they would not go to jail. After answering the conjoint portion of the study, participants were asked to answer a battery of socio-demographic and political questions. 
 
 
-Ultimately, our design will allow a series of hypotheses tests between every of the five democracy attributes and the vote-selling question. Typical conjoint analyses offer descriptive associations between hypothetical attributes. While these analyses have advanced a number of important research avenues, they do not permit statistical associations between the selected profiles and the respondents attitudes or preferences. By introducing support vector machine techniques to analyzing conjoint experiments, we are able to do so. As we explain later, this approach improves our causal inferences by permitting statistical correlations between the selected conjoint profiles (democracy) and the respondents attitudes (vote selling). We also are able to control for other observables (the socio-demographic battery). Before presenting the machine learning approach, we first present our novel dataset and analyzes it first by using the traditional AMCE-based conjoint approach. 
+Ultimately, our design will allow a series of hypotheses tests between every of the five democracy attributes and the vote selling question. Typical conjoint analyses offer descriptive associations between hypothetical attributes. While these analyses have advanced a number of important research avenues, they do not permit statistical associations between the selected profiles and the respondents attitudes or preferences. By introducing support vector machine techniques to analyzing conjoint experiments, we are able to do so. As we explain later, this approach improves our causal inferences by permitting statistical correlations between the selected conjoint profiles (democracy) and the respondents attitudes (vote selling). We also are able to control for other observables (the socio-demographic battery). Before presenting the machine learning approach, we first present our novel dataset and analyzes it first by using the traditional AMCE-based conjoint approach. 
 
 
 \subsection{Classic Conjoint Data Approach}\hypertarget{our.cj.classic}{}{}
@@ -449,11 +506,13 @@ While classic conjoint analyses provide consistent causal estimates, they unfort
 % In fact, the \href{https://www.vanderbilt.edu/lapop/usa/2010_United_States_Questionnaire.pdf}{LAPOP} 2010 survey wave for the United States suggests that \Sexpr{percentage.never}\% of respondents has never been asked to sell the vote. 
 
 
-\section{Introducing Support Vector Machines Techniques to Analyzing Conjoint Data}\hypertarget{our.cj.svm}{}
+\section{Introducing Support Vector Machines Methods to Analyzing Conjoint Data}\hypertarget{our.cj.svm}{}
 
-Support vector machines (SVMs) are a set of methods of supervised learning\todo{definir brevemente que es ``supervised learning''} which might be extended to classification applications and/or standard regression techniques \parencite[Chapter 12]{maimon2005data}. In this paper we are interested in applying SVM methods to---first---solve a classification problem, and then in a second stage, apply OLS methods. The first stage is a data-driven process which consists of finding a classification rule that assigns {\color{red}an object to one of two classes}\todo{mejorar redaccion, ``object''/``classes''}. In particular, we are interested in learning about the political preferences of survey participants by using the information participants provided when making choices between the two hypothetical candidates and the policies those candidates endorsed (as exemplified in \autoref{tab:conj:ex}). Since the focus is to account for the multi-dimensionality of democracy, we separately perform these analyses for all five democracy attributes. In the second stage we use standard regression methods to study correlations between the five democracy attributes (obtained in the first stage) and respondent's socio-political attitudes, particularly, the intention to sell the vote. In sum, we exploit the conjoint dataset to first classify all participants within a common space for all five attributes individually. Then we fit five separate OLS regression models between those five spaces and the intention to sell the vote (controlling for relevant covariates).
+Support vector machine methods are a subclass of machine learning techniques, which in turn are a branch of the artificial intelligence field. The main goal of these methods is to use computational algorithms to learn from data \parencite{talabis2015analytics}. For instance, in agricultural sciences machine learning methods are used to identify between crops and grass using satellite images as data. There are mainly three branches of machine learning techniques: supervised learning, unsupervised learning and reinforcement learning. Based on a subset\todo{decia set, ok?} of the complete dataset (the ``training'' dataset), the goal of supervised learning is to identify \todo{decia find, ok?} a mathematical function able to map a vector (``input'') to another vector (``output'') based on input-output data pairs which are used as examples. For instance, the analyst can define how crops and grass look like (output). Once the mathematical function is defined, supervised learning techniques should be able to automatically recognize newly presented images of crops and grass (input) and classify them (map) into their respective categories (output)---i.e. ``grass'' or ``crops.'' Unsupervised learning is similar to supervised learning, but the training dataset have only the input component. Thus, the computational algorithms in this case should be able to find patterns in the dataset without having prior information. Finally, reinforcement learning was inspired by behavioral psychology, and its main goal is to determine what actions an algorithm should perform in order to maximize some notion of ``accumulated reward.''
 
-\paragraph{Stating the problem} Consider the following classification task: estimate a function $f:\R^J\rightarrow\{-1,1\}$ using a system of {\color{red}input-output training data pairs}\todo{explain}. The $f$ function should be able to map every participant attitudes toward the five democracy attributes and classify those attitudes within a common numeric space. 
+Support vector machines (SVMs) are a set of techniques of supervised learning which might be extended to classification applications and/or standard regression techniques \parencite[Ch. 12]{maimon2005data}. In this paper we are interested in applying SVM methods to---first---solve a classification problem, and then in a second stage, apply OLS methods. The first stage is a data-driven process which consists of defining a full set of democratic attitudes, and then finding a classification rule (i.e. a mathematical function) that takes survey participants and classify them along the constructed democratic attitudes spectrum. In particular, we are interested in learning about the political preferences of survey participants by using the information participants provided when making choices between the two hypothetical candidates and the policies those candidates endorsed (as exemplified in \autoref{tab:conj:ex}). Since the focus is to account for the multi-dimensionality of democracy, we perform these analyses for all five democracy attributes. In the second stage we use standard regression methods to study correlations between the five democracy attributes (obtained in the first stage) and respondent's socio-political attitudes, particularly, the willingness to sell the vote. In sum, we exploit the conjoint dataset to first classify all participants within a common space for all five attributes. Then we fit five separate OLS regression models between those five spaces and the willingness to sell the vote (controlling for relevant covariates).
+
+\paragraph{Stating the problem} Consider the following classification task: estimate a function $f:\R^J\rightarrow\{-1,1\}$ using a system of input-output training data pairs. The $f$ function should be able to map every participant attitudes toward the five democracy attributes and classify those attitudes within a common numeric space. 
 
 
 As exemplified in \autoref{tab:conj:ex}, all hypothetical political candidates took stances in favor (or against) the five democracy policies. For an input $\mathbf x\in\{0,1\}^5$, which represents the range of possible political stances of a candidate, the function $f$ maps survey participants with all democracy attributes\todo{hb: consistencia de que son todos los attributes}, linking both in what could be described as the ``decision'' made by the survey participant. For instance, hypothetical candidates 1 and 2 in \autoref{tab:conj:ex} are represented by vectors $(1,1,0,1,1)$ and $(0,0,0,1,0)$, respectively. Then, the function $f$ connects the respondent's attribute choices (embodied by hypothetical candidates $1$ or $2$) with the respondent herself (i.e. her ``decision''). 
@@ -466,7 +525,9 @@ Survey participants evaluate between two hypothetical candidates and choose one.
 (\mathbf x_1^{1,i},\mathbf x_1^{2,i};y_{1}^i),\,\,(\mathbf x_2^{1,i},\mathbf x_2^{2,i};y_{2}^i),\,\,\ldots\,\, (\mathbf x_5^{1,i},\mathbf x_5^{2,i};y_{5}^i)
 \end{equation}
 
-{\color{red}where $\mathbf x_k^{1,i}\in \{0,1\}^5$ (respectively $\mathbf x_k^{2,i}$) representing the attributes shown to citizen $i$ of candidate 1 (respectively 2) at round $k$} \todo{mejorar redaccion-me perdi}. The corresponding $y_k$ is the selected candidate. We coded $y_k^i=1$ when survey participant $i$ selected candidate $1$, and $y_k^{i}=-1$ when survey participant $i$ selected candidate $2$. Since we are trying to characterize a linear function for every $i$, survey participants can be mapped by a vector weight $\mathbf w^i\in\mathbb R^5$ and an intercept $b^i$. Indeed, for a candidate $\mathbf x$, the function,
+
+
+where $\mathbf x_k^{1,i}$ represents the attributes of candidate 1 shown to citizen $i$ during task $k$. Similarly, $\mathbf x_k^{2,i}$ represents the attributes of candidate 2 shown to citizen $i$ during task $k$. The corresponding $y_k$ is the selected candidate. We coded $y_k^i=1$ when survey participant $i$ selected candidate $1$, and $y_k^{i}=-1$ when survey participant $i$ selected candidate $2$. Since we are trying to characterize a linear function for every $i$, survey participants can be mapped by a vector weight $\mathbf w^i\in\mathbb R^5$ and an intercept $b^i$. Indeed, for a candidate $\mathbf x$, the function,
 
 \begin{equation}
 u_i(\mathbf x) = \w^i\cdot\mathbf x+b,
@@ -474,26 +535,31 @@ u_i(\mathbf x) = \w^i\cdot\mathbf x+b,
 
 models the utility function of every survey participant $i$. For consistency, we identify weights $\w^i\in\R^5$ and intercept $b\in\R$ such that,
 
-\begin{equation}
+\begin{equation}\label{eq:unoGana}
 \w^i\cdot(\mathbf x_k^{1,i}-\mathbf x_k^{2,i}) > 0 \quad\Leftrightarrow\quad y_k^i=1,
 \end{equation}
 
 
 and
 
-\begin{equation}
+\begin{equation}\label{eq:dosGana}
 \w^i\cdot(\mathbf x_k^{1,i}-\mathbf x_k^{2,i}) < 0 \quad\Leftrightarrow\quad y_k^i=-1,
 \end{equation}
 
 implying that whenever two candidates $\mathbf x_1^{1,i}$ and $\mathbf x_1^{2,i}$ are presented, the survey respondent will choose the one that provides him with a larger utility.
 
-\paragraph{Optimization strategy} Note that, within this framework, it is sufficient to consider the differences between the democracy attributes among the two hypothetical candidates. We define then the centered coordinates \todo{por que necesitamos cent coord?} $\mathbf z^i_k\in\{-1,0,1\}$ as,
+
+\paragraph{Optimization strategy} Note that, within this framework, it is sufficient to consider the differences between the democracy attributes among the two hypothetical candidates. In fact, the selected hypothetical candidate and their corresponding policy stands are observed quantities. {\color{red}This is slightly different from the question: for a candidate $\mathbf x$ should you select her?}\todo{?} Therefore, and from a theoretical standpoint, unlike $u_i$ which cannot be directly constructed, $\w^i$ is the only observed quantity of interest which is accessed within the space of differences between candidates. We define then the {\color{red}centered coordinates}\todo{?} $\mathbf z^i_k\in\{-1,0,1\}$ as,
 
 \begin{equation}
 \mathbf z^i_k=\mathbf x_k^{1,i}-\mathbf x_k^{2,i},
 \end{equation}
 
-and from now on, the intercept $b$ will be ignored because a function of the type $f_i(\mathbf z_k)=\text{sgn}(\w_i\cdot\mathbf z^i_k)$ is mathematically sufficient \todo{necesitamos probar esto? suena como arbitrario?}. 
+hence, from now on, the intercept $b$ will be ignored because a function of the type $f_i(\mathbf z_k)=\text{sign}(\w_i\cdot\mathbf z^i_k)$ is mathematically sufficient. Indeed, equations \autoref{eq:unoGana} and \todo{decia ``-''} \autoref{eq:dosGana} become,
+
+\begin{equation}
+y_k^i\left(\w^i\cdot \mathbf z_k^i\right) > 0,
+\end{equation}
 
 It should be clear by now that the challenge is to identify weights $\w^i$ for every survey participant $i$. Under the data separability assumption, it has been shown by \textcite{vapnik1991necessary} that it suffices to focus on the margin, defined as {\color{red}the minimal distance of a sample to the decision surface}\todo{rephrase this}. For notation simplicity, the dependence of $y^i$ and $\mathbf z_k^i$ on $i$ will be dropped. By rescaling $\w_i$ we know that the closest {\color{red}points to the hyperplane} must satisfy,
 
@@ -526,10 +592,8 @@ All in all, this allows controlling for both the classification strength of $\|\
 \min_{\w^i,\xi}\frac12\|\w^i\|^2+C\sum_{k=1}^5\xi_k,
 \end{equation}
 
-where the regularization constant $C>0$ determines the trade-off between the empirical error and the {\color{red}complexity term}\todo{explayar}. The optimization problem was solved using the \texttt{sklearn} library in \texttt{Python}. We also make available in the Appendix an \texttt{R} routine that directly solves the optimization problem by using the {\color{red}steepest descent approach}\todo{explayar}. Since the optimization problem is convex, algorithms converge to a unique solution.
+where the regularization constant $C>0$ determines the trade-off between the empirical error and the {\color{red}complexity term}\todo{explayar}. The optimization problem was solved using the \texttt{sklearn} library in \texttt{Python}.\todo{explayar ``steepest descent approach''}\footnote{See \autoref{p.code}. We also make available an \texttt{R} routine that directly solves the optimization problem by using the {\color{red}steepest descent approach} (see \autoref{r.code}).} Since the optimization problem is convex, algorithms converge to a unique solution.
 
-
-\todo{motivate why SVM are better.}
 
 \subsection{Analyzing The Conjoint Data via Support Vector Machines}
 
@@ -634,11 +698,7 @@ count <- comma(as.numeric(count)) # add comma
 \pagenumbering{Roman}
 \setcounter{page}{1}
 
-\section{Appendix}
-
-
-
-
+\section{Appendix}\hypertarget{appendix}{}
 
 
 
@@ -675,6 +735,14 @@ After a random assignment, you have been selected for the opportunity to hypothe
 
 @
 \pagebreak
+
+
+\newpage
+\subsection{Algorithms}
+
+\lstinputlisting[label={r.code}, caption={R SVM Algorithm}, style=R]{svm_script.R}
+
+\lstinputlisting[label={p.code}, caption={Python SVM Algorithm}, style=Python]{svm_script.py}
 
 
 \newpage

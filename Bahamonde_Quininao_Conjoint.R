@@ -580,9 +580,9 @@ acme.d <- data.frame(
                 "Citizens CANNOT vote in the next two elections", # vote
                 "Citizens CANNOT run for office for the next two elections", # run 
                 "Citizens CANNOT associate with others and form groups" # asso
-                )),
+        )),
         Model = c(rep("Candidate Selected", 5))
-        )
+)
 
 
 acme.d$upper <- acme.d$coefficient + 1.96*acme.d$se
@@ -685,7 +685,7 @@ colnames(dat.w)[which(names(dat.w) == "polknow")] <- "Political Knowledge"
 colnames(dat.w)[which(names(dat.w) == "vote.selling")] <- "Sell Vote"
 
 colnames(dat.w)[which(names(dat.w) == "w3")] <- "Free Media"
-colnames(dat.w)[which(names(dat.w) == "w4")] <- "Presidential Autonomy"
+colnames(dat.w)[which(names(dat.w) == "w4")] <- "Presidential Dependence"
 colnames(dat.w)[which(names(dat.w) == "w5")] <- "Right to Vote"
 colnames(dat.w)[which(names(dat.w) == "w1")] <- "Right to Run for Office"
 colnames(dat.w)[which(names(dat.w) == "w2")] <- "Right to Associate"
@@ -694,18 +694,18 @@ colnames(dat.w)[which(names(dat.w) == "w2")] <- "Right to Associate"
 ## dataset
 density.plot.w.d = data.frame(
         Value = as.vector(rbind(dat.w$`Free Media`,
-                                dat.w$`Presidential Autonomy`,
+                                dat.w$`Presidential Dependence`,
                                 dat.w$`Right to Vote`,
                                 dat.w$`Right to Run for Office`,
                                 dat.w$`Right to Associate`
-                                )),
+        )),
         Dimension = as.factor(as.vector(rbind(rep("Free Media", nrow(dat.w)),
-                      rep("Presidential Autonomy", nrow(dat.w)),
-                      rep("Right to Vote", nrow(dat.w)),
-                      rep("Right to Run for Office", nrow(dat.w)),
-                      rep("Right to Associate", nrow(dat.w))
-                      )))
-        )
+                                              rep("Presidential Dependence", nrow(dat.w)),
+                                              rep("Right to Vote", nrow(dat.w)),
+                                              rep("Right to Run for Office", nrow(dat.w)),
+                                              rep("Right to Associate", nrow(dat.w))
+        )))
+)
 
 p_load(ggplot2)
 
@@ -731,7 +731,7 @@ independent.variables = paste0(' `Sell Vote` + Woman + `Party Id.` + Ideology + 
 
 ## fit models
 m1 = lm(paste(' `Free Media` ~ ', independent.variables), dat.w) # Free Media
-m2 = lm(paste(' `Presidential Autonomy` ~ ', independent.variables), dat.w) # Presidential Autonomy
+m2 = lm(paste(' `Presidential Dependence` ~ ', independent.variables), dat.w) # Presidential Dependence
 m3 = lm(paste(' `Right to Vote`  ~ ', independent.variables), dat.w) # Right to Vote
 m4 = lm(paste(' `Right to Run for Office` ~ ', independent.variables), dat.w) # Right to Run for Office
 m5 = lm(paste(' `Right to Associate` ~ ', independent.variables), dat.w) # Right to Associate
@@ -740,7 +740,7 @@ m5 = lm(paste(' `Right to Associate` ~ ', independent.variables), dat.w) # Right
 
 ## ---- w:analyses:p:d ----
 # p_load(jtools)
-w.analyses.p = plot_summs(m1,m2,m3,m4,m5, legend.title="Democracy Dimension", colors = "Rainbow", point.shape = F, scale = TRUE, model.names = c("Free Media", "Presidential Autonomy", "Right to Vote", "Right to Run for Office", "Right to Associate"))
+w.analyses.p = plot_summs(m1,m2,m3,m4,m5, legend.title="Democracy Dimension", colors = "Rainbow", point.shape = F, scale = TRUE, model.names = c("Free Media", "Presidential Dependence", "Right to Vote", "Right to Run for Office", "Right to Associate"))
 ## ----
 
 ## ---- w:analyses:p:p ----
@@ -769,7 +769,7 @@ density.plot.w.p.note <- paste(
 
 
 ## ---- w:analyses:t ----
-texreg(list(m1,m2,m3,m4,m5), custom.model.names=c("Free Media", "Presidential Autonomy", "Right to Vote", "Right to Run for Office", "Right to Associate"), label = "w:analyses:t", custom.note= c( "%stars. Every column represents each of \\textcite{Dahl1971} democracy dimensions. All models OLS. Intercept omitted."), scalebox=0.7, use.packages = F, omit.coef="(Intercept)", float.pos="H", stars = c(0.001, 0.01, 0.05))
+texreg(list(m1,m2,m3,m4,m5), custom.model.names=c("Free Media", "Presidential Dependence", "Right to Vote", "Right to Run for Office", "Right to Associate"), label = "w:analyses:t", custom.note= c( "%stars. Every column represents each of \\textcite{Dahl1971} democracy dimensions. All models OLS. Intercept omitted."), scalebox=0.7, use.packages = F, omit.coef="(Intercept)", float.pos="H", stars = c(0.001, 0.01, 0.05))
 ## ----
 
 
