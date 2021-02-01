@@ -1,6 +1,6 @@
 \documentclass[onesided]{article}
 \usepackage[T1]{fontenc}
-\linespread{1.5} % Line spacing - Palatino needs more space between lines
+\linespread{1.15} % Line spacing - Palatino needs more space between lines
 \usepackage{microtype} % Slightly tweak font spacing for aesthetics
 
 \usepackage[hmarginratio=1:1,columnsep=20pt]{geometry} % Document margins
@@ -342,6 +342,9 @@ options(scipen = 99999999999)
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
+\linespread{2}
+
+
 \section{Toward a Multidimensional Study of Clientelism}
 
 % 1. Democracy is a multidimensional concept.
@@ -383,7 +386,7 @@ A number of topics have been studied, such as preferences for health care \paren
 
 
 % Hainsmuller introduced this technique to political scientists from a Causal Inference perspective
-\textcite{Hainmueller2014a} ``introduced conjoint analysis to political science as a survey experimental method for causal inference'' \parencite[1]{Horiuchi2020a}, particularly making conjoint designs compatible with the potential outcomes framework of causal inference \parencite{Rubin1974}. Since then, a number of important studies have been published, making a very common tool for causal inference in political science \parencite{Cuesta2020}. Just to name a few examples in political science, conjoint designs have been used to study attitudes toward immigrants \parencite{Hainmueller2015}, preferences toward political candidates \parencite{Franchino2015,Horiuchi2017,Horiuchi2020,Mares2020}, the role of candidate sex on voter choice \parencite{Ono2019} and the role of the information environment in partisan voting \parencite{Peterson2017}. In part, this is due to the simplicity of the main quantity of interest developed by \textcite[3]{Hainmueller2014a}---the \emph{average marginal component effect} (AMCE).\footnote{Due to space concerns, we are not deriving the AMCE here. The AMCE has been well explained and widely used before. See Equation 5 in \textcite[11]{Hainmueller2014a}. In addition to that, see \textcite{Egami2019}, who have introduced another quantity of interest, the average marginal interaction effect (AMIE).} The quantity equals the counterfactual probability where a specific characteristic would be chosen if the value of that characteristic is absent \parencite[11]{Hainmueller2014a}.\footnote{Importantly, \textcite[6]{Leeper2020} explain that arbitrary choice of reference category when computing the AMCE might introduce ``highly distorted descriptive interpretations of preferences among subgroups of respondents.''} Since the AMCE does not rely on arbitrary utility assignments nor does resort to functional form assumptions \parencite[3]{Hainmueller2014a}, it has become a very common quantity of interest in political science, specially, because it also avoids ``unnecessary statistical assumptions'' at the same time that improves ``internal validity than the more model-dependent procedures'' \parencite[2-3]{Hainmueller2014a}.\footnote{Yet, some necessary assumptions need to be made. For instance, in order to make statistical inferences, the AMCE depends on (clustered) standard errors, which in turn rely on the central limit theorem. See \textcite[17]{Hainmueller2014a}.} Importantly, they show that ``when attribute levels are randomized independently from one another, the ordinary least squares (OLS) estimates of the coefficients from the linear regression of the choice indicator on the set of dummy variables for the levels of the attributes provide unbiased and consistent estimates of the AMCEs'' \parencite[14]{Horiuchi2017}.\footnote{\textcite[15]{Hainmueller2014a} show that OLS estimators have ``identical'' properties to the subclassification estimators, and therefore this ``implies that the linear regression estimator is fully nonparametric.''} Others have argued that when attribute levels are randomized, the design ``reduces social desirability bias by providing many potential reasons for supporting or opposing a proposed [attribute]'' \parencite[7]{Hankinson2018},\footnote{However, see \textcite{Horiuchi2020a}.} while others offer guidance regarding the number of attributes by developing a two-stage conjoint design \parencite{Bansak2019}.
+\textcite{Hainmueller2014a} ``introduced conjoint analysis to political science as a survey experimental method for causal inference'' \parencite[1]{Horiuchi2020a}, particularly making conjoint designs compatible with the potential outcomes framework of causal inference \parencite{Rubin1974}. Since then, a number of important studies have been published, making a very common tool for causal inference in political science \parencite{DelaCuesta2021}. Just to name a few examples in political science, conjoint designs have been used to study attitudes toward immigrants \parencite{Hainmueller2015}, preferences toward political candidates \parencite{Franchino2015,Horiuchi2017,Horiuchi2020,Mares2020}, the role of candidate sex on voter choice \parencite{Ono2019} and the role of the information environment in partisan voting \parencite{Peterson2017}. In part, this is due to the simplicity of the main quantity of interest developed by \textcite[3]{Hainmueller2014a}---the \emph{average marginal component effect} (AMCE).\footnote{Due to space concerns, we are not deriving the AMCE here. The AMCE has been well explained and widely used before. See Equation 5 in \textcite[11]{Hainmueller2014a}. In addition to that, see \textcite{Egami2019}, who have introduced another quantity of interest, the average marginal interaction effect (AMIE).} The quantity equals the counterfactual probability where a specific characteristic would be chosen if the value of that characteristic is absent \parencite[11]{Hainmueller2014a}.\footnote{Importantly, \textcite[6]{Leeper2020} explain that arbitrary choice of reference category when computing the AMCE might introduce ``highly distorted descriptive interpretations of preferences among subgroups of respondents.''} Since the AMCE does not rely on arbitrary utility assignments nor does resort to functional form assumptions \parencite[3]{Hainmueller2014a}, it has become a very common quantity of interest in political science, specially, because it also avoids ``unnecessary statistical assumptions'' at the same time that improves ``internal validity than the more model-dependent procedures'' \parencite[2-3]{Hainmueller2014a}.\footnote{Yet, some necessary assumptions need to be made. For instance, in order to make statistical inferences, the AMCE depends on (clustered) standard errors, which in turn rely on the central limit theorem. See \textcite[17]{Hainmueller2014a}.} Importantly, they show that ``when attribute levels are randomized independently from one another, the ordinary least squares (OLS) estimates of the coefficients from the linear regression of the choice indicator on the set of dummy variables for the levels of the attributes provide unbiased and consistent estimates of the AMCEs'' \parencite[14]{Horiuchi2017}.\footnote{\textcite[15]{Hainmueller2014a} show that OLS estimators have ``identical'' properties to the subclassification estimators, and therefore this ``implies that the linear regression estimator is fully nonparametric.''} Others have argued that when attribute levels are randomized, the design ``reduces social desirability bias by providing many potential reasons for supporting or opposing a proposed [attribute]'' \parencite[7]{Hankinson2018},\footnote{However, see \textcite{Horiuchi2020a}.} while others offer guidance regarding the number of attributes by developing a two-stage conjoint design \parencite{Bansak2019}.
 
 
 \section{Studying Clientelism Multidimensionally via Conjoint Designs}\hypertarget{our.cj}{}
@@ -469,7 +472,7 @@ Conjoint designs are suitable tools to ``determine which components of the manip
 }
 
 % the design: possible problems of unlikely scenarios
-Given that conjoint designs are able ``to identify the causal effects of various components of a treatment in survey experiments'' \parencite[2]{Hainmueller2014a}, we claim that this is an appropriate tool to shed some light on the multi-causal study of clientelism. To study which democratic dimension(s) should fail to produce clientelism, we presented subjects (as in \autoref{tab:conj:ex}) two hypothetical candidates that supported (or not) every policy (attribute)---as operationalized in \autoref{tab:dim}. We recognize that the resulting candidate profiles are highly unlikely. Unlikely profiles (such as doctors with no education) have been a big concern in the conjoint literature. So far the suggestion has been to delete them before hand by restricting randomization of certain unlikely profiles \parencite{Hainmueller2014a} or by marginalizing ``factors over the target population distribution'' via the population AMCE \parencite[12]{Cuesta2020}. While acknowledging the advantages of both approaches, our goal is identifying a set of democratic attributes that, when absent, make clientelism more likely. In fact, external validity seems to be the trade-off when building a case study according to the \emph{least}-likely case design \parencite{Levy2008}. In addition, one of the methodological contributions of this paper is to overcome selection bias by studying \emph{hypothetical} behaviors, specially the ones where the outcome of interest has not been produced \parencite{Geddes1990}. And finally, there are several survey experiments that have fielded hypothetical questions, mostly putting respondents in experimental conditions that do not necessarily mimic reality. For instance, \textcite{Bahamonde2020a} finds that a big portion of U.S. voters would be willing to sell their vote to an hypothetical candidate in exchange for money, while \textcite{Ballard-Rosa2017} examine a number of tax proposals ``that are infeasible in the real world politics'' \parencite[5]{Cuesta2020}. %Nonetheless, in order to minimize possible concerns of external validity, survey participants were asked to choose \emph{which candidate represented the lesser of the two evils} for them. 
+Given that conjoint designs are able ``to identify the causal effects of various components of a treatment in survey experiments'' \parencite[2]{Hainmueller2014a}, we claim that this is an appropriate tool to shed some light on the multi-causal study of clientelism. To study which democratic dimension(s) should fail to produce clientelism, we presented subjects (as in \autoref{tab:conj:ex}) two hypothetical candidates that supported (or not) every policy (attribute)---as operationalized in \autoref{tab:dim}. We recognize that the resulting candidate profiles are highly unlikely. Unlikely profiles (such as doctors with no education) have been a big concern in the conjoint literature. So far the suggestion has been to delete them before hand by restricting randomization of certain unlikely profiles \parencite{Hainmueller2014a} or by marginalizing ``factors over the target population distribution'' via the population AMCE \parencite[12]{DelaCuesta2021}. While acknowledging the advantages of both approaches, our goal is identifying a set of democratic attributes that, when absent, make clientelism more likely. In fact, external validity seems to be the trade-off when building a case study according to the \emph{least}-likely case design \parencite{Levy2008}. In addition, one of the methodological contributions of this paper is to overcome selection bias by studying \emph{hypothetical} behaviors, specially the ones where the outcome of interest has not been produced \parencite{Geddes1990}. And finally, there are several survey experiments that have fielded hypothetical questions, mostly putting respondents in experimental conditions that do not necessarily mimic reality. For instance, \textcite{Bahamonde2020a} finds that a big portion of U.S. voters would be willing to sell their vote to an hypothetical candidate in exchange for money, while \textcite{Ballard-Rosa2017} examine a number of tax proposals ``that are infeasible in the real world politics'' \parencite[5]{DelaCuesta2021}. %Nonetheless, in order to minimize possible concerns of external validity, survey participants were asked to choose \emph{which candidate represented the lesser of the two evils} for them. 
 
 \autoref{tab:conj:ex} shows one possible realization of the experiment. It is important to note that every attribute was randomly assigned, and consequently, every participant in practice chose between two unique hypothetical candidates. Also, in order to minimize experimental fatigue, the \texttt{CAN} and \texttt{CANNOT} were capitalized.
 
@@ -508,16 +511,16 @@ While classic conjoint analyses provide consistent causal estimates, they unfort
 
 \section{Introducing Support Vector Machines Methods to Analyzing Conjoint Data}\hypertarget{our.cj.svm}{}
 
-Support vector machine methods are a subclass of machine learning techniques, which in turn are a branch of the artificial intelligence field. The main goal of these methods is to use computational algorithms to learn from data \parencite{talabis2015analytics}. For instance, in agricultural sciences machine learning methods are used to identify between crops and grass using satellite images as data. There are mainly three branches of machine learning techniques: supervised learning, unsupervised learning and reinforcement learning. Based on a subset\todo{decia set, ok?} of the complete dataset (the ``training'' dataset), the goal of supervised learning is to identify \todo{decia find, ok?} a mathematical function able to map a vector (``input'') to another vector (``output'') based on input-output data pairs which are used as examples. For instance, the analyst can define how crops and grass look like (output). Once the mathematical function is defined, supervised learning techniques should be able to automatically recognize newly presented images of crops and grass (input) and classify them (map) into their respective categories (output)---i.e. ``grass'' or ``crops.'' Unsupervised learning is similar to supervised learning, but the training dataset have only the input component. Thus, the computational algorithms in this case should be able to find patterns in the dataset without having prior information. Finally, reinforcement learning was inspired by behavioral psychology, and its main goal is to determine what actions an algorithm should perform in order to maximize some notion of ``accumulated reward.''
+Support vector machine methods are a subclass of machine learning techniques, which in turn are a branch of the artificial intelligence field. The main goal of these methods is to use computational algorithms to learn from data \parencite{talabis2015analytics}. For instance, in agricultural sciences machine learning methods are used to identify between crops and grass using satellite images as data. There are mainly three branches of machine learning techniques: supervised learning, unsupervised learning and reinforcement learning. Based on a subset\todo{decia set, ok?} of the complete dataset (the ``training'' dataset), the goal of supervised learning is to identify \todo{decia find, ok?} a mathematical function able to map a vector (``input'') to another vector (``output'') based on input-output data pairs which are used as examples.\footnote{A further demonstration is in the Appendix.} For instance, the analyst can define how crops and grass look like (output). Once the mathematical function is defined, supervised learning techniques should be able to automatically recognize newly presented images of crops and grass (input) and classify them (map) into their respective categories (output)---i.e. ``grass'' or ``crops.'' Unsupervised learning is similar to supervised learning, but the training dataset have only the input component. Thus, the computational algorithms in this case should be able to find patterns in the dataset without having prior information. Finally, reinforcement learning was inspired by behavioral psychology, and its main goal is to determine what actions an algorithm should perform in order to maximize some notion of ``accumulated reward.''
 
-Support vector machines (SVMs) are a set of techniques of supervised learning which might be extended to classification applications and/or standard regression techniques \parencite[Ch. 12]{maimon2005data}. In this paper we are interested in applying SVM methods to---first---solve a classification problem, and then in a second stage, apply OLS methods. The first stage is a data-driven process which consists of defining a full set of democratic attitudes, and then finding a classification rule (i.e. a mathematical function) that takes survey participants and classify them along the constructed democratic attitudes spectrum. In particular, we are interested in learning about the political preferences of survey participants by using the information participants provided when making choices between the two hypothetical candidates and the policies those candidates endorsed (as exemplified in \autoref{tab:conj:ex}). Since the focus is to account for the multi-dimensionality of democracy, we perform these analyses for all five democracy attributes. In the second stage we use standard regression methods to study correlations between the five democracy attributes (obtained in the first stage) and respondent's socio-political attitudes, particularly, the willingness to sell the vote. In sum, we exploit the conjoint dataset to first classify all participants within a common space for all five attributes. Then we fit five separate OLS regression models between those five spaces and the willingness to sell the vote (controlling for relevant covariates).
+Support vector machines (SVMs) are a set of techniques of supervised learning which might be extended to classification applications and/or standard regression techniques \parencite[Ch. 12]{maimon2005data}. Supervised learning techniques have been used in political science before \parencite{DOrazio2014a,Greene2019,Cantu2011}. In this paper we are interested in applying SVM methods to---first---solve a classification problem, and then in a second stage, apply OLS methods. The first stage is a data-driven process which consists of defining a full set of democratic attitudes, and then finding a classification rule (i.e. a mathematical function) that takes survey participants and classify them along the constructed democratic attitudes spectrum. In particular, we are interested in learning about the political preferences of survey participants by using the information participants provided when making choices between the two hypothetical candidates and the policies those candidates endorsed (as exemplified in \autoref{tab:conj:ex}). Since the focus is to account for the multi-dimensionality of democracy, we perform these analyses for all five democracy attributes. In the second stage we use standard regression methods to study correlations between the five democracy attributes (obtained in the first stage) and respondent's socio-political attitudes, particularly, the willingness to sell the vote. In sum, we exploit the conjoint dataset to first classify all participants within a common space for all five attributes. Then we fit five separate OLS regression models between those five spaces and the willingness to sell the vote (controlling for relevant covariates).
 
 \paragraph{Stating the problem} Consider the following classification task: estimate a function $f:\R^J\rightarrow\{-1,1\}$ using a system of input-output training data pairs. The $f$ function should be able to map every participant attitudes toward the five democracy attributes and classify those attitudes within a common numeric space. 
 
 
-As exemplified in \autoref{tab:conj:ex}, all hypothetical political candidates took stances in favor (or against) the five democracy policies. For an input $\mathbf x\in\{0,1\}^5$, which represents the range of possible political stances of a candidate, the function $f$ maps survey participants with all democracy attributes\todo{hb: consistencia de que son todos los attributes}, linking both in what could be described as the ``decision'' made by the survey participant. For instance, hypothetical candidates 1 and 2 in \autoref{tab:conj:ex} are represented by vectors $(1,1,0,1,1)$ and $(0,0,0,1,0)$, respectively. Then, the function $f$ connects the respondent's attribute choices (embodied by hypothetical candidates $1$ or $2$) with the respondent herself (i.e. her ``decision''). 
+As exemplified in \autoref{tab:conj:ex}, all hypothetical political candidates took stances in favor (or against) the five democracy policies. For an input $\mathbf x\in\{0,1\}^5$, which represents the range of possible political stances of a candidate, the function $f$ maps survey participants with all democracy attributes, linking both in what could be described as the ``decision'' made by the survey participant. For instance, hypothetical candidates 1 and 2 in \autoref{tab:conj:ex} are represented by vectors $(1,1,0,1,1)$ and $(0,0,0,1,0)$, respectively. Then, the function $f$ connects the respondent's attribute choices (embodied by hypothetical candidates $1$ or $2$) with the respondent herself (i.e. her ``decision''). 
 
-\paragraph{Constructing the vector weight $\mathbf w^i$} One way to motivate our approach is via the latent variable and the standard maximization utility approaches. For simplicity, we assume that participant preferences can be modeled by an additive linear utility function, and that the decision function $f$ takes a utility sign $\{+, -\}$ depending on the attribute chosen---more details are provided below. If the data can be partitioned by an hyperplane (which is the case in most randomized conjoint designs), such functions can be defined for every participant $i$.
+\paragraph{Constructing the vector weight $\mathbf w^i$} One way to motivate our approach is via the latent variable and the standard maximization utility approaches. For simplicity, we assume that participant preferences can be modeled by an additive linear utility function, and that the decision function $f$ takes a utility sign $\{+, -\}$ depending on the attribute chosen---more details are provided below. Note that coding sign is completely irrelevant to the substantive policies endorsed by the candidates. If the data can be partitioned by an hyperplane (which is the case in most randomized conjoint designs), such functions can be defined for every participant $i$.
 
 Survey participants evaluate between two hypothetical candidates and choose one. They do so for all five tasks. To clarify, for a survey participant $i$, we have the following conjoint data,
 
@@ -549,7 +552,7 @@ and
 implying that whenever two candidates $\mathbf x_1^{1,i}$ and $\mathbf x_1^{2,i}$ are presented, the survey respondent will choose the one that provides him with a larger utility.
 
 
-\paragraph{Optimization strategy} Note that, within this framework, it is sufficient to consider the differences between the democracy attributes among the two hypothetical candidates. In fact, the selected hypothetical candidate and their corresponding policy stands are observed quantities. {\color{red}This is slightly different from the question: for a candidate $\mathbf x$ should you select her?}\todo{?} Therefore, and from a theoretical standpoint, unlike $u_i$ which cannot be directly constructed, $\w^i$ is the only observed quantity of interest which is accessed within the space of differences between candidates. We define then the {\color{red}centered coordinates}\todo{?} $\mathbf z^i_k\in\{-1,0,1\}$ as,
+\paragraph{Optimization strategy} Note that, within this framework, it is sufficient to consider the differences between the democracy attributes among the two hypothetical candidates. In fact, the selected hypothetical candidate and their corresponding policy stands are observed quantities. {\color{red}This is slightly different from the question: for a candidate $\mathbf x$ should you select her?}\todo{?} Therefore, and from a theoretical standpoint, unlike $u_i$ which cannot be directly constructed, $\w^i$ is the only observed quantity of interest which is accessed within the space of differences between candidates. We define then the centered coordinates $\mathbf z^i_k\in\{-1,0,1\}$ as,
 
 \begin{equation}
 \mathbf z^i_k=\mathbf x_k^{1,i}-\mathbf x_k^{2,i},
@@ -558,16 +561,16 @@ implying that whenever two candidates $\mathbf x_1^{1,i}$ and $\mathbf x_1^{2,i}
 hence, from now on, the intercept $b$ will be ignored because a function of the type $f_i(\mathbf z_k)=\text{sign}(\w_i\cdot\mathbf z^i_k)$ is mathematically sufficient. Indeed, equations \autoref{eq:unoGana} and \todo{decia ``-''} \autoref{eq:dosGana} become,
 
 \begin{equation}
-y_k^i\left(\w^i\cdot \mathbf z_k^i\right) > 0,
+y_k^i\left(\w^i\cdot \mathbf z_k^i\right) > 0.
 \end{equation}
 
-It should be clear by now that the challenge is to identify weights $\w^i$ for every survey participant $i$. Under the data separability assumption, it has been shown by \textcite{vapnik1991necessary} that it suffices to focus on the margin, defined as {\color{red}the minimal distance of a sample to the decision surface}\todo{rephrase this}. For notation simplicity, the dependence of $y^i$ and $\mathbf z_k^i$ on $i$ will be dropped. By rescaling $\w_i$ we know that the closest {\color{red}points to the hyperplane} must satisfy,
+It should be clear by now that the challenge is to identify weights $\w^i$ for every survey participant $i$. Under the data separability assumption, it has been shown by \textcite{vapnik1991necessary} that it suffices to focus on the margin, defined as the minimal distance of a sample to the decision surface. For notation simplicity, the dependence of $y^i$ and $\mathbf z_k^i$ on $i$ will be dropped. By rescaling $\w_i$ we know that the closest points to the hyperplane must satisfy,
 
 \begin{equation}
 |\w^i\cdot\mathbf z_k| = 1,
 \end{equation}
 
-and if two observations $\mathbf z_k$ and $\mathbf z_m$ belong to different classes (i.e. selected candidate), then the margin is defined as the distance of these two {\color{red}points to the hyperplane},
+and if two observations $\mathbf z_k$ and $\mathbf z_m$ belong to different classes (i.e. the selected candidate), then the margin is defined as the distance of these two points to the hyperplane such that,
 
 \begin{equation}
 \frac{\w^i}{\|\w^i\|} \cdot(\mathbf z_k-\mathbf z_m) = \frac{2}{\|\w^i\|}.
@@ -575,29 +578,33 @@ and if two observations $\mathbf z_k$ and $\mathbf z_m$ belong to different clas
 
 It should be clear by now that for each survey participant $i$, the optimal hyperplane is the solution to the following optimization problem,
 
-\begin{equation}\label{eq:restriction}
-\min_{\w^i}\frac12\|\w^i\|^2
-\text{subject to} \; y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
-\end{equation}
+\begin{eqnarray}\label{eq:restriction}
+&&\min_{\w^i}\frac12\|\w^i\|^2 
+\\
+\text{subject to} && \; y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
+\end{eqnarray}
 
-Regarding the actual dataset analyzed in this study, it is unknown if these data can be separated by an hyperplane. To allow for bad classification issues, \textcite{cortes1995support} introduced the concept of ``slack variables'' $\xi_i$ that relax the optimization problem restrictions (\autoref{eq:restriction}):
+Regarding the actual dataset analyzed in this study, it is unknown if these data can \emph{a priori} be separated by an hyperplane. To allow for bad classification issues, \textcite{cortes1995support} introduced the concept of ``slack variables'' $\xi_i$ that relax the optimization problem restrictions (\autoref{eq:restriction}):
 
 \begin{equation}
 y_k\,( \w^i\cdot\mathbf z_k)\geq 1-\xi_k,\quad \xi_k\geq0,\quad k=1,2,3,4,5.
 \end{equation}
 
-All in all, this allows controlling for both the classification strength of $\|\w^i\|$, and the sum of the slack variables $\sum_{k=1}^5 \xi_k$ which account for possible classification deviations. \todo{explicar aqui el trade-off} A widely used solution to that trade-off is the $C$-SVM, or ``soft margin classifying,'' which is based on the minimization of the following objective function,
+All in all, this allows controlling for both the classification strength of $\|\w^i\|$ (or the capacity of the algorithm to correctly classify the data), and the sum of the slack variables $\sum_{k=1}^5 \xi_k$ which account for possible errors in classification. Since we allow the learning algorithm some degree of deviations during the classification process, we need to account for this error in the optimization problem. By doing so, we will find a new $\mathbf w$ that might not be the unique solution to \autoref{eq:restriction}---that in the non-linearly separable case does not exists---but still is good enough in the sense that the number of training data-pairs misclassified is small. By doing so the following trade-off problem is encountered: finding a $\mathbf w$ with small norm that classifies properly a large proportion of the data. A widely used solution to that trade-off is the $C$-SVM or ``soft margin classifying,'' which is based in the minimization of the following objective function,
 
 \begin{equation}
 \min_{\w^i,\xi}\frac12\|\w^i\|^2+C\sum_{k=1}^5\xi_k,
 \end{equation}
 
-where the regularization constant $C>0$ determines the trade-off between the empirical error and the {\color{red}complexity term}\todo{explayar}. The optimization problem was solved using the \texttt{sklearn} library in \texttt{Python}.\todo{explayar ``steepest descent approach''}\footnote{See \autoref{p.code}. We also make available an \texttt{R} routine that directly solves the optimization problem by using the {\color{red}steepest descent approach} (see \autoref{r.code}).} Since the optimization problem is convex, algorithms converge to a unique solution.
+where the regularization constant $C>0$ determines the trade-off between the empirical error and the complexity term.
+
+We solved the optimization problem with the \texttt{Python} library ``\textit{sklearn}.'' We also present in the Appendix a \textit{R} routine that solves the problem directly using the steepest descent approach. Due to computational complexity and possible convergence issues, this routine is not recommendable when the number of training-data pairs is large. However, since the optimization problem is convex, algorithms converge to a unique solution but the convergence time might be long.
 
 
 \subsection{Analyzing The Conjoint Data via Support Vector Machines}
 
-Based on \autoref{w:analyses:t}, \autoref{fig:w:analyses:p:p} shows {\color{red}PENDING}.\footnote{\autoref{summary:stats:t} shows summary statistics.}
+The SVM approach has been used to solve a classification problem. Via a data-driven process described in the previous section, five $\w_i$ variables were constructed, one per democracy attribute (as shown in \autoref{tab:dim}). These five vectors conform five different dependent variables. In this section we estimate five OLS multivariate lineal models (see \autoref{w:analyses:t}), where the covariate of interest is the declared willingness to sell the vote (``sell vote''). The five dependent variables are plotted in \autoref{fig:density:plot:w:p}. Given that they represent different attributes of the same concept, it is not surprise that these distributions look very similar. From a substantive standpoint, the interest is on finding statistically significant predictors (if any) across the five democracy attributes. Following the literature on clientelism, the following covariates were included: woman, party id., ideology, education, political knowledge, registered to vote, trust in Federal Gov., income and sell vote (which captures the willingness to the sell the vote).\footnote{\autoref{summary:stats:t} shows summary statistics.}  
+
 
 <<density:plot:w:p, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=density.plot.w.p.note, fig.align='center', fig.width=8, fig.height=2,dpi=1000,cache=FALSE, include = TRUE>>=
 
@@ -605,18 +612,24 @@ Based on \autoref{w:analyses:t}, \autoref{fig:w:analyses:p:p} shows {\color{red}
 @
 
 
+
+\autoref{fig:w:analyses:p:p} shows the point estimates and their estimated uncertainty for all five models. Most importantly, the figure shows that the willingness to sell the vote is negatively correlated with the democracy attribute that speaks to the idea that the President of the United States cannot govern without a Congress (``Presidential Dependence''). We believe that individuals who are willing to sell their freedom to vote for money, value strong leaderships that can govern in an unaccounted-for way, that is, without the participation of the American Congress. The other dimensions are not correlated with the willingness to sell.
+
+
+
+
 <<w:analyses:p:p, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=w.analyses.p.note, fig.align='center', fig.width=12, fig.height=10,dpi=1000,cache=FALSE, include = TRUE>>=
 
 
 @
 
-\todo{hb:}
 
+We believe this finding is relevant. The clientelism literature usually frames the act of selling (or buying) the vote as a ``democracy'' failure. Unfortunately, as we have argued, that explanation, while important, it is too general.\todo{WIP}
 
 
 
 \section{Conclusion}\hypertarget{conclusion}{}
-\todo{hb: to do}
+
 
 
 % References
@@ -705,9 +718,9 @@ count <- comma(as.numeric(count)) # add comma
 \subsection{Experimental Manipulations and Vignettes}
 
 
-\paragraph{Distractor Paragraph.} \hypertarget{distractor.vignette}{The next paragraph was used to distract subjects} from the main purpose of the study, and also to define vote selling. After reading the excerpt, participants were told about the hypothetical possibility of doing one of the illegal things mentioned in the excerpt. And that this possibility would be randomly assigned. However, all participants were directly asked whether they would be interested in selling their vote (as seen on \hyperlink{direct.question}{Direct Question}.
+\paragraph{Distractor Paragraph.} \hypertarget{distractor.vignette}{The next paragraph was used to distract subjects} from the main purpose of the study, and also to define vote selling. After reading the excerpt, participants were told about the hypothetical possibility of doing one of the illegal things mentioned in the excerpt. And that this possibility would be randomly assigned. However, all participants were directly asked whether they would be interested in selling their vote (as seen on \hyperlink{direct.question}{Direct Question}).
 
-\begin{lstlisting}[frame=lrtb, breaklines=true, breakatwhitespace=true]
+\begin{lstlisting}[language={}, frame=lrtb, breaklines=true, breakatwhitespace=true]
 Washington, D.C.- A department store downtown had a robbery incident last week, reporting several missing iPods from their inventory. Authorities also inform that a group of local residents are trying to ``sell'' their votes to political candidates ahead of a local election for city council. Residents approached some of the candidates running for office and offered to vote for that candidate in return for monetary compensation. In a different subject matter, the local police station released a report on driving habits and behaviors in the Capitol district last week. Finally, cyber-crime has become an increasingly serious issue in the area in the past few year.
 \end{lstlisting}
 
@@ -715,12 +728,12 @@ Washington, D.C.- A department store downtown had a robbery incident last week, 
 \newpage
 \paragraph{Direct Question.} \hypertarget{direct.question}{All subjects} read the next paragraph, and then \emph{all} answered the direct question:
 
-\begin{lstlisting}[frame=lrtb, breaklines=true, breakatwhitespace=true]
+\begin{lstlisting}[language={}, frame=lrtb, breaklines=true, breakatwhitespace=true]
 Now you will be entered into a random lottery for the opportunity to do ONE of the illegal things you just read before. This means that you might be randomly offered to hypothetically do ANY of the activities mentioned before.
 \end{lstlisting}
 
 
-\begin{lstlisting}[frame=lrtb, breaklines=true, breakatwhitespace=true]
+\begin{lstlisting}[language={}, frame=lrtb, breaklines=true, breakatwhitespace=true]
 After a random assignment, you have been selected for the opportunity to hypothetically sell your vote. This means that you will have the hypothetical opportunity to accept money from a candidate for your vote. Would you be willing to accept the offer, assuming you would not go to jail? By selecting ``Yes,'' you could earn up to $ 1,000.
 \end{lstlisting}
 \vspace*{\fill}
@@ -756,7 +769,7 @@ After a random assignment, you have been selected for the opportunity to hypothe
 
 
 \newpage
-\subsection{Algorithms}
+\subsection{Data-pairs}
 
 
 Consider the following set of training data-pairs $\left\{(\mathbf z_k,y_k)\right\}_{k=1}^n$ with $\mathbf z_k\in\R^2$ and $y_k\in\{-1,1\}$. We look for an hyperplane going through the origin such that,
@@ -839,7 +852,7 @@ or simply by $\frac{\w}{\|\w\|} \cdot(\mathbf z_k-\mathbf z_m)=\frac{2}{\|\w\|}$
 \begin{figure}
 \centering
 \includegraphics[width=0.6\textwidth]{example_hyperplane}
-\caption{Two dimensional example of the optimal hyperplane. Red dots correspond to the training data-points labeled as -1, and the blue dots correspond to the training data-points labeled as +1. The margin is defined as the sum of the distance between points in different classes to the hyperplane.}
+\caption{A two dimensional example of an optimal hyperplane. Red dots correspond to the training data-points labeled -1, blue dots correspond to the training data-points labeled as +1. The margin is defined as the sum of the distance between points in different classes to the hyperplane.}
 \end{figure}
 \pagebreak
 

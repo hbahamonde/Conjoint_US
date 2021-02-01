@@ -729,6 +729,7 @@ density.plot.w.p = ggplot(density.plot.w.d, aes(x=Value, fill=Dimension)) + geom
 independent.variables = paste0(' `Sell Vote` + Woman + `Party Id.` + Ideology + Education + `Political Knowledge` + `Registered to Vote` + `Trust in Federal Gov.` + Income ')
 
 
+
 ## fit models
 m1 = lm(paste(' `Free Media` ~ ', independent.variables), dat.w) # Free Media
 m2 = lm(paste(' `Presidential Dependence` ~ ', independent.variables), dat.w) # Presidential Dependence
