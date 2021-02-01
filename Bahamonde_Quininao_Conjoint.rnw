@@ -755,9 +755,93 @@ After a random assignment, you have been selected for the opportunity to hypothe
 \pagebreak
 
 
+\newpage
+\subsection{Algorithms}
 
 
+Consider the following set of training data-pairs $\left\{(\mathbf z_k,y_k)\right\}_{k=1}^n$ with $\mathbf z_k\in\R^2$ and $y_k\in\{-1,1\}$. We look for an hyperplane going through the origin such that,
 
+\begin{equation}
+\mathbf w \cdot \mathbf z_k > 0\quad\Leftrightarrow\quad y_k=1
+\qquad\text{and}\qquad\mathbf w \cdot \mathbf z_k < 0\quad\Leftrightarrow\quad y_k=-1,
+\end{equation}
+
+in the case of $z_k\in\R^2$ we have that such hyperplane is simply a straight line with a 0 intercept,
+
+\begin{equation}
+L(\mathbf z) := L((z_1,z_2)) = w_1z_1+w_2z_2.
+\end{equation}
+
+Now, if $z_k=(z_{k,1},z_{k,2})$, then we look for $\mathbf w$ such that,
+
+\begin{equation}\label{eq:problem}
+y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) >0,\qquad \forall k=1,\ldots,n.
+\end{equation}
+
+
+Since $n\in\N$ is fixed, there must be some $\delta=\delta(\mathbf w)$ such that,
+
+\begin{equation}
+\delta = \min_{k=1,\ldots,n}y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) >0,
+\end{equation}
+
+therefore, by redefining $\mathbf w = \mathbf w/\delta$, equation \autoref{eq:problem} cab be rewritten as,
+
+\begin{equation}
+y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) > 1
+\end{equation}
+
+moreover, the points $\mathbf z_k$ closest to $L(\mathbf z)$ can be defined such that,
+
+\begin{equation}
+y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) = 1.
+\end{equation}
+
+
+Recall that the distance between a point $\mathbf z=(z_1,z_2)\in\R^2$ to the line $L$ is given by,
+
+\begin{equation}
+\text{distance}(\mathbf z,L) = \frac{|w_1z_1+w_2z_2|}{\sqrt{w_1^2+w_2^2}}.
+\end{equation}
+
+Let $(z_{k,1},z_{k,2})$ a training data-pair belonging to the class labeled $+1$, and $(z_{m,1},z_{m,2})$ a training data-pair belonging to the class labeled $-1$. Assume furthermore that $(z_{k,1},z_{k,2})$ is one of the points in the $1$ class that is closest to the optimal hyperplane. Similarly, assume that $(z_{m,1},z_{m,2})$ is one of the points in the $-1$ class that is closest to the optimal hyperplane. The margin is defined as the sum of the distances between $(z_{k,1},z_{k,2})$ and $(z_{m,1},z_{m,2})$ to the optimal hyperplane. That is,
+
+\begin{equation}
+\text{margin} = \frac{|w_1z_{k,1}+w_2z_{k,2}|}{\sqrt{w_1^2+w_2^2}}+\frac{|w_1z_{m,1}+w_2z_{m,2}|}{\sqrt{w_1^2+w_2^2}}
+\end{equation}
+
+since $y_k=1$ then we have that,
+
+\begin{equation}
+y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) = w_1 z_{k,1} + w_2z_{k,2} = 1>0
+\end{equation}
+
+and
+
+\begin{equation}
+y_m\left(w_1 z_{m,1} + w_2z_{m,2} \right) = -\big(w_1 z_{m,1} + w_2z_{m,2}\big) = 1>0
+\end{equation}
+
+therefore, we can rewrite the margin as,
+
+\begin{equation}
+\text{margin} = \frac{w_1z_{k,1}+w_2z_{k,2}}{\sqrt{w_1^2+w_2^2}}-\frac{w_1z_{m,1}+w_2z_{m,2}}{\sqrt{w_1^2+w_2^2}} = \frac{(w_1,w_2)\cdot(z_{k,1}-z_{m,1},z_{k,2}-z_{m,2})}{\sqrt{w_1^2+w_2^2}},
+\end{equation}
+
+or simply by $\frac{\w}{\|\w\|} \cdot(\mathbf z_k-\mathbf z_m)=\frac{2}{\|\w\|}$. To find the optimal hyperplane is, in this example, to find the values of $w_1$ and $w_2$ such that the margin is the largest possible. This is achieved with the vector $\mathbf w$ with smallest norm, and we find out the optimization problem stated in the main text,
+
+\begin{eqnarray*}
+&&\min_{\w}\frac12\|\w^i\|^2
+\\
+\text{subject to} && y_k\,(\w\cdot \mathbf z_k)\geq 1,\,\, k=1,\ldots,n.
+\end{eqnarray*}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{example_hyperplane}
+\caption{Two dimensional example of the optimal hyperplane. Red dots correspond to the training data-points labeled as -1, and the blue dots correspond to the training data-points labeled as +1. The margin is defined as the sum of the distance between points in different classes to the hyperplane.}
+\end{figure}
+\pagebreak
 
 
 
