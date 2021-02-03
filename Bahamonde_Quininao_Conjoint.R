@@ -710,7 +710,7 @@ density.plot.w.d = data.frame(
 p_load(ggplot2)
 
 density.plot.w.p = ggplot(density.plot.w.d, aes(x=Value, fill=Dimension)) + geom_density(alpha=0.4) + theme_bw() +
-        xlab("Afinity (w)") + 
+        xlab("w") + 
         ylab("Density") +
         theme(axis.text.y = element_text(size=7), 
               axis.text.x = element_text(size=7), 
@@ -741,18 +741,14 @@ m5 = lm(paste(' `Right to Associate` ~ ', independent.variables), dat.w) # Right
 
 ## ---- w:analyses:p:d ----
 # p_load(jtools)
-w.analyses.p = plot_summs(m1,m2,m3,m4,m5, legend.title="Democracy Dimension", colors = "Rainbow", point.shape = F, scale = TRUE, model.names = c("Free Media", "Presidential Dependence", "Right to Vote", "Right to Run for Office", "Right to Associate"))
+w.analyses.p = plot_summs(m1,m2,m3,m4,m5, legend.title="Democracy Dimension (w)", colors = "Rainbow", point.shape = F, scale = TRUE, model.names = c("Free Media", "Presidential Dependence", "Right to Vote", "Right to Run for Office", "Right to Associate"))
 ## ----
 
 ## ---- w:analyses:p:p ----
 ### calling plot
 w.analyses.p
 ### defining legend, title and notes.
-w.analyses.p.note <- paste(
-        "{\\bf SVM Analysis: Vote Selling and \\textcite{Dahl1971}'s Democracy Dimensions}.",
-        "\\\\\\hspace{\\textwidth}", 
-        paste("{\\bf Note}: The figure shows OLS models where PENDING. \\autoref{w:analyses:t} shows the respective regression table."),
-        "\n")
+w.analyses.p.note <- paste("{\\bf Multivariate Analysis: A Multidimensional Approach to Study Vote Selling and Support for Democracy}.", "\\\\\\hspace{\\textwidth}", "{\\bf Note}: The figure shows correlations between the willingness to sell the vote (\\texttt{Sell Vote}) across all five democracy dimensions (${\\mathbf w_{i}}$). All dimensions were constructed following \\textcite{Dahl1971}, operationalized in \\autoref{tab:dim} and collected in a conjoint experiment in the United States during 2016 (see \\autoref{tab:conj:ex}). In this figure, all estimates are OLS (see regression table in \\autoref{w:analyses:t}). From a substantive standpoint, the figure shows that from the five democracy attributes, the only one that ought to fail is the belief that the President of the United States may not rule without a Congress (``Presidential Dependence''). In other words, vote sellers systematically believe that the President can govern on his/her own. Importantly, the other democracy attributes are not relevant to explain vote selling.", "\n")
 ## ----
 
 
@@ -762,10 +758,9 @@ w.analyses.p.note <- paste(
 density.plot.w.p
 ### defining legend, title and notes.
 density.plot.w.p.note <- paste(
-        "{\\bf SVM Analyses: Five Democracy Attributes \\parencite{Dahl1971}}.",
+        "{\\bf Support Vector Machine Analyses and the Constructed ${\\mathbf w_{i}}$: Five Democracy Attributes}.",
         "\\\\\\hspace{\\textwidth}", 
-        paste("{\\bf Note}: The figure shows the five dependent variables used in \\autoref{w:analyses:t}."),
-        "\n")
+        "{\\bf Note}: Leveraging a data-driven process (particularly, support vector machines) and following \\textcite{Dahl1971}, five individual-level scores of support-for-democracy ${\\mathbf w_{i}}$ were constructed. Each ${\\mathbf w_{i}}$ distribution represents a specific democracy dimension which will be used as a dependent variable to study possible correlations with the willingness to sell the vote. Five different multivariate OLS models were estimated having these distributions as dependent variables---they are shown in \\autoref{w:analyses:t} in the Appendix section and summarized in \\autoref{fig:w:analyses:p:p}.", "\n")
 ## ----
 
 
@@ -785,8 +780,14 @@ stargazer(dat.w, label = "summary:stats:t")
 
 ## ---- abstract ----
 fileConn <- file ("abstract.txt")
-writeLines(c("This paper explains that democracy has been theorized as a multidimensional concept. Yet, the quantitative study of clientelism---as a democracy failure---has been studied almost exclusively from a unidimensional perspective. For instance, list experiments usually study one aspect at a time by manipulating a word, a sentence or a framing. We argue that to better understand clientelism quantitative studies should situate the phenomena within the multidimensionality of democracy. This paper makes both methodological and substantive contributions to the literature by leveraging a conjoint experiment on hypothetical vote selling in a consolidated democracy. Conjoint designs ask respondents to choose from hypothetical profiles that combine multiple attributes. To study which democratic dimension(s) should fail to produce clientelism, we presented subjects two hypothetical candidates that supported (or not) every policy (attribute). Using machine learning techniques, we identify which dimensions should ``fail'' to produce likely vote-sellers."), fileConn)
+abstract.c = as.character(c("Democracy has traditionally been theorized as a multidimensional concept \\parencite{Dahl1971}. Yet, the quantitative study of clientelism---as a democratic failure---has been mostly studied from a unidimensional perspective. We argue that to better understand clientelism, quantitative studies should situate the phenomena within the multidimensionality of democracy to understand which particular subdimension should fail to explain vote selling. By leveraging a conjoint experiment on hypothetical vote selling in the United States---a traditionally considered consolidated democracy---this paper makes both methodological and substantive contributions to the literature. Using machine learning techniques, the paper identifies that among the five conjoint attributes considered in this study, the one related to the co-dependence of the Presidency on Congress is the only one that explains individual levels of vote selling. These findings are particularly relevant to the study of American democracy given the fact that the data were collected during the campaign period where Donald Trump was ellected."))
+writeLines(abstract.c, fileConn)
 close(fileConn)
 ## ----
 
 
+
+
+## ---- abstract.length ----
+abstract.c.l = sapply(strsplit(abstract.c, " "), length)
+## ----

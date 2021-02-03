@@ -317,7 +317,9 @@ options(scipen = 99999999999)
 
 @
 
+<<abstract.length, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
 
+@
 
 % end knitr stuff
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -326,6 +328,8 @@ options(scipen = 99999999999)
 \begin{abstract}
 \input{abstract.txt}\unskip
 \end{abstract}
+
+\hspace*{1.3cm}{\Sexpr{abstract.c.l} words}
 
 \hspace*{1.3cm}{\bf Please consider downloading the last version of the paper} \href{https://github.com/hbahamonde/Conjoint_US/raw/master/Bahamonde_Quininao_Conjoint.pdf}{\texttt{{\color{red}here}}}.
 
@@ -603,8 +607,7 @@ We solved the optimization problem with the \texttt{Python} library ``\textit{sk
 
 \subsection{Analyzing The Conjoint Data via Support Vector Machines}
 
-The SVM approach has been used to solve a classification problem. Via a data-driven process described in the previous section, five $\w_i$ variables were constructed, one per democracy attribute (as shown in \autoref{tab:dim}). These five vectors conform five different dependent variables. In this section we estimate five OLS multivariate lineal models (see \autoref{w:analyses:t}), where the covariate of interest is the declared willingness to sell the vote (``sell vote''). The five dependent variables are plotted in \autoref{fig:density:plot:w:p}. Given that they represent different attributes of the same concept, it is not surprise that these distributions look very similar. From a substantive standpoint, the interest is on finding statistically significant predictors (if any) across the five democracy attributes. Following the literature on clientelism, the following covariates were included: woman, party id., ideology, education, political knowledge, registered to vote, trust in Federal Gov., income and sell vote (which captures the willingness to the sell the vote).\footnote{\autoref{summary:stats:t} shows summary statistics.}  
-
+The SVM approach has been used to solve a classification problem. Via a data-driven process described in the previous section, five $\w_i$ variables were constructed, one per democracy attribute (as shown in third column of \autoref{tab:dim}). These five vectors conform five different dependent variables. In this section we estimate five OLS multivariate lineal models (see \autoref{w:analyses:t}), where the covariate of interest is the declared willingness to sell the vote (``\texttt{sell vote}''). Distributions of the five dependent variables are plotted in \autoref{fig:density:plot:w:p}. Given that they represent different attributes of the same concept---i.e., ``support for democracy''---it is not a surprise that these distributions look very similar. From a substantive standpoint, the interest is on finding statistically significant predictors (if any) across all/some (or none of) the five democracy attributes. Following the literature on clientelism,\footnote{See particularly \textcite{Auyero2000,Kitschelt2000,Brusco2004,Calvo2004,Stokes2005,Nazareno2008a,Nichter2008,Gonzalez-Ocantos2012,Weitz-shapiro,Szwarcberg2013,Vicente2014,GonzalezOcantos2014,Rueda2014a,Zarazaga2014,Gonzalez-Ocantos2015,Schaffer2015,Holland2015,Zarazaga2015a,Rueda2016,Oliveros2016,Bahamonde2018,Bahamonde2020a,Murillo2021}.} the following covariates were included: \texttt{woman}, \texttt{party id.}, \texttt{ideology}, \texttt{education}, \texttt{political knowledge}, \texttt{registered to vote}, \texttt{trust in Federal Gov.}, \texttt{income} and \texttt{sell vote} (which captures the willingness to the sell the vote).\footnote{\autoref{summary:stats:t} shows summary statistics.}
 
 <<density:plot:w:p, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=density.plot.w.p.note, fig.align='center', fig.width=8, fig.height=2,dpi=1000,cache=FALSE, include = TRUE>>=
 
@@ -612,8 +615,7 @@ The SVM approach has been used to solve a classification problem. Via a data-dri
 @
 
 
-
-\autoref{fig:w:analyses:p:p} shows the point estimates and their estimated uncertainty for all five models. Most importantly, the figure shows that the willingness to sell the vote is negatively correlated with the democracy attribute that speaks to the idea that the President of the United States cannot govern without a Congress (``Presidential Dependence''). We believe that individuals who are willing to sell their freedom to vote for money, value strong leaderships that can govern in an unaccounted-for way, that is, without the participation of the American Congress. The other dimensions are not correlated with the willingness to sell.
+\autoref{fig:w:analyses:p:p} shows the point estimates and their estimated uncertainty for all five models. Most importantly, the figure shows that the willingness to sell the vote is negatively correlated with the democracy attribute that speaks to the idea that the President of the United States should not govern without a Congress (``Presidential Dependence''). We believe that individuals who are willing to sell their freedom to vote for money, value strong leaderships that can govern in an unaccounted-for way, that is, without the participation of the American Congress. The other dimensions are not correlated with the willingness to sell.
 
 
 
@@ -624,11 +626,15 @@ The SVM approach has been used to solve a classification problem. Via a data-dri
 @
 
 
-We believe this finding is relevant. The clientelism literature usually frames the act of selling (or buying) the vote as a ``democracy'' failure. Unfortunately, as we have argued, that explanation, while important, it is too general.\todo{WIP}
+We believe this finding is relevant. The clientelism literature usually frames the act of selling (or buying) votes as ``a democracy'' failure. Unfortunately, as we have argued, that explanation, while important, it is too general. This papers explains why it is important to approach democracy from a multidimensional perspective---using the framework provided by \textcite{Dahl1971}. The immediate consequence is to identify the particular democracy dimension associated with clientelism, particularly, vote selling. While this paper identifies such dimension, it leaves for future research theorizing about why that particular dimension is associated with vote selling. However, we encourage researchers, particularly political and social psychologists, to investigate the relationship between authoritarian personalities with strong traits of obedience to authority (who would likely let a president govern without a congress) and vote selling.
 
 
 
 \section{Conclusion}\hypertarget{conclusion}{}
+
+Exploiting a novel conjoint dataset representative at the national level and machine learning methods, this paper finds that U.S. voters who score low on the belief that the President should govern with a Congress are more likely to sell the vote. Following the multidimensional approach to study democracy proposed by \textcite{Dahl1971}, the other dimensions are not relevant to explain vote selling. We believe these findings are relevant to the clientelism literature since most explanations of vote selling see the phenomena as a general democratic failure. 
+
+In addition to that, these findings go in line with recent studies pointing out to a possible erosion of American democracy---see \textcite{Bahamonde2020a}, but particularly \textcite{Levitsky:2018aa}. The data analyzed in this paper were collected while the political campaign that led Donald Trump to the U.S. Presidency took place. From that perspective, survey respondents not only participated in this study, but also (some of them) voted for Donald Trump. This is particularly important given the events occurred during January 2021 where Trump incited the storming of the U.S. Capitol. Following the lead of \textcite{Levitsky:2018aa}, we encourage comparative politics scholars to incorporate the United States (as case) to the pool of cases usually studied while studying clientelism, which are mostly developing countries.
 
 
 

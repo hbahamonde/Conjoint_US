@@ -1,13 +1,12 @@
 # Libraries
 library(pacman)
-p_load(e1071)
+library(e1071)
 library(xlsx)
 library(openxlsx)
 library(readxl)
 
 # Read merged Conjoint Data
-setwd("~/Documents/Research/Hector_Conjoint/analisis_visuales")
-load("mergedconjoint.RData")
+load("conjoint.RData")
 
 # numeric variables filter
 str2int <- function(x) as.numeric(!grepl("CANNOT",x,fixed=TRUE))
@@ -40,24 +39,24 @@ for (k in seq(1,max(d$idnum))){
 names(W)<- c("k","w1","w2","w3","w4","w5")
 A <- cbind(W,Training)
 
-wb <- createWorkbook("weights_20210111(scratch).xlsx")
+wb <- createWorkbook("weights_scratch.xlsx")
 addWorksheet(wb,"Pesos")
 writeData(wb,sheet="Pesos",W,startCol=1,startRow=1,rowNames = FALSE)
-saveWorkbook(wb, file = "weights_20210111(scratch).xlsx", overwrite = TRUE)
+saveWorkbook(wb, file = "weights_scratch.xlsx", overwrite = TRUE)
 
-wb <- createWorkbook("weights_and_data_20210111(scratch).xlsx")
+wb <- createWorkbook("weights_and_data.xlsx")
 addWorksheet(wb,"Weights n Data")
 writeData(wb,sheet="Weights n Data",A,startCol=1,startRow=1,rowNames = FALSE)
-saveWorkbook(wb, file = "weights_and_data_20210111(scratch).xlsx", overwrite = TRUE)
+saveWorkbook(wb, file = "weights_and_data.xlsx", overwrite = TRUE)
 
-#write.csv(W,".csv", row.names = TRUE)
+# write.csv(W,".csv", row.names = TRUE)
 
 svm_gradient<- function(x,eta=0.001,R=10000){
   X <- x
-  n <- nrow(X)  #number of sample
-  p <- ncol(X) #number of feature+1 (bias)
+  n <- nrow(X)  # number of sample
+  p <- ncol(X) # number of feature+1 (bias)
   w_intial <- rep(0,p)
-  W <- matrix(w_intial ,nrow = R+1,ncol = p,byrow = T) #matrix put intial guess and the procedure to do gradient descent
+  W <- matrix(w_intial ,nrow = R+1,ncol = p,byrow = T) # matrix put initial guess and the procedure to do gradient descent
   for(i in 1:R){
     for(j in 1:p)
     {
