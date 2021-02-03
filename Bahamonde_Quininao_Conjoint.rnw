@@ -1,6 +1,6 @@
 \documentclass[onesided]{article}
 \usepackage[T1]{fontenc}
-\linespread{1.15} % Line spacing - Palatino needs more space between lines
+\linespread{2} % Line spacing - Palatino needs more space between lines
 \usepackage{microtype} % Slightly tweak font spacing for aesthetics
 
 \usepackage[hmarginratio=1:1,columnsep=20pt]{geometry} % Document margins
@@ -326,6 +326,7 @@ options(scipen = 99999999999)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\newpage
 \begin{abstract}
 \input{abstract.txt}\unskip
 \end{abstract}
@@ -340,6 +341,7 @@ options(scipen = 99999999999)
 
 \providecommand{\keywords}[1]{\textbf{\emph{Keywords---}} #1} % keywords.  
 \keywords{conjoint designs; vector support machines; support for democracy; United States.}
+\clearpage
 
 
 
