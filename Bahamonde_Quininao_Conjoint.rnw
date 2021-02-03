@@ -63,7 +63,6 @@
 
 
 
-
 % hypothesis / theorem package begin
 \usepackage{amsthm}
 \usepackage{thmtools}
@@ -222,6 +221,8 @@ headpunct=:
 \lstset{language=R,frame=lines}
 \lstset{language=Python,frame=lines}
 
+
+
 % DOCUMENT ID
 
 
@@ -242,8 +243,8 @@ headpunct=:
 
 \textsc{Cristobal Quininao}
 \thanks{\href{mailto:cristobal.quininao@uoh.cl}{cristobal.quininao@uoh.cl}; 
-\href{https://www.uoh.cl}{\texttt{PAGINA AQUI}}. \\
-This project was funded by the Center for \fbox{\phantom{the Experimental Study of Psychology and Politics}} at \fbox{\phantom{Rutgers University---New Brunswick}}. We both thank Richard Lau and David Redlawsk for their comments and suggestions.}}
+\href{https://cquininao.wordpress.com}{\texttt{https://cquininao.wordpress.com}}. \\
+Authors are listed in alphabetical order. This project was funded by the Center for \fbox{\phantom{the Experimental Study of Psychology and Politics}} at \fbox{\phantom{Rutgers University---New Brunswick}}. We both thank Richard Lau and David Redlawsk for their comments and suggestions.}}
 
 
 \affil[1]{Assistant Professor, Instituto de Ciencias Sociales, O$'$Higgins University}
@@ -329,9 +330,13 @@ options(scipen = 99999999999)
 \input{abstract.txt}\unskip
 \end{abstract}
 
-\hspace*{1.3cm}{\Sexpr{abstract.c.l} words}
+\hspace*{5cm}{{\bf Abstract length}: \Sexpr{abstract.c.l} words}.
+
+\vspace*{1cm}
 
 \hspace*{1.3cm}{\bf Please consider downloading the last version of the paper} \href{https://github.com/hbahamonde/Conjoint_US/raw/master/Bahamonde_Quininao_Conjoint.pdf}{\texttt{{\color{red}here}}}.
+
+\vspace*{1cm}
 
 \providecommand{\keywords}[1]{\textbf{\emph{Keywords---}} #1} % keywords.  
 \keywords{conjoint designs; vector support machines; support for democracy; United States.}
@@ -491,7 +496,7 @@ Ultimately, our design will allow a series of hypotheses tests between every of 
 
 % barplot:figure:control:treatment
 % LAPOP Bar Chart
-<<us:map:plot, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap=us.map.note, fig.align='center', fig.width=10, fig.height=5,dpi=100000,cache=FALSE, include = TRUE>>=
+<<us:map:plot, echo = FALSE, fig.pos='h', warning = FALSE, message = F, fig.cap=us.map.note, fig.align='center', fig.width=10, fig.height=5,dpi=100000,cache=FALSE, include = TRUE>>=
 
 
 @
@@ -515,7 +520,7 @@ While classic conjoint analyses provide consistent causal estimates, they unfort
 
 \section{Introducing Support Vector Machines Methods to Analyzing Conjoint Data}\hypertarget{our.cj.svm}{}
 
-Support vector machine methods are a subclass of machine learning techniques, which in turn are a branch of the artificial intelligence field. The main goal of these methods is to use computational algorithms to learn from data \parencite{talabis2015analytics}. For instance, in agricultural sciences machine learning methods are used to identify between crops and grass using satellite images as data. There are mainly three branches of machine learning techniques: supervised learning, unsupervised learning and reinforcement learning. Based on a subset\todo{decia set, ok?} of the complete dataset (the ``training'' dataset), the goal of supervised learning is to identify \todo{decia find, ok?} a mathematical function able to map a vector (``input'') to another vector (``output'') based on input-output data pairs which are used as examples.\footnote{A further demonstration is in the Appendix.} For instance, the analyst can define how crops and grass look like (output). Once the mathematical function is defined, supervised learning techniques should be able to automatically recognize newly presented images of crops and grass (input) and classify them (map) into their respective categories (output)---i.e. ``grass'' or ``crops.'' Unsupervised learning is similar to supervised learning, but the training dataset have only the input component. Thus, the computational algorithms in this case should be able to find patterns in the dataset without having prior information. Finally, reinforcement learning was inspired by behavioral psychology, and its main goal is to determine what actions an algorithm should perform in order to maximize some notion of ``accumulated reward.''
+Support vector machine methods are a subclass of machine learning techniques, which in turn are a branch of the artificial intelligence field. The main goal of these methods is to use computational algorithms to learn from data \parencite{talabis2015analytics}. For instance, in agricultural sciences machine learning methods are used to identify between crops and grass using satellite images as data. There are mainly three branches of machine learning techniques: supervised learning, unsupervised learning and reinforcement learning. Based on a subset \todo{decia set, ok?} of the complete dataset (the ``training'' dataset), the goal of supervised learning is to identify \todo{decia find, ok?} a mathematical function able to map a vector (``input'') to another vector (``output'') based on input-output data pairs which are used as examples.\footnote{A further demonstration is in the Appendix.} For instance, the analyst can define how crops and grass look like (output). Once the mathematical function is defined, supervised learning techniques should be able to automatically recognize newly presented images of crops and grass (input) and classify them (map) into their respective categories (output)---i.e. ``grass'' or ``crops.'' Unsupervised learning is similar to supervised learning, but the training dataset have only the input component. Thus, the computational algorithms in this case should be able to find patterns in the dataset without having prior information. Finally, reinforcement learning was inspired by behavioral psychology, and its main goal is to determine what actions an algorithm should perform in order to maximize some notion of ``accumulated reward.''
 
 Support vector machines (SVMs) are a set of techniques of supervised learning which might be extended to classification applications and/or standard regression techniques \parencite[Ch. 12]{maimon2005data}. Supervised learning techniques have been used in political science before \parencite{DOrazio2014a,Greene2019,Cantu2011}. In this paper we are interested in applying SVM methods to---first---solve a classification problem, and then in a second stage, apply OLS methods. The first stage is a data-driven process which consists of defining a full set of democratic attitudes, and then finding a classification rule (i.e. a mathematical function) that takes survey participants and classify them along the constructed democratic attitudes spectrum. In particular, we are interested in learning about the political preferences of survey participants by using the information participants provided when making choices between the two hypothetical candidates and the policies those candidates endorsed (as exemplified in \autoref{tab:conj:ex}). Since the focus is to account for the multi-dimensionality of democracy, we perform these analyses for all five democracy attributes. In the second stage we use standard regression methods to study correlations between the five democracy attributes (obtained in the first stage) and respondent's socio-political attitudes, particularly, the willingness to sell the vote. In sum, we exploit the conjoint dataset to first classify all participants within a common space for all five attributes. Then we fit five separate OLS regression models between those five spaces and the willingness to sell the vote (controlling for relevant covariates).
 
@@ -556,13 +561,13 @@ and
 implying that whenever two candidates $\mathbf x_1^{1,i}$ and $\mathbf x_1^{2,i}$ are presented, the survey respondent will choose the one that provides him with a larger utility.
 
 
-\paragraph{Optimization strategy} Note that, within this framework, it is sufficient to consider the differences between the democracy attributes among the two hypothetical candidates. In fact, the selected hypothetical candidate and their corresponding policy stands are observed quantities. {\color{red}This is slightly different from the question: for a candidate $\mathbf x$ should you select her?}\todo{?} Therefore, and from a theoretical standpoint, unlike $u_i$ which cannot be directly constructed, $\w^i$ is the only observed quantity of interest which is accessed within the space of differences between candidates. We define then the centered coordinates $\mathbf z^i_k\in\{-1,0,1\}$ as,
+\paragraph{Optimization strategy} Note that, within this framework, it is sufficient to consider the differences between the democracy attributes among the two hypothetical candidates. In fact, the selected hypothetical candidate and their corresponding policy stands are observed quantities. {\color{red}This is slightly different from the question: for a candidate $\mathbf x$ should you select her?} \todo{?} Therefore, and from a theoretical standpoint, unlike $u_i$ which cannot be directly constructed, $\w^i$ is the only observed quantity of interest which is accessed within the space of differences between candidates. We define then the centered coordinates $\mathbf z^i_k\in\{-1,0,1\}$ as,
 
 \begin{equation}
 \mathbf z^i_k=\mathbf x_k^{1,i}-\mathbf x_k^{2,i},
 \end{equation}
 
-hence, from now on, the intercept $b$ will be ignored because a function of the type $f_i(\mathbf z_k)=\text{sign}(\w_i\cdot\mathbf z^i_k)$ is mathematically sufficient. Indeed, equations \autoref{eq:unoGana} and \todo{decia ``-''} \autoref{eq:dosGana} become,
+hence, from now on, the intercept $b$ will be ignored because a function of the type $f_i(\mathbf z_k)=\text{sign}(\w_i\cdot\mathbf z^i_k)$ is mathematically sufficient. Indeed, equations \autoref{eq:unoGana} and \todo{decia ``-''}  \autoref{eq:dosGana} become,
 
 \begin{equation}
 y_k^i\left(\w^i\cdot \mathbf z_k^i\right) > 0.
@@ -582,11 +587,12 @@ and if two observations $\mathbf z_k$ and $\mathbf z_m$ belong to different clas
 
 It should be clear by now that for each survey participant $i$, the optimal hyperplane is the solution to the following optimization problem,
 
-\begin{eqnarray}\label{eq:restriction}
-&&\min_{\w^i}\frac12\|\w^i\|^2 
-\\
-\text{subject to} && \; y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
-\end{eqnarray}
+\begin{equation}\label{eq:restriction}
+\begin{aligned}
+&\min_{\w^i}\frac12\|\w^i\|^2 \\
+\text{subject to} & \; y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
+\end{aligned}
+\end{equation}
 
 Regarding the actual dataset analyzed in this study, it is unknown if these data can \emph{a priori} be separated by an hyperplane. To allow for bad classification issues, \textcite{cortes1995support} introduced the concept of ``slack variables'' $\xi_i$ that relax the optimization problem restrictions (\autoref{eq:restriction}):
 
@@ -849,11 +855,13 @@ therefore, we can rewrite the margin as,
 
 or simply by $\frac{\w}{\|\w\|} \cdot(\mathbf z_k-\mathbf z_m)=\frac{2}{\|\w\|}$. To find the optimal hyperplane is, in this example, to find the values of $w_1$ and $w_2$ such that the margin is the largest possible. This is achieved with the vector $\mathbf w$ with smallest norm, and we find out the optimization problem stated in the main text,
 
-\begin{eqnarray*}
-&&\min_{\w}\frac12\|\w^i\|^2
-\\
-\text{subject to} && y_k\,(\w\cdot \mathbf z_k)\geq 1,\,\, k=1,\ldots,n.
-\end{eqnarray*}
+\begin{equation}
+\begin{aligned}
+&\min_{\w}\frac12\|\w^i\|^2 \\
+\text{subject to} &y_k\,(\w\cdot \mathbf z_k)\geq 1,\,\, k=1,\ldots, n.
+\end{aligned}
+\end{equation}
+
 
 \begin{figure}
 \centering
