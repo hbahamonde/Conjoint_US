@@ -1,0 +1,744 @@
+\documentclass[onesided]{article}
+\usepackage[T1]{fontenc}
+\linespread{1.15} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[hmarginratio=1:1,columnsep=20pt]{geometry} % Document margins
+%\usepackage{multicol} % Used for the two-column layout of the document
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+\usepackage{float} % Required for tables and figures in the multi-column environment - they need to be placed in specific locations with the [H] (e.g. \begin{table}[H])
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less space between them
+
+% to ignore texts: good for thank messages and paper submissions.
+      % \fbox{\phantom{This text will be invisible too, but a box will be printed arround it.}}
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+%\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage[]{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\Roman{subsection}} % Roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancybox, fancyvrb, calc}
+\usepackage[svgnames]{xcolor}
+\usepackage{epigraph}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{graphics}
+\usepackage{pbox} % \pbox{20cm}{This is the first \\ cell}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{rotating}
+\usepackage{paracol}
+\usepackage{textcomp}
+\usepackage[export]{adjustbox}
+\usepackage{afterpage}
+\usepackage{filecontents}
+\usepackage{color}
+\usepackage{latexsym}
+\usepackage{lscape}       %\begin{landscape} and \end{landscape}
+\usepackage{wasysym}
+\usepackage{dashrule}
+
+\usepackage{framed}
+\usepackage{tree-dvips}
+\usepackage{pgffor}
+\usepackage[]{authblk}
+\usepackage{setspace}
+\usepackage{array}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}     %desactivar para link rojos
+\usepackage{graphicx}
+\usepackage{dcolumn} % for R tables
+\usepackage{multirow} % For multirow in tables
+\usepackage{pifont}
+\usepackage{listings}
+
+
+
+% hypothesis / theorem package begin
+\usepackage{amsthm}
+\usepackage{thmtools}
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=0.6em,
+headpunct=:
+]{mystyle}
+\declaretheorem[style=mystyle, name=Hypothesis, preheadhook={\renewcommand{\thehyp}{H\textsubscript{\arabic{hyp}}}}]{hyp}
+
+\usepackage{cleveref}
+\crefname{hyp}{hypothesis}{hypotheses}
+\Crefname{hyp}{Hypothesis}{Hypotheses}
+% hypothesis / theorem package end
+
+
+%----------------------------------------------------------------------------------------
+% Other ADDS-ON
+%----------------------------------------------------------------------------------------
+
+% independence symbol \independent
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+
+% Les principaux ensembles
+\newcommand{\Abs}[1]{\left\lvert#1\right\rvert}
+\newcommand\N{{\mathbb N}}
+\newcommand\R{{\mathbb R}}
+\newcommand\T{{\mathbb T}}
+\newcommand\C{{\mathbb C}}
+\newcommand\Q{{\mathbb Q}}
+\newcommand\Z{{\mathbb Z}}
+\newcommand\Pp{{\mathbb P}}
+\newcommand\Ee{{\mathbb E}}
+\def\x{{\mathbf x}}
+\def\w{{\mathbf w}}
+\def\xxi{{\pmb \xi}}
+
+
+
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat's bookmarks
+    pdftoolbar=true,        % show Acrobat's toolbar?
+    pdfmenubar=true,        % show Acrobat's menu?
+    pdffitwindow=true,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={My title},    % title
+    pdfauthor={Author},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=Maroon,          % color of internal links (change box color with linkbordercolor)
+    citecolor=Maroon,        % color of links to bibliography
+    filecolor=Maroon,      % color of file links
+    urlcolor=Maroon           % color of external links
+}
+
+%\usepackage[nodayofweek,level]{datetime} % to have date within text
+
+\newcommand{\LETT}[3][]{\lettrine[lines=4,loversize=.2,#1]{\smash{#2}}{#3}} % letrine customization
+
+
+
+% comments on margin
+  % Select what to do with todonotes: 
+  % \usepackage[disable]{todonotes} % notes not showed
+  \usepackage[draft]{todonotes}   % notes showed
+  % usage: \todo{This is a note at margin}
+
+\usepackage{cooltooltips}
+
+%%% bib begin
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=authoryear,dashed=false,doi=false,isbn=false,url=false,arxiv=false]{biblatex}
+%\DeclareLanguageMapping{american}{american-apa}
+\addbibresource{Bahamonde_Quininao_Conjoint.bib} 
+
+
+% USAGES
+%% use \textcite to cite normal
+%% \parencite to cite in parentheses
+%% \footcite to cite in footnote
+%% the default can be modified in autocite=FOO, footnote, for ex. 
+%%% bib end
+
+
+% r code verbatim config
+\lstdefinestyle{R}{ %
+  language=R,                     % the language of the code
+  basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{dkgreen},   % comment style
+  stringstyle=\color{mauve},      % string literal style
+  morekeywords={*,...}            % if you want to add more keywords to the set
+}
+
+\lstdefinestyle{Python}{ %
+  language=Python,                     % the language of the code
+  basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{dkgreen},   % comment style
+  stringstyle=\color{mauve},      % string literal style
+  morekeywords={*,...}            % if you want to add more keywords to the set
+} 
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{language=R,frame=lines}
+\lstset{language=Python,frame=lines}
+
+
+
+% DOCUMENT ID
+
+
+
+% TITLE SECTION
+
+\title{\vspace{-15mm}\fontsize{18pt}{7pt}\selectfont\textbf{\input{title_letter.txt}\unskip}} % Article title
+
+
+\author[1]{
+
+\textsc{H\'ector Bahamonde}
+\thanks{\href{mailto:hector.bahamonde@uoh.cl}{hector.bahamonde@uoh.cl}; \href{http://www.hectorbahamonde.com}{\texttt{www.HectorBahamonde.com}}.}}
+
+
+
+\author[2]{
+
+\textsc{Cristobal Quininao}
+\thanks{\href{mailto:cristobal.quininao@uoh.cl}{cristobal.quininao@uoh.cl}; 
+\href{https://cquininao.wordpress.com}{\texttt{https://cquininao.wordpress.com}}. \\
+Authors are listed in alphabetical order. This project was funded by the Center for \fbox{\phantom{the Experimental Study of Psychology and Politics}} at \fbox{\phantom{Rutgers University---New Brunswick}}. We both thank Giancarlo Visconti, Richard Lau and David Redlawsk for their comments and suggestions.}}
+
+
+\affil[1]{Assistant Professor, Instituto de Ciencias Sociales, O$'$Higgins University}
+\affil[2]{Assistant Professor, Instituto de Ciencias de la Ingenier\'ia O$'$Higgins University}
+
+
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+% Sweave2knitr("Bahamonde_Quininao_Conjoint.rnw")
+\pagenumbering{gobble} 
+
+
+\setcounter{hyp}{0} % sets hypothesis counter to 1
+
+\maketitle % Insert title
+
+
+%----------------------------------------------------------------------------------------
+% ABSTRACT
+%----------------------------------------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% loading knitr package
+
+<<echo=FALSE, cache=FALSE, warning = FALSE, message = F>>=
+read_chunk('/Users/hectorbahamonde/research/Conjoint_US/Bahamonde_Quininao_Conjoint.R') # Hector path // MAC
+# read_chunk('Bahamonde_Quininao_Conjoint.R') % Cristobal path
+
+@
+
+
+<<rsetup, include=FALSE>>=
+chooseCRANmirror(graphics=FALSE, ind=1)
+if (!require("pacman")) install.packages("pacman"); library(pacman)
+p_load(knitr)
+options(scipen = 99999999999)
+
+@
+
+<<constructing:data, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+
+@
+
+
+<<lapop:bar:chart:data, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+
+@
+
+<<us:map:plot:d, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+
+@
+
+
+<<amce:plot:d, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+
+@
+
+<<w:analyses:d, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+
+@
+
+<<w:analyses:p:d, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+
+@
+
+<<abstract:2, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+fileConn <- file ("abstract_letter.txt")
+abstract.c = as.character(c("While the traditional AMCE-based approach to analyzing conjoint experiments is still relevant to political scientists, the approach usually ignores individual characteristics of survey respondents. Information such as race, income and party identification is usually ignored in traditional conjoint analyses. We consider this a limitation. In this letter we fill this gap by introducing machine learning methods to analyzing conjoint datasets. Using support vector machine methods we are able to focus on individual preferences---elicited via conjoint designs---and political attitudes (particularly, the willingness to sell the vote). This letter seeks to ``bring survey respondents back in'' by analyzing their stated preferences within the traditional conjoint framework. We motivate the applied portion of this letter exploiting a novel conjoint dataset about democracy and clientelism in the United States."))
+writeLines(abstract.c, fileConn)
+close(fileConn)
+
+@
+
+<<abstract.length:2, echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include = FALSE, cache=FALSE, eval=TRUE>>=
+abstract.c.l = sapply(strsplit(abstract.c, " "), length)
+
+@
+
+% end knitr stuff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newpage
+\begin{abstract}
+\input{abstract_letter.txt}\unskip
+\end{abstract}
+
+\hspace*{5cm}{{\bf Abstract length}: \Sexpr{abstract.c.l} words}.
+
+\vspace*{1cm}
+
+\hspace*{1.3cm}{\bf Please consider downloading the last version of the paper} \href{https://github.com/hbahamonde/Conjoint_US/raw/master/Bahamonde_Quininao_Conjoint_Letter_PA.pdf}{\texttt{{\color{red}here}}}.
+
+\vspace*{1cm}
+
+\providecommand{\keywords}[1]{\textbf{\emph{Keywords---}} #1} % keywords.  
+\keywords{conjoint designs; vector support machines; support for democracy; United States.}
+\clearpage
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONTENT (write the paper below)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\linespread{1.15}
+
+
+\section{Introduction}
+
+
+\textcite{Hainmueller2014a} introduced conjoint analysis to political science \parencite[1]{Horiuchi2020a}, particularly making conjoint designs compatible with the potential outcomes framework of causal inference \parencite{Rubin1974}. Since then, an important number of studies have been published. In part this is due to conjoint experiments are well-suited to study multidimensional phenomena, and that the main quantity of interest---the \emph{average marginal component effect} (AMCE)---is very simple to estimate \parencite[3]{Hainmueller2014a}. 
+
+While the use of the AMCE has advanced a number of important research questions, this approach do not permit statistical associations between the selected profiles and the respondents attitudes or preferences. We consider this an important limitation. To solve this gap, this letter introduces machine learning techniques---particularly support vector machine methods (SVM)---for analyzing conjoint datasets. 
+
+We motivate the applied portion of this letter exploiting a novel conjoint dataset about democracy and clientelism in the United States.\footnote{N=\Sexpr{total.sample.size.c} respondents, everyone answering \Sexpr{tasks} tasks with \Sexpr{candidates} hypothetical candidates each. \emph{Research Now SSI} collected the data between March 2 and March 6 2016. Survey respondents belong to the online panel owned and administered by SSI. Notice of IRB exemption Protocol \#E16-292 is kept on file at the Office of Research and Regulatory Affairs of \fbox{\phantom{Rutgers}} University.} The dataset are representative at the national level and was collected in 2016 during the presidential campaigns that gave Donald Trump the victory. In our design, conjoint profiles represent political stances of two hypothetical presidential candidates. Every conjoint attribute represents different ``Polyarchy'' dimensions, as described by \textcite{Dahl1971}. 
+
+The proposed approach to analyzing conjoint experiments via SVMs has two stages. Using SVM methods, the first stage defines a full set of democratic attitudes, and then classifies survey participants along a constructed democratic attitude spectrum ($w^i$). The second stage estimates OLS models between all the constructed attitudes spectra ($\mathbf w^i$) and a willingness-to-sell-the-vote question. The final purpose of the proposed methodology is to identify statistical correlations between conjoint profiles and clientelism.
+
+
+
+\section{Identification}
+
+
+One way to motivate our approach is via the latent variable and the standard maximization utility approaches. Consider the following classification task: estimate a function $f:\R^J\rightarrow\{-1,1\}$ using a system of input-output training data pairs. Assuming a design of five attributes (i.e. five ``Polyarchy'' dimensions), that is, an input $\mathbf x\in\{0,1\}^5$ (which represents the range of possible choices for all attributes), the function $f$ maps survey participants with all five attributes. For simplicity, we assume that participant preferences can be modeled by an additive linear utility function, and that the decision function $f$ takes a utility sign $\{+, -\}$ depending on the attribute chosen.\footnote{Note that the coding sign is completely irrelevant to the substantive policies endorsed by the candidates. If the data can be partitioned by an hyperplane (which is the case in most randomized conjoint designs), such functions can be defined for every participant $i$.}
+
+To clarify, for a survey participant $i$, we have the following conjoint data,
+
+\begin{equation}
+(\mathbf x_1^{1,i},\mathbf x_1^{2,i};y_{1}^i),\,\,(\mathbf x_2^{1,i},\mathbf x_2^{2,i};y_{2}^i),\,\,\ldots\,\, (\mathbf x_5^{1,i},\mathbf x_5^{2,i};y_{5}^i)
+\end{equation}
+
+
+
+where $\mathbf x_k^{1,i}$ represents the attributes of candidate 1 shown to survey participant $i$ during task $k$. Similarly, $\mathbf x_k^{2,i}$ represents the attributes of candidate 2 shown to survey participant $i$ during task $k$. The corresponding $y_k$ is the selected candidate. We coded $y_k^i=1$ when survey participant $i$ selected candidate $1$, and $y_k^{i}=-1$ when survey participant $i$ selected candidate $2$. Since we are trying to characterize a linear function for every $i$, survey participants can be mapped by a vector weight $\mathbf w^i\in\mathbb R^5$ and an intercept $b^i$. Indeed, for a candidate $\mathbf x$, the function,
+
+\begin{equation}
+u_i(\mathbf x) = \w^i\cdot\mathbf x+b,
+\end{equation}
+
+models the utility function of every survey participant $i$. For consistency, we identify weights $\w^i\in\R^5$ and intercept $b\in\R$ such that,
+
+\begin{equation}\label{eq:unoGana}
+\w^i\cdot(\mathbf x_k^{1,i}-\mathbf x_k^{2,i}) > 0 \quad\Leftrightarrow\quad y_k^i=1,
+\end{equation}
+
+
+and
+
+\begin{equation}\label{eq:dosGana}
+\w^i\cdot(\mathbf x_k^{1,i}-\mathbf x_k^{2,i}) < 0 \quad\Leftrightarrow\quad y_k^i=-1,
+\end{equation}
+
+implying that whenever two candidates $\mathbf x_1^{1,i}$ and $\mathbf x_1^{2,i}$ are presented, the survey respondent will choose the one that provides him with a larger utility.
+
+
+Note that, within this framework, it is sufficient to consider the differences between the democracy attributes among the two hypothetical candidates. In fact, the selected hypothetical candidate and their corresponding policy stands are observed quantities. Therefore, and from a theoretical standpoint, unlike $u_i$ which cannot be directly constructed, $\w^i$ is the only observed quantity of interest which is accessed within the space of differences between candidates. We define then the centered coordinates $\mathbf z^i_k\in\{-1,0,1\}$ as,
+
+\begin{equation}
+\mathbf z^i_k=\mathbf x_k^{1,i}-\mathbf x_k^{2,i},
+\end{equation}
+
+hence, from now on, the intercept $b$ will be ignored because a function of the type $f_i(\mathbf z_k)=\text{sign}(\w_i\cdot\mathbf z^i_k)$ is mathematically sufficient. Indeed, equations \autoref{eq:unoGana} and \autoref{eq:dosGana} become,
+
+\begin{equation}
+y_k^i\left(\w^i\cdot \mathbf z_k^i\right) > 0.
+\end{equation}
+
+It should be clear by now that the challenge is to identify weights $\w^i$ for every survey participant $i$. Under the data separability assumption, it has been shown by \textcite{vapnik1991necessary} that it suffices to focus on the margin, defined as the minimal distance of a sample to the decision surface. For notation simplicity, the dependence of $y^i$ and $\mathbf z_k^i$ on $i$ will be dropped. By rescaling $\w_i$ we know that the closest points to the hyperplane must satisfy,
+
+\begin{equation}
+|\w^i\cdot\mathbf z_k| = 1,
+\end{equation}
+
+and if two observations $\mathbf z_k$ and $\mathbf z_m$ belong to different classes (i.e. the selected candidate), then the margin is defined as the distance of these two points to the hyperplane such that,
+
+\begin{equation}
+\frac{\w^i}{\|\w^i\|} \cdot(\mathbf z_k-\mathbf z_m) = \frac{2}{\|\w^i\|}.
+\end{equation}
+
+Therefore, for each survey participant $i$, the optimal hyperplane is the solution to the following optimization problem,
+
+\begin{equation}\label{eq:restriction}
+\begin{aligned}
+&\min_{\w^i}\frac12\|\w^i\|^2 \\
+\text{subject to} & \; y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
+\end{aligned}
+\end{equation}
+
+Regarding most datasets, it is unknown if these data can \emph{a priori} be separated by an hyperplane. To allow for bad classification issues, \textcite{cortes1995support} introduced the concept of ``slack variables'' $\xi_i$ that relax the optimization problem restrictions (\autoref{eq:restriction}):
+
+\begin{equation}
+y_k\,( \w^i\cdot\mathbf z_k)\geq 1-\xi_k,\quad \xi_k\geq0,\quad k=1,2,3,4,5.
+\end{equation}
+
+All in all, this allows controlling for both the classification strength of $\|\w^i\|$ (or the capacity of the algorithm to correctly classify the data), and the sum of the slack variables $\sum_{k=1}^5 \xi_k$ which account for possible errors in classification. Since we allow the learning algorithm some degree of deviations during the classification process, we need to account for this error in the optimization problem. By doing so, we will find a new $\mathbf w$ that might not be the unique solution to \autoref{eq:restriction}---that in the non-linearly separable case does not exists---but still is good enough in the sense that the number of training data-pairs misclassified is small (see Appendix). By doing so the following trade-off problem is encountered: finding a $\mathbf w$ with small norm that classifies properly a large proportion of the data. A widely used solution to that trade-off is the $C$-SVM or ``soft margin classifying,'' which is based in the minimization of the following objective function,
+
+\begin{equation}
+\min_{\w^i,\xi}\frac12\|\w^i\|^2+C\sum_{k=1}^5\xi_k,
+\end{equation}
+
+where the regularization constant $C>0$ determines the trade-off between the empirical error and the complexity term.
+
+We solved the optimization problem with the \texttt{Python} library ``\textit{sklearn}.''\footnote{Routine available upon request. An \textit{R} routine is also available upon request. This particular algorithm solves the problem directly using the steepest descent approach. Due to computational complexity and possible convergence issues, this routine is not recommended when the number of training-data pairs is large. However, since the optimization problem is convex, algorithms converge to a unique solution but the convergence time might be long.}
+
+
+\section{Application}
+
+% the design
+To study which democratic dimension(s) should fail to produce vote selling, we presented subjects two hypothetical candidates that supported (or not) some policy attributes. \autoref{tab:conj:ex} shows one possible realization of the experiment. The study considered a direct question about the intention to sell the vote. Finally, survey respondents answered a number of socio-demographic questions. 
+
+
+
+\afterpage{
+\begin{table}[h]
+\begin{center}
+{\renewcommand{\arraystretch}{2}%
+%\scalebox{1}{
+\begin{tabular}{cc}
+\hline
+\multicolumn{2}{|m{16cm}|}{\texttt{In the next section you will see 10 different candidates presented in pairs.  Each candidate supports different policies.  Some candidates might or might not share some similarities/differences.  You might not like any of them, but we want to know which candidate represents the lesser of the two evils for you. You might want to focus your attention on the issues that you care about the most.}}\\ \hline
+\multicolumn{1}{|c|}{{\bf Candidate 1}}   & \multicolumn{1}{c|}{{\bf Candidate 2}}  \\ \hline
+\multicolumn{1}{|c|}{\small{Media CAN confront the government}}    & \multicolumn{1}{c|}{\small{Media CANNOT confront the government}}   \\ \hline
+\multicolumn{1}{|c|}{\small{President CANNOT rule without Congress}}    & \multicolumn{1}{c|}{\small{President CAN rule without Congress}}   \\ \hline
+\multicolumn{1}{|c|}{\small{Citizens CANNOT vote in the next two elections}}    & \multicolumn{1}{c|}{\small{Citizens CANNOT vote in the next two elections}}   \\ \hline
+\multicolumn{1}{|c|}{\small{Citizens CAN run for office for the next two elections}}    & \multicolumn{1}{c|}{\small{Citizens CAN run for office for the next two elections}}   \\ \hline
+\multicolumn{1}{|c|}{\small{Citizens CAN associate with others and form groups}}    & \multicolumn{1}{c|}{\small{Citizens CANNOT associate with others and form groups}}   \\ \hline
+\multicolumn{2}{c}{\texttt{Which of these candidates represents the lesser of the two evils for you?}} \\ \hline
+\multicolumn{1}{|c|}{\texttt{Candidate 1} {\large$\square$}} & \multicolumn{1}{c|}{\texttt{Candidate 2} {\large$\square$}} \\ \hline
+\end{tabular}}
+\caption{{\bf A Multidimensional Approach to Studying Clientelism: A Conjoint Design (example).} \\\hspace{\textwidth} {\bf Note}: Participants were asked to choose between two hypothetical candidates (\texttt{Candidate 1} and \texttt{Candidate 2}). In practice, every survey participant chose between two unique hypothetical candidates. Note that in order to highlight the differences between the two candidates, the \emph{can} and \emph{cannot} were capitalized. The idea was to minimize experimental fatigue.}\label{tab:conj:ex}
+%}
+\end{center}
+\end{table}
+}
+
+
+
+Following the methodology explained, five $\w_i$ variables were constructed, one per democracy attribute (\autoref{fig:density:plot:w:p}). The five dimensions were derived from \textcite{Dahl1971}, and the operationalization is explained in \autoref{tab:dim}. The five distributions conform five different dependent variables which in the second stage were used to estimate five OLS multivariate lineal models. The models are plotted in \autoref{fig:w:analyses:p:p}. The covariate of interest is the declared willingness to sell the vote. Following the literature on clientelism,\footnote{See particularly \textcite{Auyero2000,Kitschelt2000,Brusco2004,Calvo2004,Stokes2005,Nazareno2008a,Nichter2008,Gonzalez-Ocantos2012,Weitz-shapiro,Szwarcberg2013,Vicente2014,GonzalezOcantos2014,Rueda2014a,Zarazaga2014,Gonzalez-Ocantos2015,Schaffer2015,Holland2015,Zarazaga2015a,Rueda2016,Oliveros2016,Bahamonde2018,Bahamonde2020a,Murillo2021}.} the following covariates were included: \texttt{woman}, \texttt{party id.}, \texttt{ideology}, \texttt{education}, \texttt{political knowledge}, \texttt{registered to vote}, \texttt{trust in Federal Gov.} and \texttt{income}.
+
+<<density:plot:w:p, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap='{\\bf Support Vector Machine Analyses and the Constructed ${\\mathbf w_{i}}$: Five Democracy Attributes}. \\\\\\hspace{\\textwidth} {\\bf Note}: using SVM methods, five individual-level scores of support-for-democracy ${\\mathbf w_{i}}$ were constructed. Each ${\\mathbf w_{i}}$ distribution represents a specific democracy dimension which will be used as a dependent variable to study possible correlations with the willingness to sell the vote. Five different multivariate OLS models were estimated having these distributions as dependent variables---they are shown in \\autoref{fig:w:analyses:p:p}.', fig.align='center', fig.width=8, fig.height=2,dpi=1000,cache=FALSE, include = TRUE>>=
+
+
+@
+
+
+\autoref{fig:w:analyses:p:p} shows the point estimates and their estimated uncertainty for all five models. Most importantly, the figure shows that the willingness to sell the vote is negatively correlated with the democracy attribute that speaks to the idea that the President of the United States should not govern without a Congress (``Presidential Dependence''). 
+
+
+
+
+<<w:analyses:p:p, echo = FALSE, fig.pos='H', warning = FALSE, message = F, fig.cap='{\\bf Multivariate Analyses: Vote Selling and Support for Democracy} \\\\\\hspace{\\textwidth} {\\bf Note}: All estimates OLS. The figure shows that from the five democracy attributes, the only one that ought to fail to explain vote selling is the belief that the President of the United States may not rule without a Congress (Presidential Dependence).', fig.align='center', fig.width=12, fig.height=10,dpi=1000,cache=FALSE, include = TRUE>>=
+
+
+@
+
+
+\section{Conclusion}\hypertarget{conclusion}{}
+
+The AMCE-based approach to analyzing conjoint data usually \emph{describes} individual preferences. For instance \textcite{Hainmueller2015} find that ``\emph{Americans} view educated immigrants in high-status jobs favorably.''\footnote{Emphasis is ours.} While the traditional approach is still important for political scientists, these findings ignore important individual preferences or background characteristics of the ``Americans.'' That is, individual characteristics such as race, income, party identification, or willingness to sell the vote, are ignored under the traditional AMCE-based conjoint setup. We consider this a limitation. In this letter we have tried to fill this gap when working with \emph{relational} theories between individual preferences---elicited via conjoint designs---and political attitudes (such as the willingness to sell the vote). Ultimately, this letter sought to ``bring survey respondents back in'' by analyzing their stated preferences within the conjoint framework proposed by \textcite{Hainmueller2015} and others. 
+
+Exploiting a novel conjoint dataset representative at the national level and machine learning methods, this letter found that U.S. voters who scored low on the belief that the President should govern with a Congress are more likely to sell the vote. Following the multidimensional approach to study democracy proposed by \textcite{Dahl1971}, the other dimensions were not relevant to explain vote selling. We believe this finding is relevant. The clientelism literature usually frames the act of selling (or buying) votes as ``a democracy'' failure. Unfortunately, as we have argued, that explanation, while important, it is too general. In this letter we have identified which particular dimension is relevant to explain vote selling in the United States.
+
+
+
+
+% References
+\newpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\printbibliography
+
+
+
+
+
+% EndNotes
+%\newpage
+%\pagenumbering{Roman}
+%\setcounter{page}{1}
+%\linespread{2} % 1.5, Line spacing - Palatino needs more space between lines
+%\theendnotes
+%\linespread{1.5} % 1.5, Line spacing - Palatino needs more space between lines
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WORD COUNT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+
+<<wordcount, echo=FALSE, cache=FALSE, warning=FALSE>>=
+library(knitr)
+
+comma <- function (x, ...) {
+  format(x, ..., big.mark = ",", scientific = FALSE, trim = TRUE)
+}
+
+# To dynamically extract name of the current file, use code below
+nameoffile <- current_input() # get name of file
+nof2 <-  strsplit(nameoffile,"\\.")[[1]][1] # extract name, drop extension
+noftex <- paste(nof2, ".tex", sep="") # add .tex extension
+systemcall <- paste("system('texcount -inc -incbib -total -sum ", noftex, "', intern=TRUE)", sep="") # paste together texcount system command
+texcount.out <- eval(parse(text=systemcall)) # run texcount on current last compiled .tex file
+
+sum.row <- grep("Sum count", texcount.out, value=TRUE) # extract row
+pattern <- "(\\d)+" # regex pattern for digits
+
+count <- regmatches(sum.row, regexpr(pattern, sum.row) )
+# extract digits
+
+count <- comma(as.numeric(count)) # add comma
+@
+
+
+\begin{center}
+\vspace*{\stretch{1}}
+\dotfill
+\dotfill {\huge {\bf Word count}: \Sexpr{count}} \dotfill
+\dotfill
+\vspace*{\stretch{1}}
+\end{center}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WORD COUNT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+% reset counter for appendix
+%% reset tables and figures counter
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+\newpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+
+\section{Appendix}\hypertarget{appendix}{}
+
+
+
+\newpage
+\subsection{Data-pairs}
+
+
+Consider the following set of training data-pairs $\left\{(\mathbf z_k,y_k)\right\}_{k=1}^n$ with $\mathbf z_k\in\R^2$ and $y_k\in\{-1,1\}$. We look for an hyperplane going through the origin such that,
+
+\begin{equation}
+\mathbf w \cdot \mathbf z_k > 0\quad\Leftrightarrow\quad y_k=1
+\qquad\text{and}\qquad\mathbf w \cdot \mathbf z_k < 0\quad\Leftrightarrow\quad y_k=-1,
+\end{equation}
+
+in the case of $z_k\in\R^2$ we have that such hyperplane is simply a straight line with a 0 intercept,
+
+\begin{equation}
+L(\mathbf z) := L((z_1,z_2)) = w_1z_1+w_2z_2.
+\end{equation}
+
+Now, if $z_k=(z_{k,1},z_{k,2})$, then we look for $\mathbf w$ such that,
+
+\begin{equation}\label{eq:problem}
+y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) >0,\qquad \forall k=1,\ldots,n.
+\end{equation}
+
+
+Since $n\in\N$ is fixed, there must be some $\delta=\delta(\mathbf w)$ such that,
+
+\begin{equation}
+\delta = \min_{k=1,\ldots,n}y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) >0,
+\end{equation}
+
+therefore, by redefining $\mathbf w = \mathbf w/\delta$, equation \autoref{eq:problem} cab be rewritten as,
+
+\begin{equation}
+y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) > 1
+\end{equation}
+
+moreover, the points $\mathbf z_k$ closest to $L(\mathbf z)$ can be defined such that,
+
+\begin{equation}
+y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) = 1.
+\end{equation}
+
+
+Recall that the distance between a point $\mathbf z=(z_1,z_2)\in\R^2$ to the line $L$ is given by,
+
+\begin{equation}
+\text{distance}(\mathbf z,L) = \frac{|w_1z_1+w_2z_2|}{\sqrt{w_1^2+w_2^2}}.
+\end{equation}
+
+Let $(z_{k,1},z_{k,2})$ a training data-pair belonging to the class labeled $+1$, and $(z_{m,1},z_{m,2})$ a training data-pair belonging to the class labeled $-1$. Assume furthermore that $(z_{k,1},z_{k,2})$ is one of the points in the $1$ class that is closest to the optimal hyperplane. Similarly, assume that $(z_{m,1},z_{m,2})$ is one of the points in the $-1$ class that is closest to the optimal hyperplane. The margin is defined as the sum of the distances between $(z_{k,1},z_{k,2})$ and $(z_{m,1},z_{m,2})$ to the optimal hyperplane. That is,
+
+\begin{equation}
+\text{margin} = \frac{|w_1z_{k,1}+w_2z_{k,2}|}{\sqrt{w_1^2+w_2^2}}+\frac{|w_1z_{m,1}+w_2z_{m,2}|}{\sqrt{w_1^2+w_2^2}}
+\end{equation}
+
+since $y_k=1$ then we have that,
+
+\begin{equation}
+y_k\left(w_1 z_{k,1} + w_2z_{k,2} \right) = w_1 z_{k,1} + w_2z_{k,2} = 1>0
+\end{equation}
+
+and
+
+\begin{equation}
+y_m\left(w_1 z_{m,1} + w_2z_{m,2} \right) = -\big(w_1 z_{m,1} + w_2z_{m,2}\big) = 1>0
+\end{equation}
+
+therefore, we can rewrite the margin as,
+
+\begin{equation}
+\text{margin} = \frac{w_1z_{k,1}+w_2z_{k,2}}{\sqrt{w_1^2+w_2^2}}-\frac{w_1z_{m,1}+w_2z_{m,2}}{\sqrt{w_1^2+w_2^2}} = \frac{(w_1,w_2)\cdot(z_{k,1}-z_{m,1},z_{k,2}-z_{m,2})}{\sqrt{w_1^2+w_2^2}},
+\end{equation}
+
+or simply by $\frac{\w}{\|\w\|} \cdot(\mathbf z_k-\mathbf z_m)=\frac{2}{\|\w\|}$. To find the optimal hyperplane is, in this example, to find the values of $w_1$ and $w_2$ such that the margin is the largest possible. This is achieved with the vector $\mathbf w$ with smallest norm, and we find out the optimization problem stated in the main text,
+
+\begin{equation}
+\begin{aligned}
+&\min_{\w}\frac12\|\w^i\|^2 \\
+\text{subject to} &y_k\,(\w\cdot \mathbf z_k)\geq 1,\,\, k=1,\ldots, n.
+\end{aligned}
+\end{equation}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{example_hyperplane}
+\caption{A two dimensional example of an optimal hyperplane. Red dots correspond to the training data-points labeled -1, blue dots correspond to the training data-points labeled as +1. The margin is defined as the sum of the distance between points in different classes to the hyperplane.}
+\end{figure}
+\pagebreak
+
+
+\newpage
+\subsection{Operationalization of the Five Dimensions}
+
+\begin{table}[h]
+\begin{center}
+\begin{scriptsize}
+{\renewcommand{\arraystretch}{2}%
+\scalebox{0.7}{
+\begin{tabular}{  c |  m{5cm} | m{5.5cm} }
+\toprule
+\textbf{Dahl's Polyarchy Dimension} & \textbf{Dahl's Requirements for a Democracy} & \textbf{Experimental Operationalization for Conjoint Design} \\
+\midrule
+\multirow{5}{*}{{\bf Formulate preferences}}               & Freedom of expression                             & Media can confront the government                      \\\cline{2-3} 
+                                                           & Alternative sources of information                & Media can confront the government                      \\\cline{2-3}
+                                                           & Right of political leaders to compete for support & President cannot rule without Congress                    \\\cline{2-3}
+                                                           & Right to vote                                     & Citizens can vote in the next two elections            \\\cline{2-3}
+														                               & Freedom to form and join organizations            & Citizens can associate with others and form groups     \\\cline{2-3}
+\hline
+\multirow{7}{*}{{\bf Signify preferences}}                 & Freedom of expression                             & Media can confront the government\\ \cline{2-3}
+                                                           & Alternative sources of information                & Media can confront the Government\\ \cline{2-3}
+                                                           & Right of political leaders to compete for support & President cannot rule without Congress\\ \cline{2-3}
+                                                           & Right to vote                                     & Citizens can vote in the next two elections\\ \cline{2-3}
+                                                           & Free and fair elections                           & Citizens can vote in the next two elections\\ \cline{2-3}
+                                                           & Eligibility for public office                     & Citizens can run for office for the next two elections\\ \cline{2-3}
+														                               & Freedom to form and join organizations            & Citizens can associate with others and form groups\\ \cline{2-3}
+\hline
+\multirow{8}{*}{\pbox{3.5cm}{{\bf Preferences are weighted} \\ {\bf equally in conduct of government}}} & Freedom of expression & Media can confront the government\\ \cline{2-3} 
+                                                           & Alternative sources of information                & Media can confront the Government\\ \cline{2-3}
+                                                           & Right of political leaders to compete for support/votes & President cannot rule without Congress\\ \cline{2-3}
+                                                           & Right to vote                                     & Citizens can vote in the next two elections\\ \cline{2-3}
+                                                           & Free and fair elections                           & Citizens can vote in the next two elections \\ \cline{2-3}
+                                                           & Institutions for making government policies depend on votes and other expressions of preference & Citizens can vote in the next two elections\\\cline{2-3}
+                                                           & Eligibility for public office                     & Citizens can run for office for the next two elections\\ \cline{2-3}
+														                               & Freedom to form and join organizations & Citizens can associate with others and form groups\\ 
+                                                           
+\bottomrule
+\end{tabular}}}
+\end{scriptsize}
+\caption{{\bf Dimensions of Democracy \parencite{Dahl1971} and Their Corresponding Experimental Operationalizations.} \\\hspace{\textwidth} {\bf Note}: \textcite{Dahl1971} specifies three general dimensions that should be satisfied for a country to be considered democratic (first column). Every dimension has a number of requirements (second column). Based on \textcite{Carlin2011a,Carlin2015,Carlin2017}, we operationalized these requirements for the conjoint experiment by devising five attributes (third column). As \autoref{tab:conj:ex} shows, all participants were asked to choose between hypothetical candidates that either supported or rejected each of these five attributes.}\label{tab:dim}
+\end{center}
+\end{table}
+
+% Notes
+\linespread{1.15}
+%\newpage\theendnotes
+
+
+\end{document}
+
