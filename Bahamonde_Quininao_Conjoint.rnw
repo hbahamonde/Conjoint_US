@@ -592,7 +592,7 @@ It should be clear by now that for each survey participant $i$, the optimal hype
 \begin{equation}\label{eq:restriction}
 \begin{aligned}
 &\min_{\w^i}\frac12\|\w^i\|^2 \\
-\text{subject to} & \; y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
+\text{subject to}\; & \; y_k\,(\w^i\cdot \mathbf z_k)\geq 1,\,\, k=1,2,3,4,5.
 \end{aligned}
 \end{equation}
 
