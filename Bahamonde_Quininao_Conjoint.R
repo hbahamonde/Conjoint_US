@@ -744,6 +744,9 @@ m5 = lm(paste(' `Right to Associate` ~ ', independent.variables), dat.w) # Right
 w.analyses.p = plot_summs(m1,m2,m3,m4,m5, legend.title="Democracy Dimension (w)", colors = "Rainbow", point.shape = F, scale = TRUE, model.names = c("Free Media", "Presidential Dependence", "Right to Vote", "Right to Run for Office", "Right to Associate"))
 ## ----
 
+plot_summs(m1,m2,m3,m4,m5, coefs ="`Sell Vote`", legend.title="Democracy Dimension (w)", colors = "Rainbow", point.shape = F, scale = TRUE, model.names = c("Free Media", "Presidential Dependence", "Right to Vote", "Right to Run for Office", "Right to Associate"))
+
+
 ## ---- w:analyses:p:p ----
 ### calling plot
 w.analyses.p
