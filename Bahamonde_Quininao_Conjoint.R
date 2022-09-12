@@ -483,6 +483,42 @@ rm(list=ls())
 # Load Data
 load("/Users/hectorbahamonde/research/Conjoint_US/mergedconjoint.RData") # Load data
 
+
+
+# https://thomasleeper.com/cregg/
+p_load(cregg)
+
+# as factor
+d$at.run = as.factor(d$at.run)
+d$at.asso = as.factor(d$at.asso)
+d$at.press = as.factor(d$at.press)
+d$at.presaut = as.factor(d$at.presaut)
+d$at.vote = as.factor(d$at.vote)
+d$partyid = as.factor(d$partyid)
+
+# descriptive
+f1 <- selected ~ at.run + at.asso + at.press + at.presaut + at.vote
+plot(mm(d, f1, id = ~idnum), vline = 0.5)
+
+# subgroup analyses
+# Calculation of marginal means (MMs) for conjoint designs
+d<-subset(d, partyid!=4)
+d$partyid = droplevels(d$partyid)
+levels(d$partyid) <- c("Democrat","Republican","Independent")
+d$partyid = relevel(d$partyid, ref = "Independent")
+
+
+mm_by <- cj(d, selected ~ at.run + at.asso + at.press + at.presaut + at.vote, 
+            id = ~idnum, 
+            estimate = "mm", # "mm" // "mm_differences"
+            by = ~partyid)
+
+plot(mm_by, group = "partyid", vline = 0.5)
+
+
+
+
+
 ## ---- amce:plot:d ----
 
 # example script to implement estimators of Average Marginal Component Effects (ACMEs) for Conjoint Data
