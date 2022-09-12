@@ -483,9 +483,8 @@ rm(list=ls())
 # Load Data
 load("/Users/hectorbahamonde/research/Conjoint_US/mergedconjoint.RData") # Load data
 
-
-
 # https://thomasleeper.com/cregg/
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
 p_load(cregg)
 
 # as factor
@@ -495,6 +494,16 @@ d$at.press = as.factor(d$at.press)
 d$at.presaut = as.factor(d$at.presaut)
 d$at.vote = as.factor(d$at.vote)
 d$partyid = as.factor(d$partyid)
+# d$vote.selling = as.factor(d$vote.selling)
+
+# dropping Independents and Others
+d<-subset(d, partyid!=4)
+d<-subset(d, partyid!=3)
+d$partyid = droplevels(d$partyid)
+levels(d$partyid) <- c("Democrat","Republican")
+
+# turn off sci not
+options(scipen=9999999)
 
 # descriptive
 f1 <- selected ~ at.run + at.asso + at.press + at.presaut + at.vote
@@ -502,17 +511,12 @@ plot(mm(d, f1, id = ~idnum), vline = 0.5)
 
 # subgroup analyses
 # Calculation of marginal means (MMs) for conjoint designs
-d<-subset(d, partyid!=4)
-d$partyid = droplevels(d$partyid)
-levels(d$partyid) <- c("Democrat","Republican","Independent")
-d$partyid = relevel(d$partyid, ref = "Independent")
-
 
 mm_by <- cj(d, selected ~ at.run + at.asso + at.press + at.presaut + at.vote, 
             id = ~idnum, 
             estimate = "mm", # "mm" // "mm_differences"
             by = ~partyid)
-
+summary(mm_by)
 plot(mm_by, group = "partyid", vline = 0.5)
 
 
