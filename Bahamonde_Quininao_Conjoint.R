@@ -305,10 +305,12 @@ for (i in code) {# vote.selling
 }
 
 # selected
-d$vote = ifelse(d$candidate == d$selected2, 1, 0)
+d$candidate2 = rep(1:10, nrow(d)/10)
+d$vote = ifelse(d$candidate2 == d$selected2, 1, 0)
 d$selected = d$vote
 d$selected2 = NULL
 d$vote = NULL
+d$candidate2 = NULL
 
 
 # Codebook
